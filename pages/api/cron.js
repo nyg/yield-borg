@@ -4,7 +4,7 @@ import puppeteer from 'puppeteer'
 
 export default async (req, res) => {
 
-  const redis = new Redis(REDIS_URL)
+  const redis = new Redis(process.env.REDIS_URL)
 
   /* Check date of the last insert into the db. */
   const today = new Date().toLocaleDateString('en-GB')

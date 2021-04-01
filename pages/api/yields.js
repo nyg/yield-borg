@@ -2,7 +2,7 @@ import Redis from 'ioredis'
 
 export default async (req, res) => {
 
-  const redis = new Redis(REDIS_URL)
+  const redis = new Redis(process.env.REDIS_URL)
   const yields = (await redis.lrange('yields', 0, -1))
     .map(s => {
       try {
