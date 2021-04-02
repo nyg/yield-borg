@@ -1,0 +1,10 @@
+name: get-yields-every-hour
+on:
+  schedule:
+    - cron: '0 */1 * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: GET /api/cron
+        run: curl https://yield-borg.vercel.app/api/cron
