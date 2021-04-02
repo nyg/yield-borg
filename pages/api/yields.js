@@ -3,10 +3,14 @@ import Redis from 'ioredis'
 export default async (req, res) => {
 
   const redis = new Redis(process.env.REDIS_URL)
+
+  const assets = new Set() // set of distinct assets present in the db
   const yields = (await redis.lrange('yields', 0, -1))
     .map(s => {
       try {
-        return JSON.parse(s)
+        const y = JSON.parse(s)
+        Object.keys(y).forEach(k => assets.add(k))
+        return y
       }
       catch (err) {
         return null
@@ -14,8 +18,11 @@ export default async (req, res) => {
     })
     .filter(y => y != null)
 
+  assets.delete('date')
+
   res.status(200).json({
     status: 'success',
-    yields: yields
+    yields: yields,
+    assets: Array.from(assets).sort()
   })
 }
