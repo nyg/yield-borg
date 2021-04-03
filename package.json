@@ -19,7 +19,6 @@
   "devDependencies": {
     "autoprefixer": "^10.2.5",
     "postcss": "^8.2.8",
-    "puppeteer": "^8.0.0",
     "tailwindcss": "^2.0.4"
   }
 }
