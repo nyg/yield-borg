@@ -1,10 +1,21 @@
-import Redis from 'ioredis'
-import puppeteer from 'puppeteer'
+import redis from '../../utils/redis'
+
+/* Set up Puppeteer (https://github.com/vercel/vercel/discussions/4903#discussioncomment-234166). */
+let chrome = {}
+let puppeteer
+
+if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+  // running on vercel
+  chrome = require('chrome-aws-lambda')
+  puppeteer = require('puppeteer-core')
+}
+else {
+  // running locally
+  puppeteer = require('puppeteer')
+}
 
 
 export default async (req, res) => {
-
-  const redis = new Redis(process.env.REDIS_URL)
 
   /* Check date of the last insert into the db. */
 
