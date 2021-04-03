@@ -1,5 +1,10 @@
 name: get-yields-every-hour
 on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'cron.yaml'  
   schedule:
     - cron: '0 */1 * * *'
 jobs:
