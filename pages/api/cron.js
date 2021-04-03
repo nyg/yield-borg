@@ -29,8 +29,14 @@ export default async (req, res) => {
 
   /* Get yields */
 
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
+  const browser = await puppeteer.launch({
+    args: [...chrome.args, '--hide-scrollbars', '--disable-web-security'],
+    defaultViewport: chrome.defaultViewport,
+    executablePath: await chrome.executablePath,
+    headless: true,
+    ignoreHTTPSErrors: true,
+  })
+  const page = await browser.newPage()
 
   // wait until page is fully loaded
   await page.goto('https://swissborg.com/smart-yield-account', { waitUntil: 'networkidle2', timeout: 10000 });
