@@ -1,5 +1,19 @@
 import got from 'got'
 
+function parseIP(req) {
+  try {
+    // try to get the client's ip address
+    return (typeof req.headers['x-forwarded-for'] === 'string'
+      && req.headers['x-forwarded-for'].split(',').shift())
+      || req.connection?.remoteAddress
+      || req.socket?.remoteAddress
+      || req.connection?.socket?.remoteAddress
+  }
+  catch (err) {
+    return undefined
+  }
+}
+
 export default async (req, res) => {
 
   await got.post('https://yield-borg.goatcounter.com/api/v0/count', {
@@ -14,7 +28,7 @@ export default async (req, res) => {
         query: req.query.q,
         bot: parseInt(req.query.b),
         user_agent: req.headers['user-agent'],
-        ip: req.client.localAddress
+        ip: parseIP()
       }]
     },
     responseType: 'json',
