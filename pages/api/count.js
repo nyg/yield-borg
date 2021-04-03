@@ -15,8 +15,6 @@ function parseIP(req) {
 
 export default async (req, res) => {
 
-  console.log(parseIP(req))
-
   await got.post('https://yield-borg.goatcounter.com/api/v0/count', {
     json: {
       no_sessions: true,
