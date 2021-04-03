@@ -1,11 +1,10 @@
 import Head from 'next/head'
-
+import useSWR from 'swr'
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts'
 
-import useSWR from 'swr'
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
-const ASSETS = {
+const assetsInfo = {
   USDC: { // https://www.centre.io/usdc-brand
     color: '#2775CA'
   },
@@ -43,9 +42,9 @@ export default function Home() {
   else {
     graph = (
       <ResponsiveContainer width="100%" aspect={1.618}>
-        <LineChart data={data.yields} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+        <LineChart data={data.yields} margin={{ top: 20, right: 70, bottom: 0, left: 0 }}>
           {data.assets.map(asset => (
-            <Line type="monotone" dataKey={asset} stroke={ASSETS[asset].color} strokeWidth={2} dot={false} unit="%" />
+            <Line type="monotone" dataKey={asset} stroke={assetsInfo[asset].color} strokeWidth={2} dot={false} unit="%" />
           ))}
           <CartesianGrid stroke="#ddd" strokeDasharray="3 3" />
           <XAxis dataKey="date" />
@@ -64,18 +63,18 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="p-10">
+      <main className="flex flex-col h-screen bg-gray-50">
 
-        <header className="pb-8">
-          <h1 className="text-4xl text-gray-800 font-bold">SwissBorg Smart Yields</h1>
-          <p className="text-sm text-gray-600">Chart showing the evolution of SwissBorg's yields over time</p>
+        <header className="p-10">
+          <h1 className="text-4xl text-gray-800 font-bold">Yield Borg</h1>
+          <p className="text-sm text-gray-600">Chart showing the evolution of the different <a href="http://swissborg.com/smart-yield-account">SwissBorg</a> Smart Yields</p>
         </header>
 
-        <div>
+        <div className="text-sm">
           {graph}
         </div>
 
-        <footer>
+        <footer className="mt-auto pt-3 pb-3 text-center text-sm text-gray-500">
           <a href="https://github.com/nyg/yield-borg">Github</a>
         </footer>
       </main>
