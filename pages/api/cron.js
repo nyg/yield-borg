@@ -58,8 +58,8 @@ export default async (req, res) => {
   // very low
   if (lastYields != yields) {
 
-    redis.rpush('yields', yields)
-    redis.set('lastUpdate', today)
+    await redis.rpush('yields', yields)
+    await redis.set('lastUpdate', today)
 
     res.status(200).json({ status: 'success' })
   }
