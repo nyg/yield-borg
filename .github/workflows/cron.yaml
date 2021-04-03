@@ -7,7 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: GET /api/cron
+        env:
+          CRON_KEY: ${{ secrets.CRON_KEY }}
         run: |
-          curl --verbose                                              \
-               --url "https://yield-borg.vercel.app/api/cron"         \
-               --header "Authorization: Bearer ${{ secrets.CRON_KEY }}"
+          curl --verbose                                    \
+               --url https://yield-borg.vercel.app/api/cron \
+               --header "Authorization: Bearer $CRON_KEY" 
