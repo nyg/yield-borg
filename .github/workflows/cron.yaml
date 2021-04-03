@@ -4,7 +4,7 @@ on:
     branches:
       - master
     paths:
-      - 'cron.yaml'  
+      - '.github/workflow/**'  
   schedule:
     - cron: '0 */1 * * *'
 jobs:
