@@ -61,7 +61,7 @@ export default function Home() {
       <Head>
         <title>Yield Borg</title>
         <link rel="icon" href="/favicon.ico" />
-        <script data-goatcounter="https://yield-borg.goatcounter.com/count" async src="/count.js"></script>
+        <script data-goatcounter="/api/count" async src="/count.js"></script>
       </Head>
 
       <main className="flex flex-col h-screen bg-gray-50">
