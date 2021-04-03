@@ -25,8 +25,8 @@ export default function Home() {
       <div className="grid grid-cols-2 bg-gray-100 bg-opacity-90 border-2 border-gray-500 rounded-md p-3 text-sm">
         <div className="col-span-2 text-center border-b-2 border-gray-400 mb-2">{label}</div>
         {payload.map(y => <>
-          <div key={y.dataKey} className="pr-3">{y.dataKey}</div>
-          <div key={y.dataKey + y.value} className="text-right">{y.value.toFixed(2)}</div>
+          <div className="pr-3 ">{y.dataKey}</div>
+          <div className="text-right tabular-nums">{y.value.toFixed(2)}</div>
         </>)}
       </div>
     )
@@ -44,7 +44,7 @@ export default function Home() {
       <ResponsiveContainer width="100%" aspect={1.618}>
         <LineChart data={data.yields} margin={{ top: 20, right: 70, bottom: 0, left: 0 }}>
           {data.assets.map(asset => (
-            <Line type="monotone" dataKey={asset} stroke={assetsInfo[asset].color} strokeWidth={2} dot={false} unit="%" />
+            <Line key={asset} type="monotone" dataKey={asset} stroke={assetsInfo[asset].color} strokeWidth={2} dot={false} unit="%" />
           ))}
           <CartesianGrid stroke="#ddd" strokeDasharray="3 3" />
           <XAxis dataKey="date" />
@@ -61,6 +61,7 @@ export default function Home() {
       <Head>
         <title>Yield Borg</title>
         <link rel="icon" href="/favicon.ico" />
+        <script data-goatcounter="https://yield-borg.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
       </Head>
 
       <main className="flex flex-col h-screen bg-gray-50">
