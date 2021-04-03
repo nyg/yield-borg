@@ -1,25 +1,14 @@
+import got from 'got'
 import redis from '../../utils/redis'
-
-/* Set up Puppeteer (https://github.com/vercel/vercel/discussions/4903#discussioncomment-234166). */
-let chrome = {}
-let puppeteer
-
-if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
-  // running on vercel
-  chrome = require('chrome-aws-lambda')
-  puppeteer = require('puppeteer-core')
-}
-else {
-  // running locally
-  puppeteer = require('puppeteer')
-}
 
 
 export default async (req, res) => {
 
-  /* Check date of the last insert into the db. */
+  const json = await got('https://swissborg-api-proxy.swissborg-stage.workers.dev/chsb').json()
 
-  const today = new Date().toLocaleDateString('en-GB')
+  /* Check if an update has already been done for today. */
+
+  const today = new Date(json.timestamp.replace(' ', 'T')).toLocaleDateString('en-GB')
   const lastUpdate = await redis.get('lastUpdate')
 
   if (lastUpdate == today) {
@@ -27,60 +16,25 @@ export default async (req, res) => {
     return
   }
 
-  /* Get yields */
+  /* Get yields. */
 
-  const browser = await puppeteer.launch({
-    args: [...chrome.args, '--hide-scrollbars', '--disable-web-security'],
-    defaultViewport: chrome.defaultViewport,
-    executablePath: await chrome.executablePath,
-    headless: true,
-    ignoreHTTPSErrors: true,
-  })
-  const page = await browser.newPage()
+  // get keys containing premium yields
+  const keys = Object.keys(json).filter(k => k.match(/-current-premium-yield$/))
 
-  // wait until page is fully loaded
-  await page.goto('https://swissborg.com/smart-yield-account', { waitUntil: 'networkidle2', timeout: 10000 });
+  // extract yields into object
+  const yields = keys.reduce((yields, key) => {
 
-  // iterate on all div.fPUoQh, each contains both the asset name and
-  // yield percentage
-  const yields = JSON.stringify(await page.$$eval('div.fPUoQh', (divs, today) =>
+    const assetName = key.split('-')[0].toUpperCase()
+    const yieldPercentage = parseFloat(json[key].replace(/Premium (.*?)% p.a./, '$1'))
+    yields[assetName] = yieldPercentage
 
-    // reduce the array of divs to return an object with the asset
-    // names a keys and yield percentages as values
-    divs.reduce((yields, div) => {
+    return yields
+  }, { date: today })
 
-      const asset = div.querySelector('h3.dIBorz').textContent
-      const percentage = parseFloat(div.querySelector('p.gXTxfN').textContent.replace(/Premium (.*?)% p.a./, '$1'))
+  /* Insert new yields into database */
 
-      if (isFinite(percentage)) {
-        yields[asset] = percentage
-      }
+  await redis.rpush('yields', JSON.stringify(yields))
+  await redis.set('lastUpdate', today)
 
-      return yields
-    }, { date: today })
-
-    // needs to be passed to $$eval otherwise Puppeteer fails and
-    // throws a ReferenceError
-    , today))
-
-  await browser.close()
-
-  /* Insert new yields */
-
-  const lastYields = await redis.lrange('yields', -1, -1)
-
-  // the problem is that we don't know when and if the yields have been
-  // updated on the website, so we compare them against the previous
-  // yields, we assume that the probability they are all the same is
-  // very low
-  if (lastYields != yields) {
-
-    await redis.rpush('yields', yields)
-    await redis.set('lastUpdate', today)
-
-    res.status(200).json({ status: 'success' })
-  }
-  else {
-    res.status(200).json({ status: 'error, yields not yet updated on webpage' })
-  }
+  res.status(200).json({ status: 'success' })
 }
