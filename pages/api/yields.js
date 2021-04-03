@@ -1,8 +1,6 @@
-import Redis from 'ioredis'
+import redis from '../../utils/redis'
 
 export default async (req, res) => {
-
-  const redis = new Redis(process.env.REDIS_URL)
 
   const assets = new Set() // set of distinct assets present in the db
   const yields = (await redis.lrange('yields', 0, -1))
