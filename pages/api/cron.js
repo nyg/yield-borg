@@ -4,6 +4,11 @@ import redis from '../../utils/redis'
 
 export default async (req, res) => {
 
+  if (req.headers.authorization !== `Bearer ${process.env.CRON_KEY}`) {
+    res.status(403).end()
+    return
+  }
+
   const json = await got('https://swissborg-api-proxy.swissborg-stage.workers.dev/chsb').json()
 
   /* Check if an update has already been done for today. */
