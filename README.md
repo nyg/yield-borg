@@ -13,4 +13,5 @@ Yield Borg shows a simple chart of the different APYs available on the SwissBorg
 ## TODO
 
 * Improve style
+* Complete historical data for USDC
 * Add a table with monthly average yields
