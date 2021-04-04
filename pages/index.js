@@ -44,7 +44,7 @@ export default function Home() {
       <ResponsiveContainer width="100%" aspect={1.618}>
         <LineChart data={data.yields} margin={{ top: 20, right: 70, bottom: 0, left: 0 }}>
           {data.assets.map(asset => (
-            <Line key={asset} type="monotone" dataKey={asset} stroke={assetsInfo[asset].color} strokeWidth={2} dot={false} unit="%" />
+            <Line key={asset} type="stepAfter" dataKey={asset} stroke={assetsInfo[asset].color} strokeWidth={2} dot={false} unit="%" />
           ))}
           <CartesianGrid stroke="#ddd" strokeDasharray="3 3" />
           <XAxis dataKey="date" />
