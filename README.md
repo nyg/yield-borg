@@ -14,4 +14,3 @@ Yield Borg shows a simple chart of the different APYs available on the SwissBorg
 
 * Improve style
 * Add a table with monthly average yields
-* Remove `lastUpdate` (not needed)

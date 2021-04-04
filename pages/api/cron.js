@@ -13,11 +13,11 @@ export default async (req, res) => {
 
   /* Check if an update has already been done for today. */
 
-  const today = new Date(json.timestamp.replace(' ', 'T')).toLocaleDateString('en-GB')
-  const lastUpdate = await redis.get('lastUpdate')
+  const today = new Date().toLocaleDateString('en-GB')
+  const lastYields = JSON.parse(await redis.lrange('yields', -1, -1))
 
-  if (lastUpdate == today) {
-    res.status(200).json({ status: "error, yields already updated" })
+  if (lastYields.date == today) {
+    res.status(200).json({ status: "yields already updated" })
     return
   }
 
@@ -34,12 +34,23 @@ export default async (req, res) => {
     yields[assetName] = yieldPercentage
 
     return yields
-  }, { date: today })
+  }, {})
 
-  /* Insert new yields into database */
+  /* Insert new yields into the database */
 
-  await redis.rpush('yields', JSON.stringify(yields))
-  await redis.set('lastUpdate', today)
+  // the problem is that we can't rely on json.timestamp or
+  // json.updatedtime, so we compare the current yields with the
+  // previous ones and only insert them into the db if they are
+  // different (we assume the probability that all yields are the
+  // same twice in a row is very low)
 
-  res.status(200).json({ status: 'success' })
+  delete lastYields.date
+  if (JSON.stringify(lastYields) != JSON.stringify(yields)) {
+    yields.date = today
+    await redis.rpush('yields', JSON.stringify(yields))
+    res.status(200).json({ status: 'success' })
+  }
+  else {
+    res.status(200).json({ status: 'yields not yet updated on webpage' })
+  }
 }
