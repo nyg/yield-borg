@@ -12,7 +12,7 @@ const Redis = require('ioredis');
 
   // import yields into db
   const redis = new Redis(redisUrl)
-  await redis.rpush('yields', yields.map(JSON.stringify))
+  await redis.rpush('yields', yields)
   redis.quit()
 
   console.log('Import done.')
