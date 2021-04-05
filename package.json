@@ -1,12 +1,29 @@
 {
   "name": "yield-borg",
   "version": "1.0.0",
+  "description": "App to track the different yields available on the SwissBorg platform",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/nyg/yield-borg.git"
+  },
+  "keywords": [
+    "swissborg",
+    "cryptocurrency",
+    "yields",
+    "chart"
+  ],
+  "author": "nyg",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nyg/yield-borg/issues"
+  },
+  "homepage": "https://yield-borg.vercel.app",
   "dependencies": {
     "got": "^11.8.2",
     "ioredis": "^4.24.6",
