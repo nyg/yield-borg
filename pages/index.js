@@ -1,4 +1,6 @@
 import Head from 'next/head'
+import Image from 'next/image'
+
 import useSWR from 'swr'
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts'
 
@@ -34,10 +36,10 @@ export default function Home() {
 
   let graph
   if (error) {
-    graph = <div>Failed to load data!</div>
+    graph = <div className="text-center">Failed to load data!</div>
   }
   else if (!data) {
-    graph = <div>Loading data…</div>
+    graph = <div className="text-center">Loading data…</div>
   }
   else {
     graph = (
@@ -64,7 +66,7 @@ export default function Home() {
         <script data-goatcounter="/api/count" async src="/count.js"></script>
       </Head>
 
-      <main className="flex flex-col h-screen bg-gray-50">
+      <main className="flex flex-col h-screen">
 
         <header className="p-10">
           <h1 className="text-4xl text-gray-800 font-bold">Yield Borg</h1>
@@ -75,8 +77,13 @@ export default function Home() {
           {graph}
         </div>
 
-        <footer className="mt-auto pt-3 pb-3 text-center text-sm text-gray-500">
-          <a href="https://github.com/nyg/yield-borg">Github</a>
+        <footer className="mt-auto pt-3 pb-3 text-center text-sm text-gray-500 space-x-6">
+          <a href="https://github.com/nyg/yield-borg">
+            <Image src="/gh-dark.png" alt="github" width="24" height="24" />
+          </a>
+          <a href="https://yield-borg.goatcounter.com">
+            <Image src="/goatcounter.png" alt="goatcounter" width="24" height="24" />
+          </a>
         </footer>
       </main>
     </div>

@@ -5,7 +5,7 @@
 @layer base {
 
     body {
-        @apply lg:max-w-4xl
+        @apply bg-gray-50 lg:max-w-4xl
     }
 
     a {
