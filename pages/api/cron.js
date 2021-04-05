@@ -1,5 +1,5 @@
 import got from 'got'
-import redis from '../../utils/redis'
+import redis from '../../db/redis'
 
 
 export default async (req, res) => {
