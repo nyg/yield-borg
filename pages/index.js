@@ -18,6 +18,7 @@ const assetsInfo = {
   }
 }
 
+
 export default function Home() {
 
   const { data, error } = useSWR('/api/yields', fetcher)
@@ -49,8 +50,8 @@ export default function Home() {
             <Line key={asset} type="stepAfter" dataKey={asset} stroke={assetsInfo[asset].color} strokeWidth={2} dot={false} unit="%" />
           ))}
           <CartesianGrid stroke="#ddd" strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
-          <YAxis />
+          <XAxis dataKey="date" scale="time" type="number" interval={7} domain={['auto', 'auto']}  tickFormatter={(timestamp) => new Intl.DateTimeFormat('en-GB', { month: 'numeric', day: 'numeric' }).format(new Date(timestamp))} />
+          <YAxis unit="%" />
           <Tooltip itemSorter={e => -e.value} content={<CustomTooltip />} />
           <Legend iconType="plainline" onClick={function (e) { console.log(e) }} />
         </LineChart>
@@ -66,11 +67,11 @@ export default function Home() {
         <script data-goatcounter="/api/count" async src="/count.js"></script>
       </Head>
 
-      <main className="flex flex-col h-screen">
+      <main className="flex flex-col h-screen text-gray-600">
 
         <header className="p-10">
           <h1 className="text-4xl text-gray-800 font-bold">Yield Borg</h1>
-          <p className="text-sm text-gray-600">Chart showing the evolution of the different <a href="http://swissborg.com/smart-yield-account">SwissBorg</a> Smart Yields</p>
+          <p className="text-sm">Chart showing the evolution of the different <a href="http://swissborg.com/smart-yield-account">SwissBorg</a> Smart Yields</p>
         </header>
 
         <div className="text-sm">
