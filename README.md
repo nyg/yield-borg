@@ -10,8 +10,24 @@ Yield Borg shows a simple chart of the different APYs available on the SwissBorg
 * [Github Actions](https://github.com/features/actions) to check for new yields every hour
 * Privacy-friendly [GoatCounter](https://www.goatcounter.com) for web analytics
 
+## Local installation
+
+```sh
+# this file contains environment variables such as REDIS_URL and CRON_KEY
+mv .env.development.local.example .env.development.local
+
+# import some data into your development Redis database
+npm run import-db
+
+# install dependencies and run app (available on localhost:3000)
+npm install
+npm run dev
+```
+
 ## TODO
 
 * Improve style
+    * Fix tooltip
 * Complete historical data for USDC
 * Add a table with monthly average yields
+* Add link to GoatCounter
