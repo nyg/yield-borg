@@ -5,6 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "export-db": "node db/export-db.js",
+    "import-db": "node db/import-db.js",
     "build": "next build",
     "start": "next start"
   },
