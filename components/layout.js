@@ -26,7 +26,7 @@ export default function Layout({ children, name }) {
           <div className="lg:max-w-4xl pt-4 pb-4">
             <div className="m-auto flex flex-row w-2/5 text-center text-sm space-x-6">
               <ActiveLink href="/">Smart Yields</ActiveLink>
-              <ActiveLink href="/community-indices">Community Index</ActiveLink>
+              <ActiveLink href="/community-index">Community Index</ActiveLink>
             </div>
           </div>
         </nav>
