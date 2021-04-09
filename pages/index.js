@@ -1,8 +1,6 @@
-import Head from 'next/head'
-import Image from 'next/image'
-
 import useSWR from 'swr'
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts'
+import Layout from '../components/layout'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
@@ -21,7 +19,7 @@ const assetsInfo = {
 const formatter = new Intl.DateTimeFormat('en-GB', { month: 'numeric', day: 'numeric' })
 const longDateFormatter = new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'short', day: 'numeric' })
 
-export default function Home() {
+export default function SmartYields() {
 
   const { data, error } = useSWR('/api/yields', fetcher)
 
@@ -39,10 +37,10 @@ export default function Home() {
 
   let graph
   if (error) {
-    graph = <div className="text-center">Failed to load data!</div>
+    graph = <div className="text-center pt-4">Failed to load data!</div>
   }
   else if (!data) {
-    graph = <div className="text-center">Loading data…</div>
+    graph = <div className="text-center pt-4">Loading data…</div>
   }
   else {
     graph = (
@@ -62,46 +60,8 @@ export default function Home() {
   }
 
   return (
-    <div>
-      <Head>
-        <title>Yield Borg</title>
-        <link rel="icon" href="/favicon.ico" />
-        <script data-goatcounter="/api/count" async src="/count.js"></script>
-        <meta name="viewport" content="viewport-fit=cover"/>
-      </Head>
-
-      <main className="flex flex-col h-screen text-gray-600">
-
-        <header className="bg-gray-100">
-          <div className="lg:max-w-4xl pt-10 pb-10 pl-16">
-            <h1 className="text-4xl text-gray-800 font-bold">Yield Borg</h1>
-            <p className="text-sm">Chart showing the evolution of the different <a href="http://swissborg.com/smart-yield-account">SwissBorg</a> Smart Yields</p>
-          </div>
-        </header>
-
-        {/* <nav className="bg-gray-200">
-          <div className="lg:max-w-4xl pt-4 pb-4 text-center text-sm">
-            Smart Yields
-          </div>
-        </nav> */}
-
-        <div className="text-sm">
-          <div className="lg:max-w-4xl lg:pl-2 lg:pr-2">
-            {graph}
-          </div>
-        </div>
-
-        <footer className="bg-gray-100 mt-auto">
-          <div className="lg:max-w-4xl space-x-6 pt-6 pb-3 text-center">
-            <a href="https://github.com/nyg/yield-borg">
-              <Image src="/gh-dark.png" alt="github" width="24" height="24" />
-            </a>
-            <a href="https://yield-borg.goatcounter.com">
-              <Image src="/goatcounter.png" alt="goatcounter" width="24" height="24" />
-            </a>
-          </div>
-        </footer>
-      </main>
-    </div>
+    <Layout name="Smart Yields">
+      {graph}
+    </Layout>
   )
 }
