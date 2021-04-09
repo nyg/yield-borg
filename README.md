@@ -30,4 +30,3 @@ npm run dev
     * Fix tooltip
 * Complete historical data for USDC
 * Add a table with monthly average yields
-* Add link to GoatCounter
