@@ -26,7 +26,10 @@ npm run dev
 
 ## TODO
 
-* Improve style
-    * Fix tooltip
-* Complete historical data for USDC
+* Improve style (tooltip, smartphones, etc.)
+* Complete historical data for USDC (asked SwissBorg…)
 * Add a table with monthly average yields
+* Add cron job for community index
+* Add settings page to choose
+    * line type of chart
+    * scale for yields (genesis premium, community premium, no premium)
