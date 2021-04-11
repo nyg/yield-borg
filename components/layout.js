@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import ActiveLink from './active-link'
+import FooterImageLink from './footer-image-link'
 
 export default function Layout({ children, name }) {
 
@@ -31,23 +32,19 @@ export default function Layout({ children, name }) {
           </div>
         </nav>
 
-        <div className="text-sm">
-          <div className="lg:max-w-4xl lg:pl-2 lg:pr-2">
+        <section className="text-sm">
+          <div className="lg:max-w-4xl lg:pl-2 lg:pr-2 mb-12">
             {children}
           </div>
-        </div>
+        </section>
 
         <footer className="bg-gray-100 mt-auto">
-          <div className="lg:max-w-4xl space-x-6 pt-6 pb-3 text-center">
-            <a href="https://github.com/nyg/yield-borg">
-              <Image src="/gh-dark.png" alt="github" width="24" height="24" />
-            </a>
-            <a href="https://yield-borg.goatcounter.com">
-              <Image src="/goatcounter.png" alt="goatcounter" width="24" height="24" />
-            </a>
+          <div className="lg:max-w-4xl space-x-6 pt-3 pb-3 text-center leading-3">
+            <FooterImageLink href="https://github.com/nyg/yield-borg" src="/gh-dark.png" alt="github" />
+            <FooterImageLink href="https://yield-borg.goatcounter.com" src="/goatcounter.png" alt="goatcounter" />
           </div>
         </footer>
       </main>
-    </div>
+    </div >
   )
 }
