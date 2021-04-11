@@ -16,7 +16,7 @@ const assetsInfo = {
   }
 }
 
-const formatter = new Intl.DateTimeFormat('en-GB', { month: 'numeric', day: 'numeric' })
+const formatter = new Intl.DateTimeFormat('en-GB', { month: 'short', day: 'numeric' })
 const longDateFormatter = new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'short', day: 'numeric' })
 
 export default function SmartYields() {
@@ -50,7 +50,7 @@ export default function SmartYields() {
             <Line key={asset} type="stepAfter" dataKey={asset} stroke={assetsInfo[asset].color} strokeWidth={2} dot={false} unit="%" />
           ))}
           <CartesianGrid stroke="#ddd" strokeDasharray="3 3" />
-          <XAxis tickMargin={10} dataKey="date" scale="time" type="number" interval={14} domain={['auto', 'auto']} tickFormatter={(timestamp) => formatter.format(timestamp)} />
+          <XAxis tickMargin={10} dataKey="date" scale="time" type="number" ticks={data.xTicks} domain={['auto', 'auto']} tickFormatter={(timestamp) => formatter.format(timestamp)} />
           <YAxis tickMargin={10} unit="%" />
           <Tooltip content={<CustomTooltip />} />
           <Legend iconType="plainline" align="center" wrapperStyle={{ paddingLeft: "52px", paddingTop: "18px" }} />
