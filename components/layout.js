@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import ActiveLink from './active-link'
 import FooterImageLink from './footer-image-link'
 
@@ -14,7 +13,7 @@ export default function Layout({ children, name }) {
         <meta name="viewport" content="viewport-fit=cover" />
       </Head>
 
-      <main className="flex flex-col h-screen text-gray-600">
+      <main className="flex flex-col min-h-screen min-h-fill text-gray-600">
 
         <header className="bg-gray-100">
           <div className="lg:max-w-4xl pt-10 pb-10 pl-16">
@@ -32,13 +31,13 @@ export default function Layout({ children, name }) {
           </div>
         </nav>
 
-        <section className="text-sm">
+        <section className="text-sm flex-grow">
           <div className="lg:max-w-4xl lg:pl-2 lg:pr-2 mb-12">
             {children}
           </div>
         </section>
 
-        <footer className="bg-gray-100 mt-auto">
+        <footer className="bg-gray-100">
           <div className="lg:max-w-4xl space-x-6 pt-3 pb-3 text-center leading-3">
             <FooterImageLink href="https://github.com/nyg/yield-borg" src="/gh-dark.png" alt="github" />
             <FooterImageLink href="https://yield-borg.goatcounter.com" src="/goatcounter.png" alt="goatcounter" />
