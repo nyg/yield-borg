@@ -62,6 +62,13 @@ export default function SmartYields() {
   return (
     <Layout name="Smart Yields">
       {graph}
+      <div className="pl-16 pt-4">
+        <ul className="list-disc">
+          <li><a href="https://swissborg.com/blog/smart-yield-report-march-2021">Smart Yield Report, March 2021</a></li>
+          <li><a href="https://swissborg.com/blog/smart-yield-report-february-2021">Smart Yield Report, February 2021</a></li>
+          <li><a href="https://swissborg.com/blog/smart-yield-report-december-2020-january-2021">Smart Yield Report, December 2020 & January 2021</a></li>
+        </ul>
+      </div>
     </Layout>
   )
 }
