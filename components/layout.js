@@ -16,14 +16,14 @@ export default function Layout({ children, name }) {
       <main className="flex flex-col min-h-screen min-h-fill text-gray-600">
 
         <header className="bg-gray-100">
-          <div className="lg:max-w-4xl pt-10 pb-10 pl-16">
+          <div className="lg:max-w-4xl pt-6 pb-6 pl-16">
             <h1 className="text-4xl text-gray-800 font-bold">Yield Borg</h1>
             <p className="text-sm">Chart showing the evolution of the different <a href="http://swissborg.com/smart-yield-account">SwissBorg</a> Smart Yields</p>
           </div>
         </header>
 
         <nav className="bg-gray-200">
-          <div className="lg:max-w-4xl pt-3 pb-3">
+          <div className="lg:max-w-4xl pt-2 pb-2">
             <div className="m-auto flex flex-row w-2/5 text-center text-sm space-x-6">
               <ActiveLink href="/">Smart Yield</ActiveLink>
               <ActiveLink href="/community-index">Community Index</ActiveLink>
