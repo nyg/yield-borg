@@ -16,6 +16,10 @@ export default function SmartYields() {
     setCookie('lineType', event.target.value)
   }
 
+  if (!cookies.lineType) {
+    setCookie('lineType', 'monotone')
+  }
+
   const { data, error } = useSWR('/api/yields', fetcher)
   let graph
   if (error) {
