@@ -21,20 +21,16 @@ export default async (req, res) => {
     return
   }
 
-  /* Get yields. */
+  /* Extract yield percentages into object. */
 
-  // get keys containing premium yields
-  const keys = Object.keys(json).filter(k => k.match(/-current-premium-yield$/))
-
-  // extract yields into object
-  const yields = keys.reduce((yields, key) => {
-
-    const assetName = key.split('-')[0].toUpperCase()
-    const yieldPercentage = parseFloat(json[key].replace(/Premium (.*?)% p.a./, '$1'))
-    yields[assetName] = yieldPercentage
-
-    return yields
-  }, {})
+  const yields = Object
+    .keys(json.chsbOverviewV2)
+    .filter(key => key.match(/CurrentPremiumYieldPercentage$/))
+    .reduce((yields, key) => {
+      const asset = key.match(/[a-z]+/)[0].toUpperCase()
+      yields[asset] = json.chsbOverviewV2[key]
+      return yields
+    }, {})
 
   /* Insert new yields into the database */
 
