@@ -39,7 +39,7 @@ export default function SmartYields() {
 
   return (
     <Layout name="Smart Yields">
-      <div className="pl-16 mt-4 space-x-3">
+      <div className="ml-16 mr-16 space-x-4">
         <label htmlFor="yield-rate">Yield Rate</label>
         <select id="yield-rate" value={cookies.yieldRate} onChange={changeYieldRate}>
           <option value="genesis">Genesis Premium</option>
@@ -55,12 +55,25 @@ export default function SmartYields() {
         </select>
       </div>
       {chart}
-      <div className="pl-16 pt-4">
-        <ul className="list-disc">
-          <li><a href="https://swissborg.com/blog/smart-yield-report-march-2021">Smart Yield Report, March 2021</a></li>
-          <li><a href="https://swissborg.com/blog/smart-yield-report-february-2021">Smart Yield Report, February 2021</a></li>
-          <li><a href="https://swissborg.com/blog/smart-yield-report-december-2020-january-2021">Smart Yield Report, December 2020 & January 2021</a></li>
-        </ul>
+      <div className="flex flex-row flex-wrap ml-16 mr-16 space-x-20">
+        <div>
+          <h2>Monthly Smart Yield Reports</h2>
+          <ul>
+            <li><a href="https://swissborg.com/blog/smart-yield-report-april-2021">April 2021</a></li>
+            <li><a href="https://swissborg.com/blog/smart-yield-report-march-2021">March 2021</a></li>
+            <li><a href="https://swissborg.com/blog/smart-yield-report-february-2021">February 2021</a></li>
+            <li><a href="https://swissborg.com/blog/smart-yield-report-december-2020-january-2021">December 2020 & January 2021</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Annoucements</h2>
+          <ul>
+            <li><a href="https://swissborg.com/blog/btc-smart-yield">Bitcoin: May 6th, 2021</a></li>
+            <li><a href="https://swissborg.com/blog/eth-smart-yield">Ethereum: March 19th, 2021</a></li>
+            <li><a href="https://swissborg.com/blog/chsb-smart-yield">CHSB: January 28th, 2021</a></li>
+            <li><a href="https://swissborg.com/blog/swissborg-launches-usdc-smart-yield">USDC: December 14th, 2020</a></li>
+          </ul>
+        </div>
       </div>
     </Layout>
   )

@@ -24,7 +24,7 @@ export default function YieldChart({ data }) {
 
   return (
     <ResponsiveContainer width="100%" aspect={1.618}>
-      <LineChart data={yields} margin={{ top: 25, right: 60, bottom: 20, left: 0 }}>
+      <LineChart data={yields} margin={{ top: 0, right: 63.5, bottom: 0, left: 3.5 }}>
         {data.assets.map(asset => (
           <Line key={asset} dataKey={asset} type={cookies.lineType} stroke={assetsInfo[asset].color} strokeWidth={2} dot={false} unit="%" />
         ))}
@@ -32,7 +32,7 @@ export default function YieldChart({ data }) {
         <XAxis tickMargin={10} dataKey="date" scale="time" type="number" ticks={data.xTicks} domain={['auto', 'auto']} tickFormatter={(timestamp) => format.asShortDate(timestamp)} />
         <YAxis tickMargin={10} unit="%" />
         <Tooltip content={<YieldTooltip />} />
-        <Legend iconType="plainline" align="center" wrapperStyle={{ paddingLeft: "52px", paddingTop: "18px" }} />
+        <Legend iconType="plainline" align="center" wrapperStyle={{ paddingLeft: '61px', paddingTop: '6px' }} />
       </LineChart>
     </ResponsiveContainer>
   )

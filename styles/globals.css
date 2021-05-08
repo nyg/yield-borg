@@ -7,4 +7,12 @@
     a {
         @apply underline hover:text-black
     }
+
+    ul {
+        @apply list-disc list-inside
+    }
+
+    h2 {
+        @apply font-bold mb-2
+    }
 }
