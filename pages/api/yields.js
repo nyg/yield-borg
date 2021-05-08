@@ -2,34 +2,36 @@ import redis from '../../db/redis'
 
 export default async (req, res) => {
 
-  const assets = new Set() // set of distinct assets present in the db
-  const xTicks = []
+  const allAssets = new Set()
+  const xAxisTicks = []
 
-  const yields = (await redis.lrange('yields', 0, -1)).map(s => {
+  const yields = (await redis.lrange('yields', 0, -1)).map(yieldString => {
 
-    const y = JSON.parse(s)
+    const _yield = JSON.parse(yieldString)
+
+    // add assets to the allAssets set
+    Object
+      .keys(_yield)
+      .filter(key => key != 'date')
+      .forEach(asset => allAssets.add(asset))
 
     // convert date to unix timestamp
-    const dateParts = y.date.split('/').map(s => parseInt(s))
+    const dateParts = _yield.date.split('/').map(s => parseInt(s))
     const date = new Date(dateParts[2], dateParts[1] - 1, dateParts[0], 9, 0, 0)
-    y.date = date.getTime()
+    _yield.date = date.getTime()
 
     // X-Axis ticks consist of 1st and 15th of the month
     if (date.getDate() == 1 || date.getDate() == 15) {
-      xTicks.push(y.date)
+      xAxisTicks.push(_yield.date)
     }
 
-    // add all assets to assets set
-    Object.keys(y).forEach(k => assets.add(k))
-    return y
+    return _yield
   })
-
-  assets.delete('date')
 
   res.status(200).json({
     status: 'success',
     yields: yields,
-    xTicks: xTicks,
-    assets: Array.from(assets).sort()
+    xTicks: xAxisTicks,
+    assets: [...allAssets].sort()
   })
 }
