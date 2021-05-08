@@ -13,7 +13,7 @@ export default async (req, res) => {
 
   /* Check if an update has already been done for today. */
 
-  const today = new Date().toLocaleDateString('en-GB')
+  const today = new Date().toISOString().substring(0, 10)
   const lastYields = JSON.parse(await redis.lrange('yields', -1, -1))
 
   if (lastYields.date == today) {
