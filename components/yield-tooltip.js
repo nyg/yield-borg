@@ -8,10 +8,10 @@ export default function YieldTooltip({ active, payload, label }) {
       <div className="col-span-2 text-center border-b border-gray-400 mb-2">{format.asLongDate(label)}</div>
       {payload
         .sort((a, b) => b.value - a.value)
-        .map(y => (
-          <React.Fragment key={y.dataKey}>
-            <div className="pr-3 ">{y.dataKey}</div>
-            <div className="text-right tabular-nums">{format.asPercentage(y.value / 100)}</div>
+        .map(_yield => (
+          <React.Fragment key={_yield.dataKey}>
+            <div className="pr-3 ">{_yield.dataKey}</div>
+            <div className="text-right tabular-nums">{format.asPercentage(_yield.value / 100)}</div>
           </React.Fragment>
         ))}
     </div>

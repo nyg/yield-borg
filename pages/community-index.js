@@ -1,11 +1,9 @@
 import useSWR from 'swr'
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts'
 import Layout from '../components/layout'
+import * as format from '../utils/format'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
-
-const formatter = new Intl.DateTimeFormat('en-GB', { month: 'numeric', day: 'numeric' })
-const longDateFormatter = new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'short', day: 'numeric' })
 
 export default function CommunityIndices() {
 
@@ -21,13 +19,13 @@ export default function CommunityIndices() {
   else {
     graph = (
       <ResponsiveContainer width="100%" aspect={1.618}>
-        <LineChart data={data.communityIndices} margin={{ top: 40, right: 60, bottom: 20, left: 0 }}>
+        <LineChart data={data.communityIndices} margin={{ top: 0, right: 63.5, bottom: 0, left: 3.5 }}>
           <Line type="stepAfter" name="Community Index Score" dataKey="value" stroke="#01c38d" strokeWidth={2} dot={false} />
           <CartesianGrid stroke="#ddd" strokeDasharray="3 3" />
-          <XAxis tickMargin={10} dataKey="date" scale="time" type="number" interval={2} domain={['auto', 'auto']} tickFormatter={(timestamp) => formatter.format(timestamp)} />
+          <XAxis tickMargin={10} dataKey="date" scale="time" type="number" interval={2} domain={['auto', 'auto']} tickFormatter={format.asShortDate} />
           <YAxis tickMargin={10} unit="/10" domain={[0, 10]} tickCount={10} />
-          <Tooltip formatter={(value, name, props) => [`${value}/10`, 'Score']} labelFormatter={(timestamp) => longDateFormatter.format(timestamp)} />
-          <Legend iconType="plainline" align="center" wrapperStyle={{ paddingLeft: "52px", paddingTop: "18px" }} />
+          <Tooltip formatter={value => [`${value}/10`, 'Score']} labelFormatter={format.asLongDate} />
+          <Legend iconType="plainline" align="center" wrapperStyle={{ paddingLeft: '61px', paddingTop: '6px' }} />
         </LineChart>
       </ResponsiveContainer>
     )
