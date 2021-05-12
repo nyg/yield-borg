@@ -13,7 +13,7 @@ export default function Layout({ children, name }) {
         <meta name="viewport" content="viewport-fit=cover" />
       </Head>
 
-      <main className="flex flex-col min-h-screen min-h-fill text-gray-600">
+      <main className="min-h-screen ios:min-h-fill flex flex-col text-gray-600">
         <header className="bg-gray-100">
           <div className="lg:max-w-4xl pt-4 pb-4 pl-16">
             <h1 className="text-3xl text-gray-800 font-bold">Yield Borg</h1>
@@ -37,7 +37,7 @@ export default function Layout({ children, name }) {
         </section>
 
         <footer className="bg-gray-100">
-          <div className="lg:max-w-4xl space-x-6 pt-3 pb-3 text-center leading-3">
+          <div className="lg:max-w-4xl space-x-6 pt-2 pb-2 text-center leading-3">
             <FooterImageLink href="https://github.com/nyg/yield-borg" src="/github.png" alt="github" />
             <FooterImageLink href="https://yield-borg.goatcounter.com" src="/goatcounter.png" alt="goatcounter" />
           </div>
