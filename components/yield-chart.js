@@ -8,7 +8,7 @@ const multiplierFor = { genesis: 1, community: .75, standard: .5 }
 
 export default function YieldChart({ data }) {
 
-  const [cookies, _] = useCookies()
+  const [cookies, setCookie] = useCookies()
 
   // adapt yields to the wanted yield rate (genesis, community or standard)
   const yields = data.yields
@@ -22,17 +22,22 @@ export default function YieldChart({ data }) {
         }, { date: _yield.date })
     )
 
+  // toggle line visibility when clicking on the legend item
+  const toggle = line => setCookie(line.dataKey, !line.inactive)
+
   return (
-    <ResponsiveContainer width="100%" aspect={1.618}>
+    <ResponsiveContainer width="100%" aspect={1.8}>
       <LineChart data={yields} margin={{ top: 0, right: 63.5, bottom: 0, left: 3.5 }}>
         {data.assets.map(asset => (
-          <Line key={asset} dataKey={asset} type={cookies.lineType} stroke={assetsInfo[asset].color} strokeWidth={1.5} dot={false} unit="%" />
+          <Line key={asset} dataKey={asset} hide={cookies[asset] == 'true'} type={cookies.lineType} stroke={assetsInfo[asset].color} strokeWidth={1.5} dot={false} unit="%" />
         ))}
+
         <CartesianGrid stroke="#ddd" strokeDasharray="3 3" />
         <XAxis tickMargin={10} dataKey="date" scale="time" type="number" ticks={data.xTicks} domain={['auto', 'auto']} tickFormatter={format.asShortDate} />
         <YAxis tickMargin={10} unit="%" />
+
         <Tooltip content={<YieldTooltip />} />
-        <Legend iconType="plainline" align="center" wrapperStyle={{ paddingLeft: '61px', paddingTop: '6px' }} />
+        <Legend iconType="plainline" verticalAlign="top" onClick={toggle} wrapperStyle={{ padding: '0 0 10px 61px' }} />
       </LineChart>
     </ResponsiveContainer>
   )
