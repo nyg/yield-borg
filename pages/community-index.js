@@ -7,7 +7,7 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 export default function CommunityIndices() {
 
-  const { data, error } = useSWR('/api/community-indices', fetcher)
+  const { data, error } = useSWR('/api/community-index', fetcher)
 
   let graph
   if (error) {
