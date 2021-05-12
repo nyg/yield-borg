@@ -16,7 +16,7 @@ const Redis = require('ioredis');
   // save yields to file
   await fs.writeFile('db/export.json', JSON.stringify({
     yields: yields, communityIndices: communityIndices
-  }))
+  }, null, '\t'))
 
   console.log('Export done.')
 })()
