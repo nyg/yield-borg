@@ -38,7 +38,7 @@ export default function Layout({ children, name }) {
 
         <footer className="bg-gray-100">
           <div className="lg:max-w-4xl space-x-6 pt-3 pb-3 text-center leading-3">
-            <FooterImageLink href="https://github.com/nyg/yield-borg" src="/gh-dark.png" alt="github" />
+            <FooterImageLink href="https://github.com/nyg/yield-borg" src="/github.png" alt="github" />
             <FooterImageLink href="https://yield-borg.goatcounter.com" src="/goatcounter.png" alt="goatcounter" />
           </div>
         </footer>
