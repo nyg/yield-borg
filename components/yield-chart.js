@@ -28,13 +28,16 @@ export default function YieldChart({ data }) {
   return (
     <ResponsiveContainer width="100%" aspect={1.8}>
       <LineChart data={yields} margin={{ top: 0, right: 63.5, bottom: 0, left: 3.5 }}>
-        {data.assets.map(asset => (
-          <Line key={asset} dataKey={asset} hide={cookies[asset] == 'true'} type={cookies.lineType} stroke={assetsInfo[asset].color} strokeWidth={1.5} dot={false} unit="%" />
-        ))}
-
         <CartesianGrid stroke="#ddd" strokeDasharray="3 3" />
         <XAxis tickMargin={10} dataKey="date" scale="time" type="number" ticks={data.xTicks} domain={['auto', 'auto']} tickFormatter={format.asShortDate} />
         <YAxis tickMargin={10} unit="%" />
+
+        {data.assets.map(asset =>
+          <Line
+            key={asset} dataKey={asset} unit="%"
+            type={cookies.lineType} hide={cookies[asset] == 'true'}
+            stroke={assetsInfo[asset].color} strokeWidth={1.5}
+            dot={cookies.lineType.includes('step') ? false : { r: 1, fill: true }} />)}
 
         <Tooltip content={<YieldTooltip />} />
         <Legend iconType="plainline" verticalAlign="top" onClick={toggle} wrapperStyle={{ padding: '0 0 10px 61px' }} />
