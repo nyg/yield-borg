@@ -22,7 +22,7 @@ export default function SmartYields() {
   const changeYieldRate = event => setCookie('yieldRate', event.target.value)
 
   /* Chart */
-  const { data, error } = useSWR('/api/yields', fetcher)
+  const { data, error } = useSWR('/api/yield', fetcher)
   let chart
   if (error) {
     console.debug('error')
