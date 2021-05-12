@@ -1,0 +1,13 @@
+name: get-community-index-every-wednesday
+on:
+  schedule:
+    - cron: '0 13 * * 3'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: GET /api/cron/community-index
+        run: |
+          curl --verbose                                    \
+               --url https://yield-borg.vercel.app/api/cron/community-index \
+               --header "Authorization: Bearer ${{ secrets.CRON_KEY }}"
