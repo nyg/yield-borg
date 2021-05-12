@@ -4,15 +4,15 @@ on:
     branches:
       - master
     paths:
-      - '.github/workflows/**'  
+      - '.github/workflows/**'
   schedule:
     - cron: '0 */1 * * *'
 jobs:
   cron:
     runs-on: ubuntu-latest
     steps:
-      - name: GET /api/cron
+      - name: GET /api/cron/yield
         run: |
           curl --verbose                                    \
-               --url https://yield-borg.vercel.app/api/cron \
+               --url https://yield-borg.vercel.app/api/cron/yield \
                --header "Authorization: Bearer ${{ secrets.CRON_KEY }}"
