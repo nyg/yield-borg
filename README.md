@@ -1,6 +1,6 @@
 # Yield Borg
 
-Yield Borg shows a simple chart of the different APYs available on the SwissBorg platform. Yield Borg is currently deployed on Vercel: [yield-borg.vercel.app](https://yield-borg.vercel.app).
+Yield Borg shows a simple chart of the different Smart Yields available on the SwissBorg platform. It is currently deployed on Vercel: [yield-borg.vercel.app](https://yield-borg.vercel.app).
 
 ## Tech Stack
 
@@ -26,10 +26,10 @@ npm run dev
 
 ## TODO
 
-* Improve style (tooltip, smartphones, etc.)
-* Complete historical data for USDC (asked SwissBorg…)
-* Add a table with monthly average yields
-* Add cron job for community index
-* Add settings page to choose
-    * line type of chart
-    * scale for yields (genesis premium, community premium, no premium)
+* Nicer communit index page (spacing, tooltip)
+* Get ride of duplicate code between the two charts
+* Add a 30-day average for each line
+* Add a table with the monthly yield averages
+* Obtain complete historical data for USDC
+* Caching of endpoints?
+* Write an ARCH.md?
