@@ -34,7 +34,7 @@ export default function YieldChart({ data }) {
 
         {data.assets.map(asset =>
           <Line
-            key={asset} dataKey={asset} unit="%"
+            key={asset} dataKey={asset}
             type={cookies.lineType} hide={cookies[asset] == 'true'}
             stroke={assetsInfo[asset].color} strokeWidth={1.5}
             dot={cookies.lineType.includes('step') ? false : { r: 1, fill: assetsInfo[asset].color }} />)}
