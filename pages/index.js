@@ -39,20 +39,24 @@ export default function SmartYields() {
 
   return (
     <Layout name="Smart Yields">
-      <div className="ml-16 mr-16 space-x-4">
-        <label htmlFor="yield-rate">Yield Rate</label>
-        <select id="yield-rate" value={cookies.yieldRate} onChange={changeYieldRate}>
-          <option value="genesis">Genesis Premium</option>
-          <option value="community">Community Premium</option>
-          <option value="standard">Standard</option>
-        </select>
-        <label htmlFor="line-type">Line type</label>
-        <select id="line-type" value={cookies.lineType} onChange={changeLineType}>
-          <option value="monotone">Monotone</option>
-          <option value="linear">Linear</option>
-          <option value="step">Step</option>
-          <option value="stepAfter">Step After</option>
-        </select>
+      <div className="ml-16 mr-16 space-x-6">
+        <span className="space-x-2">
+          <label htmlFor="yield-rate">Yield Rate</label>
+          <select id="yield-rate" value={cookies.yieldRate} onChange={changeYieldRate}>
+            <option value="genesis">Genesis Premium</option>
+            <option value="community">Community Premium</option>
+            <option value="standard">Standard</option>
+          </select>
+        </span>
+        <span className="space-x-2">
+          <label htmlFor="line-type">Line type</label>
+          <select id="line-type" value={cookies.lineType} onChange={changeLineType}>
+            <option value="monotone">Monotone</option>
+            <option value="linear">Linear</option>
+            <option value="step">Step</option>
+            <option value="stepAfter">Step After</option>
+          </select>
+        </span>
       </div>
       {chart}
       <div className="flex flex-row flex-wrap ml-16 mr-16 space-x-20">

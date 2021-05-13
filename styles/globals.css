@@ -15,4 +15,8 @@
     h2 {
         @apply font-bold mb-2
     }
+
+    select {
+        @apply border border-gray-300 rounded p-1
+    }
 }
