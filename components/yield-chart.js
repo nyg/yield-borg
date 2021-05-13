@@ -37,7 +37,7 @@ export default function YieldChart({ data }) {
             key={asset} dataKey={asset} unit="%"
             type={cookies.lineType} hide={cookies[asset] == 'true'}
             stroke={assetsInfo[asset].color} strokeWidth={1.5}
-            dot={cookies.lineType.includes('step') ? false : { r: 1, fill: true }} />)}
+            dot={cookies.lineType.includes('step') ? false : { r: 1, fill: assetsInfo[asset].color }} />)}
 
         <Tooltip content={<YieldTooltip />} />
         <Legend iconType="plainline" verticalAlign="top" onClick={toggle} wrapperStyle={{ padding: '0 0 10px 61px' }} />
