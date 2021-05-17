@@ -26,7 +26,7 @@ npm run dev
 
 ## TODO
 
-* Nicer communit index page (spacing, tooltip)
+* Nicer community index page (spacing, tooltip)
 * Get ride of duplicate code between the two charts
 * Add a 30-day average for each line
 * Add a table with the monthly yield averages
