@@ -9,7 +9,7 @@ export default async (req, res) => {
     return
   }
 
-  const json = await got('https://swissborg-api-proxy.swissborg-stage.workers.dev/chsb').json()
+  const json = await got('https://swissborg-api-proxy.swissborg-stage.workers.dev/chsb-v2').json()
 
   /* Check if an update has already been done for today. */
 
@@ -24,11 +24,11 @@ export default async (req, res) => {
   /* Extract yield percentages into object. */
 
   const yields = Object
-    .keys(json.chsbOverviewV2)
+    .keys(json)
     .filter(key => key.match(/CurrentPremiumYieldPercentage$/))
     .reduce((yields, key) => {
       const asset = key.match(/[a-z]+/)[0].toUpperCase()
-      yields[asset] = json.chsbOverviewV2[key]
+      yields[asset] = json[key]
       return yields
     }, {})
 
