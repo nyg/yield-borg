@@ -1,7 +1,7 @@
 import { useCookies } from 'react-cookie'
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts'
 import YieldTooltip from '../components/yield-tooltip'
-import assetsInfo from '../utils/assets'
+import * as assetsInfo from '../utils/assets'
 import * as format from '../utils/format'
 
 const multiplierFor = { genesis: 1, community: .75, standard: .5 }
@@ -36,8 +36,8 @@ export default function YieldChart({ data }) {
           <Line
             key={asset} dataKey={asset}
             type={cookies.lineType} hide={cookies[asset] == 'true'}
-            stroke={assetsInfo[asset].color} strokeWidth={1.5}
-            dot={cookies.lineType.includes('step') ? false : { r: 1, fill: assetsInfo[asset].color }} />)}
+            stroke={assetsInfo.getColorFor(asset)} strokeWidth={1.5}
+            dot={cookies.lineType.includes('step') ? false : { r: 1, fill: assetsInfo.getColorFor(asset) }} />)}
 
         <Tooltip content={<YieldTooltip />} />
         <Legend iconType="plainline" verticalAlign="top" onClick={toggle} wrapperStyle={{ padding: '0 0 10px 61px' }} />
