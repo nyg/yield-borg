@@ -16,6 +16,6 @@ const assets = {
   }
 }
 
-export function getColorFor(asset) {
+export function colorFor(asset) {
   return assets[asset]?.color ?? 'black'
 }
