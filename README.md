@@ -31,5 +31,3 @@ npm run dev
 * Add a 30-day average for each line
 * Add a table with the monthly yield averages
 * Obtain complete historical data for USDC
-* Caching of endpoints?
-* Write an ARCH.md?
