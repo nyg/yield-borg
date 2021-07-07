@@ -6,13 +6,19 @@ const assets = {
     color: '#F29236',
   },
   CHSB: {
-    color: '#54BF91',
+    color: '#04BB82',
   },
   ETH: { // https://ethereum.org/en/assets/
     color: '#6580E3',
   },
   USDC: { // https://www.centre.io/usdc-brand
     color: '#3975C4',
+  },
+  USDT: { // https://tether.to/branding/
+    color: '#4BB395',
+  },
+  XRP: { // https://brand.ripple.com/
+    color: '#404952',
   }
 }
 
