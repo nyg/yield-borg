@@ -63,6 +63,7 @@ export default function SmartYields() {
         <div>
           <h2>Monthly Smart Yield Reports</h2>
           <ul>
+            <li><a href="https://swissborg.com/blog/smart-yield-report-june-2021">June 2021</a></li>
             <li><a href="https://swissborg.com/blog/smart-yield-report-may-2021">May 2021</a></li>
             <li><a href="https://swissborg.com/blog/smart-yield-report-april-2021">April 2021</a></li>
             <li><a href="https://swissborg.com/blog/smart-yield-report-march-2021">March 2021</a></li>
