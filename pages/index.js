@@ -75,7 +75,7 @@ export default function SmartYields() {
         <div>
           <h2>Annoucements</h2>
           <ul>
-            <li><a href="https://swissborg.com/blog/xrp-smart-yield">USDT: July 2nd, 2021</a></li>
+            <li><a href="https://swissborg.com/blog/xrp-smart-yield">XRP: July 2nd, 2021</a></li>
             <li><a href="https://swissborg.com/blog/usdt-smart-yield">USDT: June 25th, 2021</a></li>
             <li><a href="https://swissborg.com/blog/bnb-smart-yield">BNB: June 4th, 2021</a></li>
             <li><a href="https://swissborg.com/blog/btc-smart-yield">BTC: May 6th, 2021</a></li>
