@@ -9,8 +9,6 @@ export default async (req, res) => {
     return
   }
 
-  const json = await got('https://swissborg-api-proxy.swissborg-stage.workers.dev/chsb-v2').json()
-
   /* Check if an update has already been done for today. */
 
   const today = new Date().toISOString().substring(0, 10)
@@ -23,6 +21,7 @@ export default async (req, res) => {
 
   /* Extract yield percentages into object. */
 
+  const json = await got('https://swissborg-api-proxy.swissborg-stage.workers.dev/chsb-v2').json()
   const yields = Object
     .keys(json)
     .filter(key => key.match(/CurrentPremiumYieldPercentage$/))
@@ -34,19 +33,33 @@ export default async (req, res) => {
 
   /* Insert new yields into the database */
 
-  // the problem is that we can't rely on json.timestamp or
-  // json.updatedtime, so we compare the current yields with the
-  // previous ones and only insert them into the db if they are
-  // different (we assume the probability that all yields are the
-  // same twice in a row is very low)
+
+  // Yields are updated once per day, but we don't know when (we can't rely on
+  // json.timestamp or json.updatedtime).
+  // If the yields are different from the previous ones, we assume they have
+  // been updated and insert them into the database.
+  // If the yields are the same as the previous ones, we only insert them when
+  // nearing the end of the day (9 PM UTC). This avoids not inserting any
+  // yields for a full day.
 
   delete lastYields.date
-  if (JSON.stringify(lastYields) != JSON.stringify(yields)) {
+  const yieldsAreDifferent = JSON.stringify(lastYields) != JSON.stringify(yields)
+  const nearingEndOfDay = new Date().getUTCHours() > 21
+
+  if (yieldsAreDifferent || nearingEndOfDay) {
     yields.date = today
     await redis.rpush('yields', JSON.stringify(yields))
-    res.status(200).json({ status: 'success' })
+    res.status(200).json({
+      status: 'success',
+      yields: JSON.stringify(yields)
+    })
   }
   else {
-    res.status(200).json({ status: 'yields not yet updated on webpage' })
+    res.status(200).json({
+      status: 'yields same as yesterday',
+      yields: JSON.stringify(yields),
+      today: today,
+      hours: new Date().getUTCHours()
+    })
   }
 }
