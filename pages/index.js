@@ -10,16 +10,16 @@ export default function SmartYields() {
   /* Cookies */
   const [cookies, setCookie] = useCookies()
   if (!cookies.lineType) {
-    setCookie('lineType', 'monotone')
+    setCookie('lineType', 'monotone', { maxAge: 315360000 })
   }
 
   if (!cookies.yieldRate) {
-    setCookie('yieldRate', 'genesis')
+    setCookie('yieldRate', 'genesis', { maxAge: 315360000 })
   }
 
   /* Selects' onChange callback */
-  const changeLineType = event => setCookie('lineType', event.target.value)
-  const changeYieldRate = event => setCookie('yieldRate', event.target.value)
+  const changeLineType = event => setCookie('lineType', event.target.value, { maxAge: 315360000 })
+  const changeYieldRate = event => setCookie('yieldRate', event.target.value, { maxAge: 315360000 })
 
   /* Chart */
   const { data, error } = useSWR('/api/yield', fetcher)

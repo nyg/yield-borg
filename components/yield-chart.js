@@ -23,7 +23,7 @@ export default function YieldChart({ data }) {
     )
 
   // toggle line visibility when clicking on the legend item
-  const toggle = line => setCookie(line.dataKey, !line.inactive)
+  const toggle = line => setCookie(line.dataKey, !line.inactive, { maxAge: 315360000 })
 
   return (
     <ResponsiveContainer width="100%" aspect={1.8}>
