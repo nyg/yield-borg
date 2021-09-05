@@ -4,8 +4,6 @@ import YieldTooltip from '../components/yield-tooltip'
 import * as config from '../utils/config'
 import * as format from '../utils/format'
 
-const multiplierFor = { genesis: 1, community: .75, standard: .5 }
-
 export default function YieldChart({ data }) {
 
   const [cookies, setCookie] = useCookies()
@@ -17,7 +15,7 @@ export default function YieldChart({ data }) {
         .keys(_yield)
         .filter(key => key != 'date')
         .reduce((newYield, asset) => {
-          newYield[asset] = _yield[asset] * multiplierFor[cookies.yieldRate]
+          newYield[asset] = _yield[asset] * config.multiplierFor[cookies.yieldRate]
           return newYield
         }, { date: _yield.date })
     )

@@ -22,6 +22,11 @@ const assets = {
   }
 }
 
-export function colorFor(asset) {
-  return assets[asset]?.color ?? 'black'
+export const colorFor = (asset) =>
+  assets[asset]?.color ?? 'black'
+
+export const multiplierFor = {
+  genesis: 1,
+  community: .75,
+  standard: .5
 }
