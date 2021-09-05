@@ -3,11 +3,10 @@ import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tool
 import Layout from '../components/layout'
 import * as format from '../utils/format'
 
-const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 export default function CommunityIndices() {
 
-  const { data, error } = useSWR('/api/community-index', fetcher)
+  const { data, error } = useSWR('/api/community-index')
 
   let graph
   if (error) {

@@ -3,7 +3,6 @@ import { useCookies } from 'react-cookie'
 import Layout from '../components/layout'
 import YieldChart from '../components/yield-chart'
 
-const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 export default function SmartYields() {
 
@@ -22,18 +21,15 @@ export default function SmartYields() {
   const changeYieldRate = event => setCookie('yieldRate', event.target.value, { maxAge: 315360000 })
 
   /* Chart */
-  const { data, error } = useSWR('/api/yield', fetcher)
+  const { data, error } = useSWR('/api/yield')
   let chart
   if (error) {
-    console.debug('error')
     chart = <div className="text-center pt-4">Failed to load data!</div>
   }
   else if (!data) {
-    console.debug('loading')
     chart = <div className="text-center pt-4">Loading data…</div>
   }
   else {
-    console.debug('redraw')
     chart = <YieldChart data={data} />
   }
 
