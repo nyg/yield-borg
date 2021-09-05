@@ -59,6 +59,7 @@ export default function SmartYields() {
         <div>
           <h2>Smart Yield Reports</h2>
           <ul>
+            <li><a href="https://swissborg.com/blog/smart-yield-report-august-2021">August 2021</a></li>
             <li><a href="https://swissborg.com/blog/smart-yield-report-july-2021">July 2021</a></li>
             <li><a href="https://swissborg.com/blog/smart-yield-report-june-2021">June 2021</a></li>
             <li><a href="https://swissborg.com/blog/smart-yield-report-may-2021">May 2021</a></li>
@@ -71,6 +72,7 @@ export default function SmartYields() {
         <div>
           <h2>Annoucements</h2>
           <ul>
+            <li><a href="https://swissborg.com/blog/polygon-smart-yield">MATIC: September 2nd, 2021</a></li>
             <li><a href="https://swissborg.com/blog/xrp-smart-yield">XRP: July 2nd, 2021</a></li>
             <li><a href="https://swissborg.com/blog/usdt-smart-yield">USDT: June 25th, 2021</a></li>
             <li><a href="https://swissborg.com/blog/bnb-smart-yield">BNB: June 4th, 2021</a></li>
