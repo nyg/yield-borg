@@ -27,17 +27,17 @@
   "homepage": "https://yield-borg.vercel.app",
   "dependencies": {
     "got": "11.8.2",
-    "ioredis": "4.27.7",
-    "next": "11.1.0",
+    "ioredis": "4.27.9",
+    "next": "11.1.2",
     "react": "17.0.2",
     "react-cookie": "4.1.1",
     "react-dom": "17.0.2",
-    "recharts": "2.1.0",
-    "swr": "0.5.6"
+    "recharts": "2.1.2",
+    "swr": "1.0.0"
   },
   "devDependencies": {
-    "autoprefixer": "10.3.1",
+    "autoprefixer": "10.3.4",
     "postcss": "8.3.6",
-    "tailwindcss": "2.2.7"
+    "tailwindcss": "2.2.9"
   }
 }
