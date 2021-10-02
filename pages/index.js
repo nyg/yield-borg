@@ -73,32 +73,28 @@ export default function SmartYields() {
         </span>
       </div>
       {chart}
-      <div className="flex flex-row flex-wrap ml-16 mr-16 space-x-20">
+      <div className="ml-16 mr-16 space-y-4">
         <div>
-          <h2>Smart Yield Reports</h2>
-          <ul>
-            <li><a href="https://swissborg.com/blog/smart-yield-report-august-2021">August 2021</a></li>
-            <li><a href="https://swissborg.com/blog/smart-yield-report-july-2021">July 2021</a></li>
-            <li><a href="https://swissborg.com/blog/smart-yield-report-june-2021">June 2021</a></li>
-            <li><a href="https://swissborg.com/blog/smart-yield-report-may-2021">May 2021</a></li>
-            <li><a href="https://swissborg.com/blog/smart-yield-report-april-2021">April 2021</a></li>
-            <li><a href="https://swissborg.com/blog/smart-yield-report-march-2021">March 2021</a></li>
-            <li><a href="https://swissborg.com/blog/smart-yield-report-february-2021">February 2021</a></li>
-            <li><a href="https://swissborg.com/blog/smart-yield-report-december-2020-january-2021">December 2020 & January 2021</a></li>
-          </ul>
+          <span className="font-bold mr-4">Smart Yield Reports</span>
+          <a href="https://swissborg.com/blog/smart-yield-report-december-2020-january-2021">Dec 20 & Jan 21</a> •{' '}
+          <a href="https://swissborg.com/blog/smart-yield-report-february-2021">Feb 21</a> •{' '}
+          <a href="https://swissborg.com/blog/smart-yield-report-march-2021">Mar 21</a> •{' '}
+          <a href="https://swissborg.com/blog/smart-yield-report-april-2021">Apr 21</a> •{' '}
+          <a href="https://swissborg.com/blog/smart-yield-report-may-2021">May 21</a> •{' '}
+          <a href="https://swissborg.com/blog/smart-yield-report-june-2021">June 21</a> •{' '}
+          <a href="https://swissborg.com/blog/smart-yield-report-july-2021">July 21</a> •{' '}
+          <a href="https://swissborg.com/blog/smart-yield-report-august-2021">Aug 21</a>
         </div>
         <div>
-          <h2>Annoucements</h2>
-          <ul>
-            <li><a href="https://swissborg.com/blog/polygon-smart-yield">MATIC: September 2nd, 2021</a></li>
-            <li><a href="https://swissborg.com/blog/xrp-smart-yield">XRP: July 2nd, 2021</a></li>
-            <li><a href="https://swissborg.com/blog/usdt-smart-yield">USDT: June 25th, 2021</a></li>
-            <li><a href="https://swissborg.com/blog/bnb-smart-yield">BNB: June 4th, 2021</a></li>
-            <li><a href="https://swissborg.com/blog/btc-smart-yield">BTC: May 6th, 2021</a></li>
-            <li><a href="https://swissborg.com/blog/eth-smart-yield">ETH: March 19th, 2021</a></li>
-            <li><a href="https://swissborg.com/blog/chsb-smart-yield">CHSB: January 29th, 2021</a></li>
-            <li><a href="https://swissborg.com/blog/swissborg-launches-usdc-smart-yield">USDC: December 14th, 2020</a></li>
-          </ul>
+          <span className="font-bold mr-4">Annoucements</span>
+          <a href="https://swissborg.com/blog/swissborg-launches-usdc-smart-yield">USDC</a> (Dec 14, 2020) •{' '}
+          <a href="https://swissborg.com/blog/chsb-smart-yield">CHSB</a> (Jan 29, 2021) •{' '}
+          <a href="https://swissborg.com/blog/eth-smart-yield">ETH</a> (Mar 19, 2021) •{' '}
+          <a href="https://swissborg.com/blog/btc-smart-yield">BTC</a> (May 6, 2021) •{' '}
+          <a href="https://swissborg.com/blog/bnb-smart-yield">BNB</a> (June 4, 2021) •{' '}
+          <a href="https://swissborg.com/blog/usdt-smart-yield">USDT</a> (June 25, 2021) •{' '}
+          <a href="https://swissborg.com/blog/xrp-smart-yield">XRP</a> (July 2, 2021) •{' '}
+          <a href="https://swissborg.com/blog/polygon-smart-yield">MATIC</a> (Sept 2, 2021)
         </div>
       </div>
     </Layout>
