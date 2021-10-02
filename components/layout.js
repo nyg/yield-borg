@@ -16,8 +16,8 @@ export default function Layout({ children, name }) {
       <main className="min-h-screen ios:min-h-fill flex flex-col text-gray-600">
         <header className="bg-gray-100">
           <div className="lg:max-w-4xl pt-4 pb-4 pl-16">
-            <h1 className="text-3xl text-gray-800 font-bold">Yield Borg</h1>
-            <p className="text-sm">Chart showing the evolution of the different <a href="http://swissborg.com/smart-yield-account">SwissBorg</a> Smart Yields</p>
+            <h1 className="text-3xl text-gray-800 font-bold inline-block mr-4">Yield Borg</h1>
+            <p className="text-xs text-gray-600 italic inline-block">showing the evolution of the different <a href="http://swissborg.com/smart-yield-account">SwissBorg</a> Smart Yields</p>
           </div>
         </header>
 
@@ -31,7 +31,7 @@ export default function Layout({ children, name }) {
         </nav>
 
         <section className="text-sm flex-grow">
-          <div className="lg:max-w-4xl space-y-6 pt-6 pb-6">
+          <div className="lg:max-w-4xl space-y-8 pt-6 pb-6">
             {children}
           </div>
         </section>
