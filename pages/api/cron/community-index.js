@@ -10,7 +10,7 @@ export default async (req, res) => {
   }
 
   const html = await got('https://swissborg.com/chsb-overview')
-  const groups = html.body.match(/<h3 class="xuz9vd-2 bGLpAH">(?<index>\d{1,2}\.\d)\/10<\/h3>/).groups
+  const groups = html.body.match(/<h3 class="sc-xuz9vd-2 dHQMed">(?<index>\d{1,2}\.\d)\/10<\/h3>/).groups
 
   // this script runs every Wednesday
   const date = new Date()
