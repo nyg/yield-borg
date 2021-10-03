@@ -23,4 +23,8 @@
     select {
         @apply outline-none
     }
+
+    .recharts-legend-item-text {
+        @apply cursor-pointer
+    }
 }
