@@ -19,4 +19,8 @@
     select {
         @apply border border-gray-300 rounded p-1
     }
+
+    select {
+        @apply outline-none
+    }
 }
