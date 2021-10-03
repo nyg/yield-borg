@@ -37,7 +37,7 @@ export default function YieldChart({ data }) {
             stroke={config.colorFor(asset)} strokeWidth={1.5}
             dot={cookies.lineType.includes('step') ? false : { r: 1, fill: config.colorFor(asset) }} />)}
 
-        <Tooltip content={<YieldTooltip />} />
+        <Tooltip content={<YieldTooltip />} offset={50} />
         <Legend iconType="plainline" verticalAlign="top" onClick={toggle} wrapperStyle={{ padding: '0 0 10px 61px' }} />
       </LineChart>
     </ResponsiveContainer>
