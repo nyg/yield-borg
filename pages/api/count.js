@@ -1,6 +1,6 @@
 import got from 'got'
 
-function parseIP(req) {
+const extractIPAddress = req => {
   try {
     // try to get the client's ip address
     return req.headers['x-real-ip']
@@ -27,7 +27,7 @@ export default async (req, res) => {
         query: req.query.q,
         bot: parseInt(req.query.b),
         user_agent: req.headers['user-agent'],
-        ip: parseIP(req)
+        ip: extractIPAddress(req)
       }]
     },
     responseType: 'json',
