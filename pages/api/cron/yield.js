@@ -33,7 +33,6 @@ export default async (req, res) => {
 
   /* Insert new yields into the database */
 
-
   // Yields are updated once per day, but we don't know when (we can't rely on
   // json.timestamp or json.updatedtime).
   // If the yields are different from the previous ones, we assume they have
