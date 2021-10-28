@@ -16,7 +16,7 @@ Yield Borg shows a simple chart of the different Smart Yields available on the S
 # this file contains environment variables such as REDIS_URL and CRON_KEY
 mv .env.development.local.example .env.development.local
 
-# import some data into your development Redis database
+# import the data in db/export.json into your local Redis database
 npm run import-db
 
 # install dependencies and run app (available on localhost:3000)
@@ -26,8 +26,4 @@ npm run dev
 
 ## TODO
 
-* Nicer community index page (spacing, tooltip)
-* Get ride of duplicate code between the two charts
-* Add a 30-day average for each line
-* Add a table with the monthly yield averages
-* Obtain complete historical data for USDC
+* Use middleware for analytics
