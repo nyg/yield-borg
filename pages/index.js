@@ -2,7 +2,7 @@ import useSWR from 'swr'
 import { useCookies } from 'react-cookie'
 import Layout from '../components/layout'
 import YieldChart from '../components/yield-chart'
-import YieldAverages from '../components/yield-averages'
+import YieldAverageTable from '../components/yield-average-table'
 
 
 export default function SmartYields() {
@@ -74,6 +74,9 @@ export default function SmartYields() {
         </span>
       </div>
       {chart}
+      <div className="ml-16 mr-16">
+        <YieldAverageTable />
+      </div>
       <div className="ml-16 mr-16 space-y-4">
         <div>
           <span className="font-bold mr-4">Announcements</span>
@@ -99,9 +102,6 @@ export default function SmartYields() {
           <a href="https://swissborg.com/blog/smart-yield-report-august-2021">Aug '21</a> •{' '}
           <a href="https://swissborg.com/blog/smart-yield-report-september-2021">Sept '21</a>
         </div>
-      </div>
-      <div className="ml-16 mr-16">
-        <YieldAverages/>
       </div>
     </Layout>
   )

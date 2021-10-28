@@ -15,7 +15,8 @@ module.exports = {
   },
   variants: {
     extend: {
-      minHeight: ['ios']
+      minHeight: ['ios'],
+      fontStyle: ['first']
     },
   },
   plugins: [

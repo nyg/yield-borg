@@ -25,7 +25,7 @@ export default function YieldAverages() {
         </thead>
         <tbody>
           {data.yieldAverages.map(average => (
-            <tr key={average.date} className="border-b border-gray-200">
+            <tr key={average.date} className="border-b border-gray-200 first:italic">
               <td className="pb-1 pt-1">{format.asMonthYearDate(average.date)}</td>
               {data.assets.map(asset =>
                 <td className="tabular-nums text-xs align-middle">
