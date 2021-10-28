@@ -2,6 +2,7 @@ import useSWR from 'swr'
 import { useCookies } from 'react-cookie'
 import Layout from '../components/layout'
 import YieldChart from '../components/yield-chart'
+import YieldAverages from '../components/yield-averages'
 
 
 export default function SmartYields() {
@@ -88,16 +89,19 @@ export default function SmartYields() {
         </div>
         <div>
           <span className="font-bold mr-4">Smart Yield Reports</span>
-          <a href="https://swissborg.com/blog/smart-yield-report-december-2020-january-2021">Dec 20 & Jan 21</a> •{' '}
-          <a href="https://swissborg.com/blog/smart-yield-report-february-2021">Feb 21</a> •{' '}
-          <a href="https://swissborg.com/blog/smart-yield-report-march-2021">Mar 21</a> •{' '}
-          <a href="https://swissborg.com/blog/smart-yield-report-april-2021">Apr 21</a> •{' '}
-          <a href="https://swissborg.com/blog/smart-yield-report-may-2021">May 21</a> •{' '}
-          <a href="https://swissborg.com/blog/smart-yield-report-june-2021">June 21</a> •{' '}
-          <a href="https://swissborg.com/blog/smart-yield-report-july-2021">July 21</a> •{' '}
-          <a href="https://swissborg.com/blog/smart-yield-report-august-2021">Aug 21</a> •{' '}
-          <a href="https://swissborg.com/blog/smart-yield-report-september-2021">Sept 21</a>
+          <a href="https://swissborg.com/blog/smart-yield-report-december-2020-january-2021">Dec '20 & Jan '21</a> •{' '}
+          <a href="https://swissborg.com/blog/smart-yield-report-february-2021">Feb '21</a> •{' '}
+          <a href="https://swissborg.com/blog/smart-yield-report-march-2021">Mar '21</a> •{' '}
+          <a href="https://swissborg.com/blog/smart-yield-report-april-2021">Apr '21</a> •{' '}
+          <a href="https://swissborg.com/blog/smart-yield-report-may-2021">May '21</a> •{' '}
+          <a href="https://swissborg.com/blog/smart-yield-report-june-2021">June '21</a> •{' '}
+          <a href="https://swissborg.com/blog/smart-yield-report-july-2021">July '21</a> •{' '}
+          <a href="https://swissborg.com/blog/smart-yield-report-august-2021">Aug '21</a> •{' '}
+          <a href="https://swissborg.com/blog/smart-yield-report-september-2021">Sept '21</a>
         </div>
+      </div>
+      <div className="ml-16 mr-16">
+        <YieldAverages/>
       </div>
     </Layout>
   )
