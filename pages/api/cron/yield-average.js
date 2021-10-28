@@ -16,12 +16,6 @@ const asyncForEachKeyOf = async (object, asyncFn) => {
 
 export default async (req, res) => {
 
-  // TODO use middleware for auth?
-  if (req.headers.authorization !== `Bearer ${process.env.CRON_KEY}`) {
-    res.status(403).end()
-    return
-  }
-
   /* Retrieve all yields from db and group them by month and asset. */
 
   const yields = (await redis.lrange('yields', 0, -1)).map(JSON.parse)

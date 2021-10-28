@@ -4,11 +4,6 @@ import redis from '../../../db/redis'
 
 export default async (req, res) => {
 
-  if (req.headers.authorization !== `Bearer ${process.env.CRON_KEY}`) {
-    res.status(403).end()
-    return
-  }
-
   const html = await got('https://swissborg.com/chsb-overview')
   const groups = html.body.match(/<h3 class="sc-xuz9vd-2 dHQMed">(?<index>\d{1,2}\.\d)\/10<\/h3>/).groups
 

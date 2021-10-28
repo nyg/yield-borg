@@ -4,11 +4,6 @@ import redis from '../../../db/redis'
 
 export default async (req, res) => {
 
-  if (req.headers.authorization !== `Bearer ${process.env.CRON_KEY}`) {
-    res.status(403).end()
-    return
-  }
-
   /* Check if an update has already been done for today. */
 
   const today = new Date().toISOString().substring(0, 10)
@@ -35,8 +30,10 @@ export default async (req, res) => {
 
   // Yields are updated once per day, but we don't know when (we can't rely on
   // json.timestamp or json.updatedtime).
+  //
   // If the yields are different from the previous ones, we assume they have
   // been updated and insert them into the database.
+  //
   // If the yields are the same as the previous ones, we only insert them when
   // nearing the end of the day (9 PM UTC). This avoids not inserting any
   // yields for a full day.
