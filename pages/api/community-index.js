@@ -9,8 +9,5 @@ export default async (req, res) => {
       return communityIndex
     })
 
-  res.status(200).json({
-    status: 'success',
-    communityIndices: communityIndices
-  })
+  res.status(200).json({ communityIndices })
 }

@@ -1,16 +1,17 @@
 import redis from '../../db/redis'
 
-
 const numberOfDays = timeFrame => {
   const days = parseInt(timeFrame)
   return isFinite(days) ? days : undefined
 }
 
-const yieldDateIsWithin = (days, _yield) => {
-  return days
-    ? new Date(_yield.date).getTime() > new Date().setDate(new Date().getDate() - days)
-    : true
-}
+const yieldDateIsWithin = (days, _yield) => days
+  ? new Date(_yield.date).getTime() > new Date().setDate(new Date().getDate() - days)
+  : true
+
+const assetsOf = _yield =>
+  Object.keys(_yield).filter(k => k != 'date');
+
 
 export default async (req, res) => {
 
@@ -26,10 +27,7 @@ export default async (req, res) => {
       const date = new Date(_yield.date)
 
       // add assets to the allAssets set
-      Object
-        .keys(_yield)
-        .filter(key => key != 'date')
-        .forEach(asset => allAssets.add(asset))
+      assetsOf(_yield).forEach(asset => allAssets.add(asset))
 
       // convert date to unix timestamp
       _yield.date = date.getTime()
@@ -43,7 +41,6 @@ export default async (req, res) => {
     })
 
   res.status(200).json({
-    status: 'success',
     yields: yields,
     xTicks: xAxisTicks,
     assets: [...allAssets].sort()
