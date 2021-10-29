@@ -17,7 +17,7 @@ const prompt = require('prompt-sync')();
   }
 
   // read yields and community indices from file
-  const { yields, averages, communityIndices } = JSON.parse(await fs.readFile('db/data.json'))
+  const { yields, averages, communityIndices } = JSON.parse(fs.readFileSync('db/data.json'))
 
   // import values into db
   const redis = new Redis(redisUrl)
