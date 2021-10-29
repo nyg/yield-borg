@@ -1,7 +1,7 @@
 import React from 'react'
-import * as format from '../utils/format'
+import * as format from '../../utils/format'
 
-export default function YieldTooltip({ active, payload, label }) {
+export default function YieldChartTooltip({ active, payload, label }) {
 
   return (
     <div className="grid grid-cols-2 bg-gray-100 bg-opacity-95 border-2 border-gray-500 rounded-md p-3 text-sm">

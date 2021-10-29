@@ -1,12 +1,22 @@
+import useSWR from 'swr'
 import { useCookies } from 'react-cookie'
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts'
-import YieldTooltip from '../components/yield-tooltip'
-import * as config from '../utils/config'
-import * as format from '../utils/format'
+import YieldChartTooltip from './yield-chart-tooltip'
+import * as config from '../../utils/config'
+import * as format from '../../utils/format'
 
-export default function YieldChart({ data }) {
+export default function YieldChart() {
 
   const [cookies, setCookie] = useCookies()
+
+  // retrieve chart data
+  const { data, error } = useSWR(`/api/yield?timeFrame=${cookies.timeFrame}`)
+  if (error) {
+    return <div className="text-center pt-4">Failed to load data!</div>
+  }
+  else if (!data) {
+    return <div className="text-center pt-4">Loading data…</div>
+  }
 
   // adapt yields to the wanted yield rate (genesis, community or standard)
   const yields = data.yields
@@ -37,7 +47,7 @@ export default function YieldChart({ data }) {
             stroke={config.colorFor(asset)} strokeWidth={1.5}
             dot={cookies.lineType.includes('step') ? false : { r: 1, fill: config.colorFor(asset) }} />)}
 
-        <Tooltip content={<YieldTooltip />} offset={50} />
+        <Tooltip content={<YieldChartTooltip />} offset={50} />
         <Legend iconType="plainline" verticalAlign="top" onClick={toggle} wrapperStyle={{ padding: '0 0 10px 61px' }} />
       </LineChart>
     </ResponsiveContainer>

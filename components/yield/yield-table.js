@@ -1,8 +1,8 @@
 import useSWR from 'swr'
-import * as format from '../utils/format'
+import * as format from '../../utils/format'
 
 
-export default function YieldAverages() {
+export default function YieldTable({ className }) {
 
   const { data, error } = useSWR('/api/yield-average')
 
@@ -12,8 +12,9 @@ export default function YieldAverages() {
   else if (!data) {
     return <div className="text-center pt-4">Loading yield averages…</div>
   }
-  else {
-    return (
+
+  return (
+    <div className={className}>
       <table className="w-full text-right">
         <thead>
           <tr className="border-b border-gray-400">
@@ -38,6 +39,6 @@ export default function YieldAverages() {
           ))}
         </tbody>
       </table>
-    )
-  }
+    </div>
+  )
 }
