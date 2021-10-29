@@ -10,13 +10,17 @@ Yield Borg shows a simple chart of the different Smart Yields available on the S
 * [Github Actions](https://github.com/features/actions) to check for new yields every hour
 * Privacy-friendly [GoatCounter](https://www.goatcounter.com) for web analytics
 
+## Architecture
+
+![Architecture](doc/arch.png)
+
 ## Local installation
 
 ```sh
 # this file contains environment variables such as REDIS_URL and CRON_KEY
 mv .env.development.local.example .env.development.local
 
-# import the data in db/export.json into your local Redis database
+# import the data in db/data.json into your local Redis database
 npm run import-db
 
 # install dependencies and run app (available on localhost:3000)
