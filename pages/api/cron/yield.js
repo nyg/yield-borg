@@ -2,7 +2,7 @@ import got from 'got'
 import redis from '../../../db/redis'
 
 
-export default async (req, res) => {
+export default async function retrieveYields(req, res) {
 
   /* Check if an update has already been done for today. */
 
@@ -37,7 +37,6 @@ export default async (req, res) => {
   // If the yields are the same as the previous ones, we only insert them when
   // nearing the end of the day (9 PM UTC). This avoids not inserting any
   // yields for a full day.
-
   delete lastYields.date
   const yieldsAreDifferent = JSON.stringify(lastYields) != JSON.stringify(yields)
   const nearingEndOfDay = new Date().getUTCHours() > 21

@@ -13,7 +13,7 @@ const extractIPAddress = req => {
   }
 }
 
-export default async (req, res) => {
+export default async function getGoatCounter(req, res) {
 
   await got.post('https://yield-borg.goatcounter.com/api/v0/count', {
     json: {

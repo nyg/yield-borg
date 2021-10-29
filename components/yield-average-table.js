@@ -28,7 +28,7 @@ export default function YieldAverages() {
             <tr key={average.date} className="border-b border-gray-200 first:italic">
               <td className="pb-1 pt-1">{format.asMonthYearDate(average.date)}</td>
               {data.assets.map(asset =>
-                <td className="tabular-nums text-xs align-middle">
+                <td key={asset} className="tabular-nums text-xs align-middle">
                   {average[asset]
                     ? format.asPercentage(average[asset])
                     : ''}
