@@ -12,7 +12,7 @@ Yield Borg shows a simple chart of the different Smart Yields available on the S
 
 ## Architecture
 
-![Architecture](doc/arch.png)
+![Architecture](doc/ARCH.png)
 
 ## Local installation
 
