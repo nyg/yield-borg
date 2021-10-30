@@ -16,5 +16,5 @@ export default function MyApp({ Component, pageProps, cookies }) {
 
 MyApp.getInitialProps = async (appContext) => {
   const appProps = await App.getInitialProps(appContext)
-  return { ...appProps, cookies: appContext.ctx.req.cookies }
+  return { ...appProps, cookies: appContext.ctx.req?.cookies }
 }
