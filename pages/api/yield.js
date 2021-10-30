@@ -10,7 +10,7 @@ const yieldDateIsWithin = (days, _yield) => days
   : true
 
 const assetsOf = _yield =>
-  Object.keys(_yield).filter(k => k != 'date');
+  Object.keys(_yield).filter(k => k != 'date')
 
 
 export default async function getYield(req, res) {
