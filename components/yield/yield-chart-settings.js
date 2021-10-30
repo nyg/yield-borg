@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useCookies } from 'react-cookie'
 
 const maxAge = { maxAge: 315360000 }
@@ -8,13 +9,16 @@ export default function YieldChartSettings() {
   const [cookies, setCookie] = useCookies()
 
   const updateCookie = (name, event) =>
-    setCookie('yieldRate', event.target.value, maxAge)
+    setCookie(name, event.target.value, maxAge)
+
   const initCookie = (name, value) =>
     !cookies[name] && setCookie(name, value, maxAge)
 
-  initCookie('lineType', 'stepAfter')
-  initCookie('yieldRate', 'genesis')
-  initCookie('timeFrame', '180')
+  useEffect(() => {
+    initCookie('lineType', 'stepAfter')
+    initCookie('yieldRate', 'genesis')
+    initCookie('timeFrame', '180')
+  }, [])
 
   return (
     <div className="flex justify-center space-x-6">

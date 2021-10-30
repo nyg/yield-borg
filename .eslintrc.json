@@ -4,6 +4,7 @@
     "semi": [
       "error",
       "never"
-    ]
+    ],
+    "react-hooks/exhaustive-deps": "never"
   }
 }
