@@ -6,7 +6,6 @@ import YieldInformation from '../components/yield/yield-information'
 
 
 export default function SmartYields() {
-
   return (
     <Layout name="Smart Yields">
       <YieldChartSettings />

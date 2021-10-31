@@ -1,4 +1,5 @@
 import redis from '../../db/redis'
+import { assetsOf } from '../../utils/utils'
 
 const numberOfDays = timeFrame => {
   const days = parseInt(timeFrame)
@@ -8,9 +9,6 @@ const numberOfDays = timeFrame => {
 const yieldDateIsWithin = (days, _yield) => days
   ? new Date(_yield.date).getTime() > new Date().setDate(new Date().getDate() - days)
   : true
-
-const assetsOf = _yield =>
-  Object.keys(_yield).filter(k => k != 'date')
 
 
 export default async function getYield(req, res) {

@@ -2,6 +2,7 @@ import Head from 'next/head'
 import ActiveLink from './active-link'
 import FooterImageLink from './footer-image-link'
 
+
 export default function Layout({ children, name }) {
 
   return (

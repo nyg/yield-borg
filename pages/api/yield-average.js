@@ -1,7 +1,5 @@
 import redis from '../../db/redis'
-
-const assetsOf = _yield =>
-  Object.keys(_yield).filter(k => k != 'date')
+import { assetsOf } from '../../utils/utils'
 
 
 export default async function getYieldAverage(req, res) {

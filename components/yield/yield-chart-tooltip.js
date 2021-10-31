@@ -1,6 +1,7 @@
 import React from 'react'
 import * as format from '../../utils/format'
 
+
 export default function YieldChartTooltip({ active, payload, label }) {
 
   return (

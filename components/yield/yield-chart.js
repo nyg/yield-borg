@@ -2,8 +2,9 @@ import useSWR from 'swr'
 import { useCookies } from 'react-cookie'
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts'
 import YieldChartTooltip from './yield-chart-tooltip'
-import * as config from '../../utils/config'
+import { colorFor, multiplierFor } from '../../utils/config'
 import * as format from '../../utils/format'
+
 
 export default function YieldChart() {
 
@@ -25,7 +26,7 @@ export default function YieldChart() {
         .keys(_yield)
         .filter(key => key != 'date')
         .reduce((newYield, asset) => {
-          newYield[asset] = _yield[asset] * config.multiplierFor[cookies.yieldRate]
+          newYield[asset] = _yield[asset] * multiplierFor[cookies.yieldRate]
           return newYield
         }, { date: _yield.date })
     )
@@ -44,8 +45,8 @@ export default function YieldChart() {
           <Line
             key={asset} dataKey={asset}
             type={cookies.lineType} hide={cookies[asset] == 'true'}
-            stroke={config.colorFor(asset)} strokeWidth={1.5}
-            dot={cookies.lineType.includes('step') ? false : { r: 1, fill: config.colorFor(asset) }} />)}
+            stroke={colorFor(asset)} strokeWidth={1.5}
+            dot={cookies.lineType.includes('step') ? false : { r: 1, fill: colorFor(asset) }} />)}
 
         <Tooltip content={<YieldChartTooltip />} offset={50} />
         <Legend iconType="plainline" verticalAlign="top" onClick={toggle} wrapperStyle={{ padding: '0 0 10px 61px' }} />

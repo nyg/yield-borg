@@ -1,5 +1,6 @@
 import redis from '../../db/redis'
 
+
 export default async function getCommunityIndex(req, res) {
 
   const communityIndices = (await redis.lrange('communityIndices', 0, -1))

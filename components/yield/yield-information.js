@@ -1,5 +1,4 @@
 export default function YieldInformation({ className }) {
-
   return (
     <div className={`${className} space-y-4`}>
       <div>

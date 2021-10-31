@@ -3,6 +3,7 @@ import { SWRConfig } from 'swr'
 import { Cookies, CookiesProvider } from 'react-cookie'
 import '../styles/globals.css'
 
+
 export default function MyApp({ Component, pageProps, cookies }) {
   const isBrowser = typeof window !== "undefined"
   return (

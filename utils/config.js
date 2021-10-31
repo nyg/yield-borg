@@ -22,7 +22,7 @@ const assets = {
   }
 }
 
-export const colorFor = (asset) =>
+export const colorFor = asset =>
   assets[asset]?.color ?? 'black'
 
 export const multiplierFor = {
