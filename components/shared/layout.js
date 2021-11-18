@@ -32,7 +32,7 @@ export default function Layout({ children, name }) {
         </nav>
 
         <section className="text-sm flex-grow">
-          <div className="lg:max-w-4xl space-y-8 pt-6 pb-6">
+          <div className="lg:flex lg:flex-row space-y-8 pt-6 pb-6">
             {children}
           </div>
         </section>
