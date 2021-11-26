@@ -27,7 +27,3 @@ npm run import-db
 npm install
 npm run dev
 ```
-
-## TODO
-
-* Use middleware for analytics
