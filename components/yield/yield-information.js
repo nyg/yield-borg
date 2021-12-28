@@ -23,7 +23,10 @@ export default function YieldInformation({ className }) {
         <a href="https://swissborg.com/blog/smart-yield-report-june-2021">June &apos;21</a> •{' '}
         <a href="https://swissborg.com/blog/smart-yield-report-july-2021">July &apos;21</a> •{' '}
         <a href="https://swissborg.com/blog/smart-yield-report-august-2021">Aug &apos;21</a> •{' '}
-        <a href="https://swissborg.com/blog/smart-yield-report-september-2021">Sept &apos;21</a>
+        <a href="https://swissborg.com/blog/smart-yield-report-september-2021">Sept &apos;21</a> •{' '}
+        <a href="https://swissborg.com/blog/smart-yield-report-october-2021">Oct &apos;21</a> •{' '}
+        <a href="https://swissborg.com/blog/smart-yield-report-november-2021">Nov &apos;21</a> •{' '}
+        <a href="https://swissborg.com/blog/smart-yield-report-december-2021">Dec &apos;21</a>
       </div>
     </div>
   )
