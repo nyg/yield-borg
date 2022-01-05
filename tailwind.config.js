@@ -1,11 +1,8 @@
-const plugin = require('tailwindcss/plugin')
-
 module.exports = {
-  purge: [
+  content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}'
   ],
-  darkMode: false,
   theme: {
     extend: {
       minHeight: {
@@ -20,7 +17,7 @@ module.exports = {
     },
   },
   plugins: [
-    plugin(function ({ addVariant, e, postcss }) {
+    ({ addVariant, e, postcss }) => {
       addVariant('ios', ({ container, separator }) => {
         const supportsRule = postcss.atRule({ name: 'supports', params: '(-webkit-touch-callout: none)' })
         supportsRule.append(container.nodes)
@@ -29,6 +26,6 @@ module.exports = {
           rule.selector = `.${e(`ios${separator}${rule.selector.slice(1)}`)}`
         })
       })
-    })
+    },
   ],
 }

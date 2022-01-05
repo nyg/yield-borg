@@ -4,16 +4,17 @@ import redis from '../../../db/redis'
 
 export default async function retrieveCommunityIndex(req, res) {
 
-  const html = await got('https://swissborg.com/chsb-overview')
-  const groups = html.body.match(/<h3 class="sc-xuz9vd-2 dHQMed">(?<index>\d{1,2}\.\d)\/10<\/h3>/).groups
+  const communityIndex = (await got('https://swissborg-api-proxy.swissborg-stage.workers.dev/chsb-v2')
+    .json())
+    .communityIndex
 
   // this script runs every Wednesday
-  const date = new Date()
-  date.setDate(date.getDate() - 1)
+  const tuesday = new Date()
+  tuesday.setDate(tuesday.getDate() - 1)
 
   await redis.rpush('communityIndices', JSON.stringify({
-    date: date.toISOString().substring(0, 10),
-    value: parseFloat(groups.index)
+    date: tuesday.toISOString().substring(0, 10),
+    value: communityIndex
   }))
 
   res.status(200).json({ status: 'success' })
