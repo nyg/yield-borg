@@ -23,6 +23,5 @@ export function asPercentage(number) {
 }
 
 export function asDecimal(number) {
-  console.log(number)
   return decimalFormatter.format(number)
 }
