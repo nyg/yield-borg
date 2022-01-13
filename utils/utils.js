@@ -9,3 +9,14 @@ export const asyncForEachKeyOf = async (object, asyncFn) => {
     await asyncFn(key)
   }
 }
+
+const monthFormat = new Intl.DateTimeFormat('en-GB', { month: 'long' })
+export const monthString = date =>
+  monthFormat.format(date).toLowerCase()
+
+export const monthRange = () => {
+  const dateFrom = new Date(2021, 0)
+  const dateTo = new Date()
+  const monthCount = dateTo.getMonth() - dateFrom.getMonth() + 12 * (dateTo.getFullYear() - dateFrom.getFullYear())
+  return [...Array(monthCount).keys()]
+}

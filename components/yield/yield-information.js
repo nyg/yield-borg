@@ -1,33 +1,56 @@
+import { Fragment } from "react"
+import { monthRange, monthString } from "../../utils/utils"
+import * as format from '../../utils/format'
+
+
 export default function YieldInformation({ className }) {
+
+  const announcements = [
+    { asset: 'USDC', url: 'swissborg-launches-usdc-smart-yield', date: new Date(2020, 11, 14) },
+    { asset: 'CHSB', url: 'chsb-smart-yield', date: new Date(2021, 0, 29) },
+    { asset: 'ETH', url: 'eth-smart-yield', date: new Date(2021, 2, 19) },
+    { asset: 'BTC', url: 'btc-smart-yield', date: new Date(2021, 4, 6) },
+    { asset: 'BNB', url: 'bnb-smart-yield', date: new Date(2021, 5, 4) },
+    { asset: 'USDT', url: 'usdt-smart-yield', date: new Date(2021, 5, 25) },
+    { asset: 'XRP', url: 'xrp-smart-yield', date: new Date(2021, 6, 2) },
+    { asset: 'MATIC', url: 'polygon-smart-yield', date: new Date(2021, 8, 2) },
+    { asset: 'EURT', url: 'yield-on-eurt', date: new Date(2021, 9, 15) },
+  ]
+
+  const reports = index => {
+
+    const year = 2021 + Math.floor(index / 12)
+    const month = index % 12
+    const date = new Date(year, month)
+
+    return index == 0
+    ? { url: 'smart-yield-report-december-2020-january-2021', date  }
+    : { url: `smart-yield-report-${monthString(date)}-${year}`, date }
+  }
+
+  const separator = (index, array) => index < array.length - 1 && <span>&nbsp;• </span>
+
   return (
-    <div className={`${className} space-y-4`}>
-      <div>
+    <div className={`${className} space-y-4 text-justify`}>
+      <p className="-indent-4 pl-4">
         <span className="font-bold mr-4">Announcements</span>
-        <a href="https://swissborg.com/blog/swissborg-launches-usdc-smart-yield">USDC</a> <small>Dec 14, 2020</small> •{' '}
-        <a href="https://swissborg.com/blog/chsb-smart-yield">CHSB</a> <small>Jan 29, 2021</small> •{' '}
-        <a href="https://swissborg.com/blog/eth-smart-yield">ETH</a> <small>Mar 19, 2021</small> •{' '}
-        <a href="https://swissborg.com/blog/btc-smart-yield">BTC</a> <small>May 6, 2021</small> •{' '}
-        <a href="https://swissborg.com/blog/bnb-smart-yield">BNB</a> <small>June 4, 2021</small> •{' '}
-        <a href="https://swissborg.com/blog/usdt-smart-yield">USDT</a> <small>June 25, 2021</small> •{' '}
-        <a href="https://swissborg.com/blog/xrp-smart-yield">XRP</a> <small>July 2, 2021</small> •{' '}
-        <a href="https://swissborg.com/blog/polygon-smart-yield">MATIC</a> <small>Sept 2, 2021</small> •{' '}
-        <a href="https://swissborg.com/blog/polygon-smart-yield">EURT</a> <small>Oct, 2021</small>
-      </div>
-      <div>
+        {announcements.map(({ asset, url, date }, index, array) => (
+          <Fragment key={index}>
+            <a href={`https://swissborg.com/blog/${url}`} target={"_blank"} rel="noreferrer">{asset}</a>
+            <small>&nbsp;{format.asLongDate(date)}</small>
+            {separator(index, array)}
+          </Fragment>
+        ))}
+      </p>
+      <p className="-indent-4 pl-4">
         <span className="font-bold mr-4">Smart Yield Reports</span>
-        <a href="https://swissborg.com/blog/smart-yield-report-december-2020-january-2021">Dec &apos;20 & Jan &apos;21</a> •{' '}
-        <a href="https://swissborg.com/blog/smart-yield-report-february-2021">Feb &apos;21</a> •{' '}
-        <a href="https://swissborg.com/blog/smart-yield-report-march-2021">Mar &apos;21</a> •{' '}
-        <a href="https://swissborg.com/blog/smart-yield-report-april-2021">Apr &apos;21</a> •{' '}
-        <a href="https://swissborg.com/blog/smart-yield-report-may-2021">May &apos;21</a> •{' '}
-        <a href="https://swissborg.com/blog/smart-yield-report-june-2021">June &apos;21</a> •{' '}
-        <a href="https://swissborg.com/blog/smart-yield-report-july-2021">July &apos;21</a> •{' '}
-        <a href="https://swissborg.com/blog/smart-yield-report-august-2021">Aug &apos;21</a> •{' '}
-        <a href="https://swissborg.com/blog/smart-yield-report-september-2021">Sept &apos;21</a> •{' '}
-        <a href="https://swissborg.com/blog/smart-yield-report-october-2021">Oct &apos;21</a> •{' '}
-        <a href="https://swissborg.com/blog/smart-yield-report-november-2021">Nov &apos;21</a> •{' '}
-        <a href="https://swissborg.com/blog/smart-yield-report-december-2021">Dec &apos;21</a>
-      </div>
+        {monthRange().map(reports).map(({ url, date }, index, array) => (
+          <Fragment key={index}>
+            <a href={`https://swissborg.com/blog/${url}`} target={"_blank"} rel="noreferrer">{format.asShortMonthYearDate(date)}</a>
+            {separator(index, array)}
+          </Fragment>
+        ))}
+      </p>
     </div>
   )
 }
