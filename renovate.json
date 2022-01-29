@@ -3,5 +3,8 @@
     "group:allNonMajor"
   ],
   "dependencyDashboard": true,
-  "rangeStrategy": "pin"
+  "rangeStrategy": "pin",
+  "vulnerabilityAlerts": {
+    "enabled": false
+  }
 }
