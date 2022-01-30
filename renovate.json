@@ -11,6 +11,7 @@
     "at 5:00 am every saturday"
   ],
   "vulnerabilityAlerts": {
-    "stabilityDays": 1
+    "stabilityDays": 0,
+    "automerge": true
   }
 }
