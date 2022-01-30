@@ -4,7 +4,7 @@
   ],
   "dependencyDashboard": true,
   "rangeStrategy": "pin",
-  "prCreation": "not-pending",
+  "prCreation": "immediate",
   "stabilityDays": 3,
   "schedule": [
     "at 5:00 am every saturday"
