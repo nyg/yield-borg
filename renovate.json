@@ -1,12 +1,15 @@
 {
   "extends": [
-    "group:allNonMajor",
-    "npm:unpublishSafe"
+    "group:allNonMajor"
   ],
   "dependencyDashboard": true,
   "rangeStrategy": "pin",
   "prCreation": "not-pending",
+  "unpublishSafe": 3,
   "schedule": [
     "at 5:00 am every saturday"
-  ]
+  ],
+  "vulnerabilityAlerts": {
+    "unpublishSafe": 0
+  }
 }
