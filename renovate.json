@@ -6,10 +6,11 @@
   "rangeStrategy": "pin",
   "prCreation": "immediate",
   "stabilityDays": 3,
+  "separateMultipleMajor": true,
   "schedule": [
     "at 5:00 am every saturday"
   ],
   "vulnerabilityAlerts": {
-    "stabilityDays": 0
+    "stabilityDays": 1
   }
 }
