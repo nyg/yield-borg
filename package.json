@@ -29,7 +29,7 @@
   "homepage": "https://yield-borg.vercel.app",
   "dependencies": {
     "got": "12.0.2",
-    "ioredis": "4.28.5",
+    "ioredis": "5.0.0",
     "next": "12.1.0",
     "react": "17.0.2",
     "react-cookie": "4.1.1",
