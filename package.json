@@ -29,8 +29,8 @@
   "homepage": "https://yield-borg.vercel.app",
   "dependencies": {
     "got": "12.0.3",
-    "ioredis": "5.0.2",
-    "next": "12.1.2",
+    "ioredis": "5.0.3",
+    "next": "12.1.4",
     "react": "17.0.2",
     "react-cookie": "4.1.1",
     "react-dom": "17.0.2",
@@ -40,10 +40,10 @@
   "devDependencies": {
     "autoprefixer": "10.4.4",
     "eslint": "8.12.0",
-    "eslint-config-next": "12.1.2",
+    "eslint-config-next": "12.1.4",
     "postcss": "8.4.12",
     "prompt-sync": "4.2.0",
-    "renovate": "32.10.2",
+    "renovate": "32.12.0",
     "tailwindcss": "3.0.23"
   }
 }
