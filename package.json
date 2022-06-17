@@ -31,7 +31,7 @@
     "got": "12.1.0",
     "ioredis": "5.0.6",
     "next": "12.1.6",
-    "react": "17.0.2",
+    "react": "18.2.0",
     "react-cookie": "4.1.1",
     "react-dom": "17.0.2",
     "recharts": "2.1.10",
