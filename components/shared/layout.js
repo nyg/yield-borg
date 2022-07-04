@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Script from 'next/script'
 import ActiveLink from './active-link'
 import FooterImageLink from './footer-image-link'
 
@@ -7,10 +8,11 @@ export default function Layout({ children, name }) {
 
   return (
     <div>
+      <Script data-goatcounter="/api/count" src="/count.js" />
+
       <Head>
-        <title>{name} – Yield Borg</title>
+        <title>`${name} – Yield Borg`</title>
         <link rel="icon" href="/favicon.ico" />
-        <script data-goatcounter="/api/count" async src="/count.js"></script>
         <meta name="viewport" content="viewport-fit=cover" />
       </Head>
 
