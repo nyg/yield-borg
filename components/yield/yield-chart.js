@@ -35,22 +35,24 @@ export default function YieldChart() {
   const toggle = line => setCookie(line.dataKey, !line.inactive, { maxAge: 315360000 })
 
   return (
-    <ResponsiveContainer width="100%" aspect={1.8}>
-      <LineChart data={yields} margin={{ top: 0, right: 63.5, bottom: 0, left: 3.5 }}>
-        <CartesianGrid stroke="#ddd" strokeDasharray="3 3" />
-        <XAxis tickMargin={10} dataKey="date" scale="time" type="number" ticks={data.xTicks} domain={['auto', 'auto']} tickFormatter={format.asShortDate} />
-        <YAxis tickMargin={10} unit="%" />
+    <div className="mx-auto xl:w-1/2">
+      <ResponsiveContainer aspect={1.8}>
+        <LineChart data={yields} margin={{ top: 0, right: 63.5, bottom: 0, left: 3.5 }}>
+          <CartesianGrid stroke="#ddd" strokeDasharray="3 3" />
+          <XAxis tickMargin={10} dataKey="date" scale="time" type="number" ticks={data.xTicks} domain={['auto', 'auto']} tickFormatter={format.asShortDate} />
+          <YAxis tickMargin={10} unit="%" />
 
-        {data.assets.map(asset =>
-          <Line
-            key={asset} dataKey={asset}
-            type={cookies.lineType} hide={cookies[asset] == 'true'}
-            stroke={colorFor(asset)} strokeWidth={1.5}
-            dot={cookies.lineType.includes('step') ? false : { r: 1, fill: colorFor(asset) }} />)}
+          {data.assets.map(asset =>
+            <Line
+              key={asset} dataKey={asset}
+              type={cookies.lineType} hide={cookies[asset] == 'true'}
+              stroke={colorFor(asset)} strokeWidth={1.5}
+              dot={cookies.lineType.includes('step') ? false : { r: 1, fill: colorFor(asset) }} />)}
 
-        <Tooltip content={<YieldChartTooltip />} offset={50} />
-        <Legend iconType="plainline" verticalAlign="top" onClick={toggle} wrapperStyle={{ padding: '0 0 10px 61px' }} />
-      </LineChart>
-    </ResponsiveContainer>
+          <Tooltip content={<YieldChartTooltip />} offset={50} />
+          <Legend iconType="plainline" verticalAlign="top" onClick={toggle} wrapperStyle={{ padding: '0 0 10px 61px' }} />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
   )
 }
