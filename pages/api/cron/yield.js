@@ -17,6 +17,8 @@ export default async function retrieveYields(req, res) {
   /* Extract yield percentages into object. */
 
   const json = await got('https://swissborg-api-proxy.swissborg-stage.workers.dev/chsb-v2').json()
+  console.log(json)
+
   const yields = Object
     .keys(json)
     .filter(key => key.match(/CurrentPremiumYieldPercentage$/))
