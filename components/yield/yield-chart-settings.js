@@ -15,7 +15,7 @@ export default function YieldChartSettings() {
     !cookies[name] && setCookie(name, value, maxAge)
 
   useEffect(() => {
-    initCookie('lineType', 'stepAfter')
+    initCookie('lineType', 'monotone')
     initCookie('yieldRate', 'genesis')
     initCookie('timeFrame', '180')
   }, [])

@@ -1,14 +1,23 @@
 import useSWR from 'swr'
+import { useEffect } from 'react'
 import { useCookies } from 'react-cookie'
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts'
 import YieldChartTooltip from './yield-chart-tooltip'
 import { colorFor, multiplierFor } from '../../utils/config'
 import * as format from '../../utils/format'
 
+const maxAge = { maxAge: 315360000 }
+
 
 export default function YieldChart() {
 
   const [cookies, setCookie] = useCookies()
+
+  useEffect(() => {
+    console.log('Init cookies');
+    ['BTC', 'CHSB', 'DOT', 'ETH', 'USDC'].map(name =>
+      !cookies[name] && setCookie(name, true, maxAge))
+  }, [])
 
   // retrieve chart data
   const { data, error } = useSWR(`/api/yield?timeFrame=${cookies.timeFrame}`)
@@ -32,7 +41,7 @@ export default function YieldChart() {
     )
 
   // toggle line visibility when clicking on the legend item
-  const toggle = line => setCookie(line.dataKey, !line.inactive, { maxAge: 315360000 })
+  const toggle = line => setCookie(line.dataKey, line.inactive, maxAge)
 
   return (
     <div className="mx-auto xl:w-1/2">
@@ -45,7 +54,7 @@ export default function YieldChart() {
           {data.assets.map(asset =>
             <Line
               key={asset} dataKey={asset}
-              type={cookies.lineType} hide={cookies[asset] == 'true'}
+              type={cookies.lineType} hide={cookies[asset] !== 'true'}
               stroke={colorFor(asset)} strokeWidth={1.5}
               dot={cookies.lineType.includes('step') ? false : { r: 1, fill: colorFor(asset) }} />)}
 
