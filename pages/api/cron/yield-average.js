@@ -1,4 +1,3 @@
-import got from 'got'
 import redis from '../../../db/redis'
 import { assetsOf, asyncForEachKeyOf, forEachKeyOf } from '../../../utils/utils'
 
