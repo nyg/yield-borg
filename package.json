@@ -39,11 +39,11 @@
   },
   "devDependencies": {
     "autoprefixer": "10.4.7",
-    "eslint": "8.18.0",
+    "eslint": "8.19.0",
     "eslint-config-next": "12.2.0",
     "postcss": "8.4.14",
     "prompt-sync": "4.2.0",
-    "renovate": "32.100.4",
+    "renovate": "32.105.1",
     "tailwindcss": "3.1.4"
   }
 }
