@@ -11,7 +11,7 @@ export default function Layout({ children, name }) {
       <Script data-goatcounter="/api/count" src="/count.js" />
 
       <Head>
-        <title>`${name} – Yield Borg`</title>
+        <title>{`${name} – Yield Borg`}</title>
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="viewport-fit=cover" />
       </Head>
