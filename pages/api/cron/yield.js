@@ -23,7 +23,15 @@ export default async function retrieveYields(req, res) {
     .keys(json)
     .filter(key => key.match(/CurrentPremiumYieldPercentage$/))
     .reduce((yields, key) => {
-      const asset = key.match(/[a-z]+/)[0].toUpperCase()
+
+      const asset = key
+        .replace('CurrentPremiumYieldPercentage', '')
+        .replace(/([a-z])([A-Z])/g, '$1 $2')
+        .replace(/([A-Z]+)([A-Z])/g, '$1 $2')
+        .replace(/^[a-z]+/, m => m.toUpperCase())
+        .replace(/^(\w+) (.*?)$/, '$1 ($2)')
+        .replace('PI ', '')
+
       yields[asset] = json[key]
       return yields
     }, {})
