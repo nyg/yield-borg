@@ -17,7 +17,6 @@ export default async function retrieveYields(req, res) {
   /* Extract yield percentages into object. */
 
   const json = await got('https://swissborg-api-proxy.swissborg-stage.workers.dev/chsb-v2').json()
-  console.log(json)
 
   const yields = Object
     .keys(json)
@@ -56,7 +55,8 @@ export default async function retrieveYields(req, res) {
     await redis.rpush('yields', JSON.stringify(yields))
     res.status(200).json({
       status: 'success',
-      yields: JSON.stringify(yields)
+      yields: JSON.stringify(yields),
+      swissborg: json
     })
   }
   else {
@@ -64,7 +64,8 @@ export default async function retrieveYields(req, res) {
       status: 'yields same as yesterday',
       yields: JSON.stringify(yields),
       today: today,
-      hours: new Date().getUTCHours()
+      hours: new Date().getUTCHours(),
+      swissborg: json
     })
   }
 }
