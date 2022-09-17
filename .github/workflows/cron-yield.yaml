@@ -6,7 +6,7 @@ on:
     paths:
       - '.github/workflows/cron-yield.yaml'
   schedule:
-    - cron: '0 20-23 * * *'
+    - cron: '0 19-22 * * *'
 jobs:
   cron:
     runs-on: ubuntu-latest
