@@ -10,10 +10,8 @@ export default function ActiveLink({ href, children }) {
     : 'bg-gray-100 text-gray-600 hover:text-gray-700'
 
   return (
-    <Link href={href} >
-      <a className={`${style} p-1 rounded-lg no-underline w-full`}>
-        {children}
-      </a>
+    <Link href={href} className={`${style} p-1 rounded-lg no-underline w-full`}>
+      {children}
     </Link>
   )
 }
