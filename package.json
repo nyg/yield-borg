@@ -28,20 +28,20 @@
   "homepage": "https://yield-borg.vercel.app",
   "dependencies": {
     "got": "12.6.0",
-    "ioredis": "5.3.1",
-    "next": "13.2.4",
+    "ioredis": "5.3.2",
+    "next": "13.3.1",
     "react": "18.2.0",
     "react-cookie": "4.1.1",
     "react-dom": "18.2.0",
     "recharts": "2.5.0",
-    "swr": "2.1.1"
+    "swr": "2.1.5"
   },
   "devDependencies": {
     "autoprefixer": "10.4.14",
-    "eslint": "8.37.0",
-    "eslint-config-next": "13.2.4",
-    "postcss": "8.4.21",
+    "eslint": "8.39.0",
+    "eslint-config-next": "13.3.1",
+    "postcss": "8.4.23",
     "prompt-sync": "4.2.0",
-    "tailwindcss": "3.3.0"
+    "tailwindcss": "3.3.2"
   }
 }
