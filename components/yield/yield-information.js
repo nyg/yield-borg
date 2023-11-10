@@ -37,7 +37,7 @@ export default function YieldInformation({ className }) {
         {announcements.map(({ asset, url, date }, index, array) => (
           <Fragment key={index}>
             <a href={`https://swissborg.com/blog/${url}`} target={"_blank"} rel="noreferrer">{asset}</a>
-            <small>&nbsp;{format.asLongDate(date)}</small>
+            <small suppressHydrationWarning>&nbsp;{format.asLongDate(date)}</small>
             {separator(index, array)}
           </Fragment>
         ))}
@@ -46,7 +46,9 @@ export default function YieldInformation({ className }) {
         <span className="font-bold mr-4">Smart Yield Reports</span>
         {monthRange().map(reports).map(({ url, date }, index, array) => (
           <Fragment key={index}>
-            <a href={`https://swissborg.com/blog/${url}`} target={"_blank"} rel="noreferrer">{format.asShortMonthYearDate(date)}</a>
+            <a href={`https://swissborg.com/blog/${url}`} target={"_blank"} rel="noreferrer" suppressHydrationWarning>
+               {format.asShortMonthYearDate(date)}
+            </a>
             {separator(index, array)}
           </Fragment>
         ))}
