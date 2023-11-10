@@ -17,7 +17,7 @@ export default function YieldChartSettings() {
   useEffect(() => {
     initCookie('lineType', 'monotone')
     initCookie('yieldRate', 'genesis')
-    initCookie('timeFrame', '180')
+    initCookie('timeFrame', '90')
   }, [])
 
   return (

@@ -14,7 +14,6 @@ export default function YieldChart() {
   const [cookies, setCookie] = useCookies()
 
   useEffect(() => {
-    console.log('Init cookies');
     ['BTC', 'CHSB', 'DOT', 'ETH', 'USDC'].map(name =>
       !cookies[name] && setCookie(name, true, maxAge))
   }, [])
@@ -54,7 +53,7 @@ export default function YieldChart() {
           {data.assets.map(asset =>
             <Line
               key={asset} dataKey={asset}
-              type={cookies.lineType} hide={cookies[asset] !== 'true'}
+              type={cookies.lineType} hide={cookies[asset] !== true}
               stroke={colorFor(asset)} strokeWidth={1.5}
               dot={cookies.lineType.includes('step') ? false : { r: 1, fill: colorFor(asset) }} />)}
 
