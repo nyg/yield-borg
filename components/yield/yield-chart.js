@@ -13,9 +13,15 @@ export default function YieldChart() {
 
   const [cookies, setCookie] = useCookies()
 
+  // if no cookies are set, set some default values
   useEffect(() => {
-    ['BTC', 'CHSB', 'DOT', 'ETH', 'USDC'].map(name =>
-      !cookies[name] && setCookie(name, true, maxAge))
+    Object.keys(cookies).length == 0 && [
+      'ETH (Ethereum Blockchain)',
+      'USDC (Stargate)',
+      'SOL (Jito Network&Solana Blockchain)',
+      'ATOM (Cosmos Blockchain Kiln)',
+      'MATIC (Polygon Blockchain)'
+    ].map(name => setCookie(name, true, maxAge))
   }, [])
 
   // retrieve chart data
@@ -43,7 +49,7 @@ export default function YieldChart() {
   const toggle = line => setCookie(line.dataKey, line.inactive, maxAge)
 
   return (
-    <div className="mx-auto xl:w-1/2">
+    <div className="mx-auto xl:w-2/3">
       <ResponsiveContainer aspect={1.8}>
         <LineChart data={yields} margin={{ top: 0, right: 63.5, bottom: 0, left: 3.5 }}>
           <CartesianGrid stroke="#ddd" strokeDasharray="3 3" />
