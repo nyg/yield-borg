@@ -29,7 +29,7 @@
   "dependencies": {
     "got": "14.4.2",
     "ioredis": "5.4.1",
-    "next": "14.2.7",
+    "next": "14.2.10",
     "react": "18.3.1",
     "react-cookie": "7.2.0",
     "react-dom": "18.3.1",
