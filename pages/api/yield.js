@@ -1,4 +1,4 @@
-import redis from '../../db/redis'
+import { redis } from '../../db/redis'
 import { assetsOf } from '../../utils/utils'
 
 const numberOfDays = timeFrame => {
