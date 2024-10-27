@@ -13,6 +13,6 @@ jobs:
     steps:
       - name: GET /api/cron/yield
         run: |
-          curl --verbose                                    \
-               --url https://yield-borg.vercel.app/api/cron/yield \
+          curl --fail --verbose                                         \
+               --url https://yield-borg.vercel.app/api/cron/yield       \
                --header "Authorization: Bearer ${{ secrets.CRON_KEY }}"
