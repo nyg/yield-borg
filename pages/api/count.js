@@ -1,41 +1,41 @@
 import got from 'got'
 
 const extractIPAddress = req => {
-  try {
-    // try to get the client's ip address
-    return req.headers['x-real-ip']
+   try {
+      // try to get the client's ip address
+      return req.headers['x-real-ip']
       || (typeof req.headers['x-forwarded-for'] === 'string'
         && req.headers['x-forwarded-for'].split(',').shift().trim())
       || undefined
-  }
-  catch (err) {
-    return undefined
-  }
+   }
+   catch (err) {
+      return undefined
+   }
 }
 
 export default async function getGoatCounter(req, res) {
 
-  await got.post('https://yield-borg.goatcounter.com/api/v0/count', {
-    json: {
-      no_sessions: true,
-      hits: [{
-        path: req.query.p,
-        title: req.query.t,
-        event: req.query.e,
-        ref: req.query.r,
-        size: req.query.s,
-        query: req.query.q,
-        bot: parseInt(req.query.b),
-        user_agent: req.headers['user-agent'],
-        ip: extractIPAddress(req)
-      }]
-    },
-    responseType: 'json',
-    headers: {
-      'Content-type': 'application/json',
-      'Authorization': `Bearer ${process.env.GOAT_KEY}`
-    }
-  })
+   await got.post('https://yield-borg.goatcounter.com/api/v0/count', {
+      json: {
+         no_sessions: true,
+         hits: [{
+            path: req.query.p,
+            title: req.query.t,
+            event: req.query.e,
+            ref: req.query.r,
+            size: req.query.s,
+            query: req.query.q,
+            bot: parseInt(req.query.b),
+            user_agent: req.headers['user-agent'],
+            ip: extractIPAddress(req)
+         }]
+      },
+      responseType: 'json',
+      headers: {
+         'Content-type': 'application/json',
+         'Authorization': `Bearer ${process.env.GOAT_KEY}`
+      }
+   })
 
-  res.status(200).end()
+   res.status(200).end()
 }
