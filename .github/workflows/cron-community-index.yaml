@@ -8,6 +8,6 @@ jobs:
     steps:
       - name: GET /api/cron/community-index
         run: |
-          curl --fail --verbose                                             \
+          curl --fail --verbose -X POST                                     \
                --url https://yield-borg.vercel.app/api/cron/community-index \
                --header "Authorization: Bearer ${{ secrets.CRON_KEY }}"

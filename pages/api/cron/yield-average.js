@@ -4,7 +4,12 @@ import { assetsOf, asyncForEachKeyOf, forEachKeyOf } from '../../../utils/utils'
 const initialBalance = 1
 
 
-export default async function computeYieldAverages(req, res) {
+export default async function updateYieldAverages(req, res) {
+
+  if (req.method !== 'POST') {
+    res.status(405).send({ message: 'Only POST requests allowed' })
+    return
+  }
 
   /* Retrieve all yields from db and group them by month and asset. */
 

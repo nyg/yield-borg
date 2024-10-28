@@ -2,7 +2,12 @@ import got from 'got'
 import { redis } from '../../../db/redis'
 
 
-export default async function retrieveYields(req, res) {
+export default async function fetchAndStoreNewYields(req, res) {
+
+  if (req.method !== 'POST') {
+    res.status(405).send({ message: 'Only POST requests allowed' })
+    return
+  }
 
   /* Check if an update has already been done for today. */
 
