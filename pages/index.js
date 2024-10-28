@@ -6,12 +6,12 @@ import YieldInformation from '../components/yield/yield-information'
 
 
 export default function SmartYields() {
-  return (
-    <Layout name="Smart Yields">
-      <YieldChartSettings />
-      <YieldChart />
-      <YieldTable className="ml-16 mr-16" />
-      <YieldInformation className="ml-16 mr-16" />
-    </Layout>
-  )
+   return (
+      <Layout name="Smart Yields">
+         <YieldChartSettings />
+         <YieldChart />
+         <YieldTable className="ml-16 mr-16" />
+         <YieldInformation className="ml-16 mr-16" />
+      </Layout>
+   )
 }

@@ -4,20 +4,20 @@ import { pgSql } from '../../../db/redis'
 
 export default async function fetchAndStoreCommunityIndex(req, res) {
 
-  if (req.method !== 'POST') {
-    res.status(405).send({ message: 'Only POST requests allowed' })
-    return
-  }
+   if (req.method !== 'POST') {
+      res.status(405).send({ message: 'Only POST requests allowed' })
+      return
+   }
 
-  const communityIndex = (await got('https://swissborg.com/page-data/sq/d/1105622776.json')
-    .json())
-    .data.sbAppFeed.communityIndex
+   const communityIndex = (await got('https://swissborg.com/page-data/sq/d/1105622776.json')
+      .json())
+      .data.sbAppFeed.communityIndex
 
-  // this script runs every Wednesday
-  const tuesday = new Date()
-  tuesday.setDate(tuesday.getDate() - 1)
+   // this script runs every Wednesday
+   const tuesday = new Date()
+   tuesday.setDate(tuesday.getDate() - 1)
 
-  await pgSql`INSERT INTO community_indices (date, value) VALUES(${tuesday}, ${communityIndex})`
+   await pgSql`INSERT INTO community_indices (date, value) VALUES(${tuesday}, ${communityIndex})`
 
-  res.status(200).json({ status: 'success' })
+   res.status(200).json({ status: 'success' })
 }
