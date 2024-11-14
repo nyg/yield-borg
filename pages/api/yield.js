@@ -1,14 +1,18 @@
-import { redis } from '../../db/redis'
+import { pgSql } from '../../db/redis'
 import { assetsOf } from '../../utils/utils'
 
 const numberOfDays = timeFrame => {
    const days = parseInt(timeFrame)
-   return isFinite(days) ? days : undefined
+   return isFinite(days) ? days : 100 * 365
 }
 
-const yieldDateIsWithin = (days, _yield) => days
-   ? new Date(_yield.date).getTime() > new Date().setDate(new Date().getDate() - days)
-   : true
+const findYieldsSince = async since =>
+   await pgSql`
+   select y.date, y.value, s.name
+     from yields y
+    inner join earn_strategies s on y.earn_strategy = s.id
+    where s.active = true
+      and y.date > ${since}`
 
 
 export default async function getYield(req, res) {
@@ -17,9 +21,18 @@ export default async function getYield(req, res) {
    const allAssets = new Set()
    const maxDays = numberOfDays(req.query.timeFrame)
 
-   const yields = (await redis.lrange('yields', 0, -1))
-      .map(yieldString => JSON.parse(yieldString))
-      .filter(_yield => yieldDateIsWithin(maxDays, _yield))
+   const startDate = new Date()
+   startDate.setDate(startDate.getDate() - maxDays)
+
+   const yieldsByDate = (await findYieldsSince(startDate))
+      .reduce((prev, curr) => {
+         prev[curr.date] ??= { date: curr.date }
+         prev[curr.date][curr.name] = curr.value
+         return prev
+      }, {})
+
+   const yields = Object
+      .values(yieldsByDate)
       .map(_yield => {
 
          const date = new Date(_yield.date)
