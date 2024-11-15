@@ -17,10 +17,10 @@ export default function YieldChart() {
    useEffect(() => {
       Object.keys(cookies).length == 0 && [
          'ETH (Ethereum Blockchain)',
-         'USDC (Stargate)',
-         'SOL (Jito Network&Solana Blockchain)',
-         'ATOM (Cosmos Blockchain Kiln)',
-         'MATIC (Polygon Blockchain)'
+         'USDC (Morpho)',
+         'SOL (Kyros)',
+         'ATOM (Kiln)',
+         'DOT (Kiln)'
       ].map(name => setCookie(name, true, maxAge))
    }, [])
 
