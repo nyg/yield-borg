@@ -1,5 +1,6 @@
 import got from 'got'
-import { redis } from '../../../db/redis'
+import { pgSql } from '../../../db/redis'
+import { toISODate } from '../../../utils/utils'
 
 
 export default async function fetchAndStoreNewYields(req, res) {
@@ -9,68 +10,60 @@ export default async function fetchAndStoreNewYields(req, res) {
       return
    }
 
-   /* Check if an update has already been done for today. */
+   /* Check if today's yields have already been inserted */
 
-   const today = new Date().toISOString().substring(0, 10)
-   const lastYields = JSON.parse(await redis.lrange('yields', -1, -1))
+   const today = toISODate(new Date())
+   const lastYieldDate = (await pgSql`select date from yields order by date desc limit 1`)[0].date
 
-   if (lastYields.date == today) {
-      res.status(200).json({ status: 'yields already updated' })
+   if (toISODate(lastYieldDate) == today) {
+      res.status(200).json({ status: 'yields already inserted' })
       return
    }
 
-   /* Extract yield percentages into object. */
+   /* Fetch existing earn strategies */
 
-   const json = await got('https://swissborg-api-proxy.swissborg-stage.workers.dev/chsb-v2').json()
+   const strategies = await pgSql`select * from earn_strategies where active = true`
+   const strategyIdByProduct = strategies.reduce((map, strategy) => {
+      map[strategy.product] = strategy.id
+      return map
+   }, {})
 
-   const yields = Object
-      .keys(json)
-      .filter(key => key.match(/CurrentPremiumYieldPercentage$/))
-      .reduce((yields, key) => {
+   /* Fetch yields */
 
-         const asset = key
-            .replace('CurrentPremiumYieldPercentage', '')
-            .replace(/([a-z])([A-Z])/g, '$1 $2')
-            .replace(/([A-Z]+)([A-Z])/g, '$1 $2')
-            .replace(/^[a-z]+/, m => m.toUpperCase())
-            .replace(/^(\w+) (.*?)$/, '$1 ($2)')
-            .replace('PI ', '')
+   const yieldResponse = await got('https://swissborg.com/page-data/sq/d/3223044680.json').json()
+   const yields = yieldResponse.data.earnStrategies.items.filter(item => item.isActive)
 
-         yields[asset] = json[key]
-         return yields
-      }, {})
+   const databaseYields = []
+   for (const item of yields) {
 
-   /* Insert new yields into the database */
+      let strategyId = strategyIdByProduct[item.product]
+      if (strategyId == null) {
+         const newStrategy = {
+            currency: item.currency,
+            active: true,
+            protocol: item.protocol,
+            name: `${item.currency} (${item.protocol})`,
+            product: item.product,
+            'start_date': item.startDate
+         }
 
-   // Yields are updated once per day, but we don't know when (we can't rely on
-   // json.timestamp or json.updatedtime).
-   //
-   // If the yields are different from the previous ones, we assume they have
-   // been updated and insert them into the database.
-   //
-   // If the yields are the same as the previous ones, we only insert them when
-   // nearing the end of the day (9 PM UTC). This avoids not inserting any
-   // yields for a full day.
-   delete lastYields.date
-   const yieldsAreDifferent = JSON.stringify(lastYields) != JSON.stringify(yields)
-   const nearingEndOfDay = new Date().getUTCHours() > 21
+         strategyId = (await pgSql`insert into earn_strategies ${pgSql(newStrategy)} returning id`)[0].id
+         console.log(`New strategy inserted: ${strategyId}`)
+      }
 
-   if (yieldsAreDifferent || nearingEndOfDay) {
-      yields.date = today
-      await redis.rpush('yields', JSON.stringify(yields))
-      res.status(200).json({
-         status: 'success',
-         yields: JSON.stringify(yields),
-         swissborg: json
+      databaseYields.push({
+         'earn_strategy': strategyId,
+         date: today,
+         value: item.currentApy
       })
    }
-   else {
-      res.status(200).json({
-         status: 'yields same as yesterday',
-         yields: JSON.stringify(yields),
-         today: today,
-         hours: new Date().getUTCHours(),
-         swissborg: json
-      })
-   }
+
+   /* Insert yields */
+
+   const insertedYields = await pgSql`insert into yields ${pgSql(databaseYields)} returning *`
+
+   res.status(200).json({
+      yields: insertedYields,
+      swissborg: yieldResponse
+   })
 }
