@@ -1,4 +1,4 @@
-import { pgSql } from '../../db/redis'
+import { pgSql } from '../../db/db'
 
 
 export default async function getCommunityIndex(req, res) {

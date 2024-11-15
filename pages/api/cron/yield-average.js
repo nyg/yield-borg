@@ -1,4 +1,4 @@
-import { redis } from '../../../db/redis'
+import { redis } from '../../../db/db'
 import { assetsOf, asyncForEachKeyOf, forEachKeyOf } from '../../../utils/utils'
 
 const initialBalance = 1

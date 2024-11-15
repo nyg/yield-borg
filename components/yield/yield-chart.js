@@ -17,10 +17,10 @@ export default function YieldChart() {
    useEffect(() => {
       Object.keys(cookies).length == 0 && [
          'ETH (Ethereum Blockchain)',
-         'USDC (Stargate)',
-         'SOL (Jito Network&Solana Blockchain)',
-         'ATOM (Cosmos Blockchain Kiln)',
-         'MATIC (Polygon Blockchain)'
+         'USDC (Morpho)',
+         'SOL (Kyros)',
+         'ATOM (Kiln)',
+         'DOT (Kiln)'
       ].map(name => setCookie(name, true, maxAge))
    }, [])
 
@@ -56,12 +56,12 @@ export default function YieldChart() {
                <XAxis tickMargin={10} dataKey="date" scale="time" type="number" ticks={data.xTicks} domain={['auto', 'auto']} tickFormatter={format.asShortDate} />
                <YAxis tickMargin={10} unit="%" />
 
-               {data.assets.map(asset =>
+               {data.assets.map((asset, index) =>
                   <Line
                      key={asset} dataKey={asset}
                      type={cookies.lineType} hide={cookies[asset] !== true}
-                     stroke={colorFor(asset)} strokeWidth={1.5}
-                     dot={cookies.lineType.includes('step') ? false : { r: 1, fill: colorFor(asset) }} />)}
+                     stroke={colorFor(index)} strokeWidth={1.5}
+                     dot={cookies.lineType.includes('step') ? false : { r: 1, fill: colorFor(index) }} />)}
 
                <Tooltip content={<YieldChartTooltip />} offset={50} />
                <Legend iconType="plainline" verticalAlign="top" onClick={toggle} wrapperStyle={{ padding: '0 0 10px 61px' }} />

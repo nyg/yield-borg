@@ -1,4 +1,4 @@
-import { pgSql } from '../../db/redis'
+import { pgSql } from '../../db/db'
 import { assetsOf } from '../../utils/utils'
 
 const numberOfDays = timeFrame => {

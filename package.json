@@ -4,8 +4,6 @@
   "description": "App to track the different yields available on the SwissBorg platform",
   "scripts": {
     "dev": "next dev",
-    "export-db": "node db/export-db.js",
-    "import-db": "node db/import-db.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
