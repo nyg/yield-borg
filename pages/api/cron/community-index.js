@@ -1,5 +1,5 @@
 import got from 'got'
-import { pgSql } from '../../../db/redis'
+import { pgSql } from '../../../db/db'
 
 
 export default async function fetchAndStoreCommunityIndex(req, res) {

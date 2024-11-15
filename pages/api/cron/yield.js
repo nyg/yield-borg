@@ -1,5 +1,5 @@
 import got from 'got'
-import { pgSql } from '../../../db/redis'
+import { pgSql } from '../../../db/db'
 import { toISODate } from '../../../utils/utils'
 
 
