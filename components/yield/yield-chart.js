@@ -56,12 +56,12 @@ export default function YieldChart() {
                <XAxis tickMargin={10} dataKey="date" scale="time" type="number" ticks={data.xTicks} domain={['auto', 'auto']} tickFormatter={format.asShortDate} />
                <YAxis tickMargin={10} unit="%" />
 
-               {data.assets.map(asset =>
+               {data.assets.map((asset, index) =>
                   <Line
                      key={asset} dataKey={asset}
                      type={cookies.lineType} hide={cookies[asset] !== true}
-                     stroke={colorFor(asset)} strokeWidth={1.5}
-                     dot={cookies.lineType.includes('step') ? false : { r: 1, fill: colorFor(asset) }} />)}
+                     stroke={colorFor(index)} strokeWidth={1.5}
+                     dot={cookies.lineType.includes('step') ? false : { r: 1, fill: colorFor(index) }} />)}
 
                <Tooltip content={<YieldChartTooltip />} offset={50} />
                <Legend iconType="plainline" verticalAlign="top" onClick={toggle} wrapperStyle={{ padding: '0 0 10px 61px' }} />

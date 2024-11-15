@@ -25,8 +25,10 @@ export default function YieldChartSettings() {
          <span className="space-x-2">
             <label htmlFor="yield-rate">Yield rate</label>
             <select id="yield-rate" value={cookies.yieldRate} onChange={e => updateCookie('yieldRate', e)}>
-               <option value="genesis">Genesis Premium</option>
-               <option value="community">Community Premium</option>
+               <option value="genesis">Genesis & Generation</option>
+               <option value="pioneer">Pioneer</option>
+               <option value="community">Community</option>
+               <option value="explorer">Explorer</option>
                <option value="standard">Standard</option>
             </select>
          </span>

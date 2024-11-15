@@ -1,32 +1,15 @@
-const assets = {
-   BNB: {
-      color: '#F5C656 ',
-   },
-   BTC: {
-      color: '#F29236',
-   },
-   CHSB: {
-      color: '#04BB82',
-   },
-   ETH: { // https://ethereum.org/en/assets/
-      color: '#6580E3',
-   },
-   USDC: { // https://www.centre.io/usdc-brand
-      color: '#3975C4',
-   },
-   USDT: { // https://tether.to/branding/
-      color: '#4BB395',
-   },
-   XRP: { // https://brand.ripple.com/
-      color: '#404952',
-   }
-}
+const colors = [
+   '#A3B8C7', '#D4E2D4', '#A7C7E7', '#B0A6D3', '#D6B94D', '#B7826E', '#8C9D8B',
+   '#A0B15D', '#8BACC4', '#9F8C85', '#A7B7C3', '#C0C0C0', '#9E8D89', '#7DB3E0',
+   '#A8A9E2'
+]
 
-export const colorFor = asset =>
-   assets[asset]?.color ?? 'black'
+export const colorFor = index => colors[index % colors.length]
 
 export const multiplierFor = {
    genesis: 1,
+   pioneer: .875,
    community: .75,
+   explorer: .625,
    standard: .5
 }
