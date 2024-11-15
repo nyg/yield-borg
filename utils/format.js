@@ -9,28 +9,28 @@ const decimalFormatter = new Intl.NumberFormat(locales, { style: 'decimal', mini
 
 
 const dateFormat = (formatter, date) =>
-  formatter.format(date).replace(' ', ' ') // non-breaking space
+   formatter.format(date).replace(' ', ' ') // non-breaking space
 
 export function asLongDate(timestamp) {
-  return dateFormat(longDateFormatter, timestamp)
+   return dateFormat(longDateFormatter, timestamp)
 }
 
 export function asShortDate(timestamp) {
-  return dateFormat(shortDateFormatter, timestamp)
+   return dateFormat(shortDateFormatter, timestamp)
 }
 
 export function asMonthYearDate(timestamp) {
-  return dateFormat(monthDateFormatter, timestamp)
+   return dateFormat(monthDateFormatter, timestamp)
 }
 
 export function asShortMonthYearDate(timestamp) {
-  return dateFormat(shortMonthDateFormatter, timestamp)
+   return dateFormat(shortMonthDateFormatter, timestamp)
 }
 
 export function asPercentage(number) {
-  return percentageFormatter.format(number)
+   return percentageFormatter.format(number)
 }
 
 export function asDecimal(number) {
-  return decimalFormatter.format(number)
+   return decimalFormatter.format(number)
 }
