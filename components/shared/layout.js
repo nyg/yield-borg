@@ -33,7 +33,7 @@ export default function Layout({ children, name }) {
                </div>
             </nav>
 
-            <section className="text-sm flex-grow">
+            <section className="text-sm grow">
                <div className="space-y-8 pt-6 pb-6">
                   {children}
                </div>
