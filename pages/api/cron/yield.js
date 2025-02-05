@@ -47,8 +47,18 @@ export default async function fetchAndStoreNewYields(req, res) {
             'start_date': item.startDate
          }
 
-         strategyId = (await pgSql`insert into earn_strategies ${pgSql(newStrategy)} returning id`)[0].id
-         console.log(`New strategy inserted: ${strategyId}`)
+         try {
+            strategyId = (await pgSql`insert into earn_strategies ${pgSql(newStrategy)} returning id`)[0].id
+            console.log(`New strategy inserted: ${strategyId}`)
+         }
+         catch (error) {
+            if (error.code === '23505') {
+               console.warn('Duplicate entry detected:', error.detail);
+            }
+            else {
+               throw e
+            }
+         }
       }
 
       databaseYields.push({
