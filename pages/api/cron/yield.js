@@ -31,10 +31,10 @@ export default async function fetchAndStoreNewYields(req, res) {
    /* Fetch yields */
 
    const yieldResponse = await got('https://swissborg.com/page-data/sq/d/3223044680.json').json()
-   const yields = yieldResponse.data.earnStrategies.items.filter(item => item.isActive)
+   const apiYields = yieldResponse.data.earnStrategies.items.filter(item => item.isActive)
 
-   const databaseYields = []
-   for (const item of yields) {
+   const yieldsToInsert = {}
+   for (const item of apiYields) {
 
       let strategyId = strategyIdByProduct[item.product]
       if (strategyId == null) {
@@ -51,16 +51,21 @@ export default async function fetchAndStoreNewYields(req, res) {
          console.log(`New strategy inserted: ${strategyId}`)
       }
 
-      databaseYields.push({
-         'earn_strategy': strategyId,
-         date: today,
-         value: item.currentApy
-      })
+      if (yieldsToInsert[strategyId] !== undefined) {
+         console.warn('Duplicate product in API response:', item)
+      }
+      else {
+         yieldsToInsert[strategyId] = {
+            'earn_strategy': strategyId,
+            date: today,
+            value: item.currentApy
+         }
+      }
    }
 
    /* Insert yields */
 
-   const insertedYields = await pgSql`insert into yields ${pgSql(databaseYields)} returning *`
+   const insertedYields = await pgSql`insert into yields ${pgSql(Object.values(yieldsToInsert))} returning *`
 
    res.status(200).json({
       yields: insertedYields,
