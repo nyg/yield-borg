@@ -53,7 +53,7 @@ export default async function fetchAndStoreNewYields(req, res) {
          }
          catch (error) {
             if (error.code === '23505') {
-               console.warn('Duplicate entry detected:', error.detail);
+               console.warn('Duplicate entry detected:', error.detail)
             }
             else {
                throw e
