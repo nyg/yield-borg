@@ -52,7 +52,7 @@ export default async function fetchAndStoreNewYields(req, res) {
       }
 
       if (yieldsToInsert[strategyId] !== undefined) {
-         console.warn('Duplicate product in API response:', item)
+         console.warn('Duplicate product key in API response:', item)
       }
       else {
          yieldsToInsert[strategyId] = {
