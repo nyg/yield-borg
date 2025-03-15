@@ -19,7 +19,7 @@ export const monthString = date =>
 
 export const monthRange = () => {
    const dateFrom = new Date(2021, 0)
-   const dateTo = new Date()
+   const dateTo = new Date(2022, 8) // no more monthly reports published after that
    const monthCount = dateTo.getMonth() - dateFrom.getMonth() + 12 * (dateTo.getFullYear() - dateFrom.getFullYear())
    return [...Array(monthCount).keys()]
 }

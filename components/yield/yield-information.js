@@ -33,7 +33,7 @@ export default function YieldInformation({ className }) {
    return (
       <div className={`${className} space-y-4 text-justify`}>
          <p className="-indent-4 pl-4">
-            <span className="font-bold mr-4">Announcements</span>
+            <span className="font-bold mr-4">First announcements</span>
             {announcements.map(({ asset, url, date }, index, array) => (
                <Fragment key={index}>
                   <a href={`https://swissborg.com/blog/${url}`} target={'_blank'} rel="noreferrer">{asset}</a>
