@@ -40,7 +40,7 @@ export default function Layout({ children, name }) {
             </section>
 
             <footer className="bg-gray-100">
-               <div className="space-x-6 pt-2 pb-2 text-center leading-3">
+               <div className="pt-2 pb-2 text-center leading-3">
                   <FooterImageLink href="https://github.com/nyg/yield-borg" src="/github.png" alt="github" />
                   <FooterImageLink href="https://yield-borg.goatcounter.com" src="/goatcounter.png" alt="goatcounter" />
                </div>
