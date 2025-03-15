@@ -26,7 +26,6 @@
   "homepage": "https://yield-borg.vercel.app",
   "dependencies": {
     "got": "14.4.6",
-    "ioredis": "5.5.0",
     "next": "15.1.7",
     "postgres": "3.4.5",
     "react": "19.0.0",
