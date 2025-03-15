@@ -25,10 +25,10 @@ export default async function getYield(req, res) {
    startDate.setDate(startDate.getDate() - maxDays)
 
    const yieldsByDate = (await findYieldsSince(startDate))
-      .reduce((prev, curr) => {
-         prev[curr.date] ??= { date: curr.date }
-         prev[curr.date][curr.name] = curr.value
-         return prev
+      .reduce((yields, _yield) => {
+         yields[_yield.date] ??= { date: _yield.date }
+         yields[_yield.date][_yield.name] = _yield.value
+         return yields
       }, {})
 
    const yields = Object

@@ -5,7 +5,7 @@ import { assetsOf } from '../../utils/utils'
 import * as format from '../../utils/format'
 
 
-export default function YieldTable({ className }) {
+export default function YieldAverages({ className }) {
 
    const [cookies] = useCookies()
 
@@ -33,7 +33,7 @@ export default function YieldTable({ className }) {
                <tr className="border-b border-gray-400">
                   <th></th>
                   {data.assets.map(asset => (
-                     <th key={asset} className="pb-1">{asset}</th>
+                     <th key={asset} className="pl-3 pr-3">{asset}</th>
                   ))}
                </tr>
             </thead>
