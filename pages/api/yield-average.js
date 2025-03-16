@@ -7,7 +7,7 @@ export default async function getYieldAverage(req, res) {
 
    const yieldAverages = (await pgSql`
          select a.date, a.value, s.name
-           from average_yields a
+           from yield_averages a
           inner join earn_strategies s
              on a.earn_strategy = s.id
           order by date desc`)
