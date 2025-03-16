@@ -1,5 +1,5 @@
 import { pgSql } from '../../../db/db'
-import { asyncForEachKeyOf, forEachKeyOf } from '../../../utils/utils'
+import { forEachKeyOf } from '../../../utils/utils'
 
 
 export default async function updateYieldAverages(req, res) {
@@ -76,17 +76,19 @@ export default async function updateYieldAverages(req, res) {
    /* Store computed APY averages into db. */
 
    // TODO don't recompute already computed averages (:
-   await pgSql`delete from average_yields`
+   await pgSql`delete from yield_averages`
 
-   await asyncForEachKeyOf(groupedYields, async month => {
-      await asyncForEachKeyOf(groupedYields[month], async strategy => {
-         await pgSql`insert into average_yields ${pgSql({
+   const yieldAverages = Object
+      .keys(groupedYields)
+      .flatMap(month => Object
+         .keys(groupedYields[month])
+         .map(strategy => ({
             'earn_strategy': strategyIdByName[strategy],
             date: month,
             value: groupedYields[month][strategy]
-         })}`
-      })
-   })
+         })))
+
+   await pgSql`insert into yield_averages ${pgSql(yieldAverages)}`
 
    res.status(200).json({ status: 'success' })
 }
