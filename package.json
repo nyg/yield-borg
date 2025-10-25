@@ -26,18 +26,18 @@
   "homepage": "https://yield-borg.vercel.app",
   "dependencies": {
     "got": "14.4.9",
-    "next": "15.5.4",
+    "next": "16.0.0",
     "postgres": "3.4.7",
-    "react": "19.1.1",
+    "react": "19.2.0",
     "react-cookie": "7.2.2",
-    "react-dom": "19.1.1",
-    "recharts": "3.2.1",
+    "react-dom": "19.2.0",
+    "recharts": "3.0.2",
     "swr": "2.3.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "4.1.13",
     "eslint": "9.36.0",
-    "eslint-config-next": "15.5.4",
+    "eslint-config-next": "16.0.0",
     "postcss": "8.5.6",
     "prompt-sync": "4.2.0",
     "tailwindcss": "4.1.13"

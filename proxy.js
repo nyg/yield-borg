@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 
 
-export default function authenticationMiddleware(request) {
+export default function proxy(request) {
   return request.headers.get('authorization') === `Bearer ${process.env.CRON_KEY}`
     ? NextResponse.next()
     : NextResponse.redirect(new URL('/api/unauthenticated', request.url))
