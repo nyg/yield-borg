@@ -17,16 +17,16 @@ export default function CommunityIndices() {
 
    return (
       <Layout name="Community Index">
-         <ResponsiveContainer width="100%" aspect={1.618}>
-            <LineChart data={data.communityIndices} margin={{ top: 0, right: 63.5, bottom: 0, left: 3.5 }}>
+         <div className="mx-auto xl:w-2/3">
+            <LineChart data={data.communityIndices} responsive margin={{ top: 0, right: 63.5, bottom: 0, left: 3.5 }} height={600}>
                <Line type="stepAfter" name="Community Index Score" dataKey="value" stroke="#01c38d" strokeWidth={2} dot={false} />
                <CartesianGrid stroke="#ddd" strokeDasharray="3 3" />
-               <XAxis tickMargin={10} dataKey="date" scale="time" type="number" interval={8} domain={['auto', 'auto']} tickFormatter={format.asShortDate} />
+               <XAxis tickMargin={10} dataKey="date" scale="time" type="number" interval={20} domain={['auto', 'auto']} tickFormatter={format.asShortDate} />
                <YAxis tickMargin={10} domain={[4, 10]} tickCount={10} tickFormatter={format.asDecimal} />
                <Tooltip formatter={value => [`${value}/10`, 'Score']} labelFormatter={format.asLongDate} />
                <Legend iconType="plainline" align="center" wrapperStyle={{ paddingLeft: '61px', paddingTop: '6px' }} />
             </LineChart>
-         </ResponsiveContainer>
+         </div>
       </Layout>
    )
 }

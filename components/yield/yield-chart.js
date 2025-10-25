@@ -1,7 +1,7 @@
 import useSWR from 'swr'
 import { useEffect } from 'react'
 import { useCookies } from 'react-cookie'
-import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts'
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts'
 import YieldChartTooltip from './yield-chart-tooltip'
 import { colorFor, multiplierFor } from '../../utils/config'
 import * as format from '../../utils/format'
@@ -50,23 +50,21 @@ export default function YieldChart() {
 
    return (
       <div className="mx-auto xl:w-2/3">
-         <ResponsiveContainer aspect={1.8}>
-            <LineChart data={yields} margin={{ top: 0, right: 63.5, bottom: 0, left: 3.5 }}>
-               <CartesianGrid stroke="#ddd" strokeDasharray="3 3" />
-               <XAxis tickMargin={10} dataKey="date" scale="time" type="number" ticks={data.xTicks} domain={['auto', 'auto']} tickFormatter={format.asShortDate} />
-               <YAxis tickMargin={10} unit="%" />
+         <LineChart data={yields} responsive margin={{ top: 0, right: 63.5, bottom: 0, left: 3.5 }} height={650}>
+            <CartesianGrid stroke="#ddd" strokeDasharray="3 3" />
+            <XAxis tickMargin={10} dataKey="date" scale="time" type="number" ticks={data.xTicks} domain={['auto', 'auto']} tickFormatter={format.asShortDate} />
+            <YAxis tickMargin={10} unit="%" />
 
-               {data.assets.map((asset, index) =>
-                  <Line
-                     key={asset} dataKey={asset}
-                     type={cookies.lineType} hide={cookies[asset] !== true}
-                     stroke={colorFor(index)} strokeWidth={1.5}
-                     dot={cookies.lineType.includes('step') ? false : { r: 1, fill: colorFor(index) }} />)}
+            {data.assets.map((asset, index) =>
+               <Line
+                  key={asset} dataKey={asset}
+                  type={cookies.lineType} hide={cookies[asset] !== true}
+                  stroke={colorFor(index)} strokeWidth={1.5}
+                  dot={cookies.lineType.includes('step') ? false : { r: 1, fill: colorFor(index) }} />)}
 
-               <Tooltip content={<YieldChartTooltip />} offset={50} />
-               <Legend iconType="plainline" verticalAlign="top" onClick={toggle} wrapperStyle={{ padding: '0 0 10px 61px' }} />
-            </LineChart>
-         </ResponsiveContainer>
+            <Tooltip content={<YieldChartTooltip />} offset={50} />
+            <Legend iconType="plainline" verticalAlign="bottom" onClick={toggle} wrapperStyle={{ padding: '0 0 10px 61px' }} />
+         </LineChart>
       </div>
    )
 }
