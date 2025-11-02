@@ -7,7 +7,7 @@ import { colorFor, multiplierFor } from '../../utils/config'
 import * as format from '../../utils/format'
 
 const maxAge = { maxAge: 315360000 }
-
+const normalize = assetName => assetName.replace(/[()\s]+/g, '')
 
 export default function YieldChart() {
 
@@ -16,11 +16,11 @@ export default function YieldChart() {
    // if no cookies are set, set some default values
    useEffect(() => {
       Object.keys(cookies).length == 0 && [
-         'ETH (Ethereum Blockchain)',
-         'USDC (Morpho)',
-         'SOL (Kyros)',
-         'ATOM (Kiln)',
-         'DOT (Kiln)'
+         normalize('ETH (Ethereum Blockchain)'),
+         normalize('USDC (Morpho)'),
+         normalize('SOL (Kyros)'),
+         normalize('ATOM (Kiln)'),
+         normalize('DOT (Kiln)')
       ].map(name => setCookie(name, true, maxAge))
    }, [])
 
@@ -46,7 +46,7 @@ export default function YieldChart() {
       )
 
    // toggle line visibility when clicking on the legend item
-   const toggle = line => setCookie(line.dataKey, line.inactive, maxAge)
+   const toggle = line => setCookie(normalize(line.dataKey), line.inactive, maxAge)
 
    return (
       <div className="mx-auto xl:w-2/3">
@@ -58,7 +58,7 @@ export default function YieldChart() {
             {data.assets.map((asset, index) =>
                <Line
                   key={asset} dataKey={asset}
-                  type={cookies.lineType} hide={cookies[asset] !== true}
+                  type={cookies.lineType} hide={cookies[normalize(asset)] !== true}
                   stroke={colorFor(index)} strokeWidth={1.5}
                   dot={cookies.lineType.includes('step') ? false : { r: 1, fill: colorFor(index) }} />)}
 
