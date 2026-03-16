@@ -9,7 +9,7 @@ export default async function fetchAndStoreCommunityIndex(req, res) {
       return
    }
 
-   const communityIndex = (await got('https://swissborg.com/page-data/sq/d/1105622776.json')
+   const communityIndex = (await got('https://swissborg.com/page-data/sq/d/3043756154.json')
       .json())
       .data.sbAppFeed.communityIndex
 
