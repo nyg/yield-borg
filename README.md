@@ -1,5 +1,8 @@
 # Yield Borg
 
+> [!WARNING]
+> This repository has been archived. Its functionality has been integrated into [nyg/crypto-tools](https://github.com/nyg/crypto-tools).
+
 Yield Borg shows a simple chart of the different Smart Yields available on the SwissBorg platform. It is currently deployed on Vercel: [yield-borg.vercel.app](https://yield-borg.vercel.app).
 
 ## Tech Stack
