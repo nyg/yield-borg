@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://crypto-tools.andstuff.dev",
+      "permanent": true
+    }
+  ]
+}
