@@ -1,7 +1,19 @@
 import { Fragment } from 'react'
-import { monthRange, monthString } from '../../utils/utils'
-import * as format from '../../utils/format'
+import * as format from '@/utils/format'
+import ExternalLink from '@/components/lib/external-link'
 
+
+const monthFormat = new Intl.DateTimeFormat('en-GB', { month: 'long' })
+const monthString = date => monthFormat.format(date).toLowerCase()
+
+const monthRange = () => {
+   const dateFrom = new Date(2021, 0)
+   const dateTo = new Date(2022, 8) // no more monthly reports published after that
+   const monthCount = dateTo.getMonth() - dateFrom.getMonth() + 12 * (dateTo.getFullYear() - dateFrom.getFullYear())
+   return [...Array(monthCount).keys()]
+}
+
+const separator = (index, array) => index < array.length - 1 && <span>&nbsp;• </span>
 
 export default function YieldInformation({ className }) {
 
@@ -18,37 +30,33 @@ export default function YieldInformation({ className }) {
    ]
 
    const reports = index => {
-
       const year = 2021 + Math.floor(index / 12)
       const month = index % 12
       const date = new Date(year, month)
-
       return index == 0
-         ? { url: 'smart-yield-report-december-2020-january-2021', date  }
+         ? { url: 'smart-yield-report-december-2020-january-2021', date }
          : { url: `smart-yield-report-${monthString(date)}-${year}`, date }
    }
 
-   const separator = (index, array) => index < array.length - 1 && <span>&nbsp;• </span>
-
    return (
-      <div className={`${className} space-y-4 text-justify`}>
+      <div className={`${className ?? ''} space-y-4 text-sm text-muted-foreground`}>
          <p className="-indent-4 pl-4">
-            <span className="font-bold mr-4">First announcements</span>
+            <span className="font-semibold text-foreground mr-3">First announcements</span>
             {announcements.map(({ asset, url, date }, index, array) => (
                <Fragment key={index}>
-                  <a href={`https://swissborg.com/blog/${url}`} target={'_blank'} rel="noreferrer">{asset}</a>
+                  <ExternalLink href={`https://swissborg.com/blog/${url}`} className="text-foreground">{asset}</ExternalLink>
                   <small suppressHydrationWarning>&nbsp;{format.asLongDate(date)}</small>
                   {separator(index, array)}
                </Fragment>
             ))}
          </p>
          <p className="-indent-4 pl-4">
-            <span className="font-bold mr-4">Smart Yield Reports</span>
+            <span className="font-semibold text-foreground mr-3">Smart Yield Reports</span>
             {monthRange().map(reports).map(({ url, date }, index, array) => (
                <Fragment key={index}>
-                  <a href={`https://swissborg.com/blog/${url}`} target={'_blank'} rel="noreferrer" suppressHydrationWarning>
+                  <ExternalLink href={`https://swissborg.com/blog/${url}`} className="text-foreground" suppressHydrationWarning>
                      {format.asShortMonthYearDate(date)}
-                  </a>
+                  </ExternalLink>
                   {separator(index, array)}
                </Fragment>
             ))}

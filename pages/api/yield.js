@@ -1,5 +1,4 @@
-import { pgSql } from '../../db/db'
-import { assetsOf } from '../../utils/utils'
+import { pgSql } from '@/lib/db'
 
 const numberOfDays = timeFrame => {
    const days = parseInt(timeFrame)
@@ -14,8 +13,10 @@ const findYieldsSince = async since =>
     where s.active = true
       and y.date > ${since}`
 
-
 export default async function getYield(req, res) {
+   if (!pgSql) {
+      return res.status(200).json({ yields: [], xTicks: [], assets: [] })
+   }
 
    const xAxisTicks = []
    const allAssets = new Set()
@@ -34,25 +35,17 @@ export default async function getYield(req, res) {
    const yields = Object
       .values(yieldsByDate)
       .map(_yield => {
-
          const date = new Date(_yield.date)
-
-         // add assets to the allAssets set
-         assetsOf(_yield).forEach(asset => allAssets.add(asset))
-
-         // convert date to unix timestamp
+         Object.keys(_yield).filter(k => k != 'date').forEach(asset => allAssets.add(asset))
          _yield.date = date.getTime()
-
-         // X-Axis ticks consist of 1st and 15th of the month
          if (date.getDate() == 1 || date.getDate() == 15) {
             xAxisTicks.push(_yield.date)
          }
-
          return _yield
       })
 
    res.status(200).json({
-      yields: yields,
+      yields,
       xTicks: xAxisTicks,
       assets: [...allAssets].sort()
    })

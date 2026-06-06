@@ -1,11 +1,9 @@
 import got from 'got'
-import { pgSql } from '../../../db/db'
-
+import { pgSql } from '@/lib/db'
 
 export default async function fetchAndStoreCommunityIndex(req, res) {
-
    if (req.method !== 'POST') {
-      res.status(405).send({ message: 'Only POST requests allowed' })
+      res.status(405).json({ message: 'Only POST requests allowed' })
       return
    }
 

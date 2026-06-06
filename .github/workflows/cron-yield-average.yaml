@@ -7,12 +7,13 @@ on:
       - '.github/workflows/cron-yield-average.yaml'
   schedule:
     - cron: '0 0 * * *'
+  workflow_dispatch:
 jobs:
   cron:
     runs-on: ubuntu-latest
     steps:
       - name: GET /api/cron/yield-average
         run: |
-          curl --fail --verbose  -X POST                                  \
+          curl --fail --verbose -L -X POST                                \
                --url https://yield-borg.vercel.app/api/cron/yield-average \
                --header "Authorization: Bearer ${{ secrets.CRON_KEY }}"

@@ -1,7 +1,9 @@
-import { pgSql } from '../../db/db'
-
+import { pgSql } from '@/lib/db'
 
 export default async function getYieldAverage(req, res) {
+   if (!pgSql) {
+      return res.status(200).json({ yieldAverages: [], assets: [] })
+   }
 
    const allStrategies = new Set()
 
@@ -12,14 +14,10 @@ export default async function getYieldAverage(req, res) {
              on a.earn_strategy = s.id
           order by date desc`)
       .reduce((averages, average) => {
-
          const month = average.date.toISOString().substring(0, 7)
          averages[month] ??= { date: average.date.getTime() }
          averages[month][average.name] = average.value
-
-         // build set of distinct strategies
          allStrategies.add(average.name)
-
          return averages
       }, {})
 
