@@ -10,24 +10,24 @@ flowchart LR
         SB[Static JSON endpoints]
     end
 
-    subgraph GitHub Actions
-        GA1[cron-yield<br/>daily 21:00 UTC]
-        GA2[cron-yield-average<br/>daily 00:00 UTC]
-        GA3[cron-community-index<br/>weekly Wed 13:00 UTC]
+    subgraph GHA [GitHub Actions]
+        GA1["cron-yield (daily 21:00 UTC)"]
+        GA2["cron-yield-average (daily 00:00 UTC)"]
+        GA3["cron-community-index (Wed 13:00 UTC)"]
     end
 
     subgraph Vercel ["Vercel (Next.js)"]
         subgraph Cron ["API — cron (POST, auth required)"]
-            C1[/api/cron/yield]
-            C2[/api/cron/yield-average]
-            C3[/api/cron/community-index]
+            C1["/api/cron/yield"]
+            C2["/api/cron/yield-average"]
+            C3["/api/cron/community-index"]
         end
         subgraph Public ["API — public (GET)"]
-            P1[/api/yield]
-            P2[/api/yield-average]
-            P3[/api/community-index]
+            P1["/api/yield"]
+            P2["/api/yield-average"]
+            P3["/api/community-index"]
         end
-        FE[Frontend<br/>SWR + Recharts]
+        FE[Frontend · SWR + Recharts]
     end
 
     subgraph Neon
@@ -92,8 +92,8 @@ flowchart TD
     Page --> Settings[yield-chart-settings.js]
     Page --> Averages[yield-averages.js]
 
-    Chart -->|useSWR /api/yield| API1[/api/yield]
-    Averages -->|useSWR /api/yield-average| API2[/api/yield-average]
+    Chart -->|"useSWR /api/yield"| API1["/api/yield"]
+    Averages -->|"useSWR /api/yield-average"| API2["/api/yield-average"]
 
     Chart --> Recharts[Recharts LineChart]
     Chart --> Tooltip[yield-chart-tooltip.js]
