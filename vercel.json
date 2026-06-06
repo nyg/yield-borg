@@ -1,9 +1,3 @@
 {
-  "redirects": [
-    {
-      "source": "/(.*)",
-      "destination": "https://crypto-tools.andstuff.dev",
-      "permanent": true
-    }
-  ]
+  "installCommand": "corepack enable && pnpm install"
 }
