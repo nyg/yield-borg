@@ -7,12 +7,13 @@ on:
       - '.github/workflows/cron-yield.yaml'
   schedule:
     - cron: '0 21 * * *'
+  workflow_dispatch:
 jobs:
   cron:
     runs-on: ubuntu-latest
     steps:
       - name: GET /api/cron/yield
         run: |
-          curl --fail --verbose -X POST                                 \
-               --url https://yield-borg.vercel.app/api/cron/yield       \
+          curl --fail --verbose -L -X POST                               \
+               --url https://yield-borg.vercel.app/api/cron/yield        \
                --header "Authorization: Bearer ${{ secrets.CRON_KEY }}"

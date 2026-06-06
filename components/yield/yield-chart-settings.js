@@ -1,58 +1,56 @@
-import { useEffect } from 'react'
-import { useCookies } from 'react-cookie'
-
-const maxAge = { maxAge: 315360000 }
+import { useState, useEffect } from 'react'
+import Select from '@/components/lib/select'
 
 
-export default function YieldChartSettings() {
+const getPreference = (key, defaultValue) => {
+   if (typeof window === 'undefined') return defaultValue
+   return localStorage.getItem(`yieldborg.${key}`) ?? defaultValue
+}
 
-   const [cookies, setCookie] = useCookies()
+const setPreference = (key, value) => {
+   localStorage.setItem(`yieldborg.${key}`, value)
+}
 
-   const updateCookie = (name, event) =>
-      setCookie(name, event.target.value, maxAge)
+export default function YieldChartSettings({ onChange }) {
 
-   const initCookie = (name, value) =>
-      !cookies[name] && setCookie(name, value, maxAge)
+   const [lineType, setLineType] = useState(() => getPreference('lineType', 'monotone'))
+   const [yieldRate, setYieldRate] = useState(() => getPreference('yieldRate', 'genesis'))
+   const [timeFrame, setTimeFrame] = useState(() => getPreference('timeFrame', '90'))
 
    useEffect(() => {
-      initCookie('lineType', 'monotone')
-      initCookie('yieldRate', 'genesis')
-      initCookie('timeFrame', '90')
-   }, [])
+      onChange?.({ lineType, yieldRate, timeFrame })
+   }, [lineType, yieldRate, timeFrame])
+
+   const update = (setter, key) => e => {
+      const value = e.target.value
+      setter(value)
+      setPreference(key, value)
+   }
 
    return (
-      <div className="flex justify-center space-x-6">
-         <span className="space-x-2">
-            <label htmlFor="yield-rate">Yield rate</label>
-            <select id="yield-rate" value={cookies.yieldRate} onChange={e => updateCookie('yieldRate', e)}>
-               <option value="genesis">Genesis & Generation</option>
-               <option value="pioneer">Pioneer</option>
-               <option value="community">Community</option>
-               <option value="explorer">Explorer</option>
-               <option value="standard">Standard</option>
-            </select>
-         </span>
-         <span className="space-x-2">
-            <label htmlFor="line-type">Line type</label>
-            <select id="line-type" value={cookies.lineType} onChange={e => updateCookie('lineType', e)}>
-               <option value="monotone">Monotone</option>
-               <option value="linear">Linear</option>
-               <option value="step">Step</option>
-               <option value="stepAfter">Step After</option>
-            </select>
-         </span>
-         <span className="space-x-2">
-            <label htmlFor="time-frame">Time frame</label>
-            <select id="time-frame" value={cookies.timeFrame} onChange={e => updateCookie('timeFrame', e)}>
-               <option value="7">1 week</option>
-               <option value="14">2 weeks</option>
-               <option value="30">1 month</option>
-               <option value="90">3 months</option>
-               <option value="180">6 months</option>
-               <option value="365">1 year</option>
-               <option value="all">All</option>
-            </select>
-         </span>
+      <div className="flex justify-center gap-4">
+         <Select name="yield-rate" label="Yield rate" value={yieldRate} onChange={update(setYieldRate, 'yieldRate')}>
+            <option value="genesis">Genesis & Generation</option>
+            <option value="pioneer">Pioneer</option>
+            <option value="community">Community</option>
+            <option value="explorer">Explorer</option>
+            <option value="standard">Standard</option>
+         </Select>
+         <Select name="line-type" label="Line type" value={lineType} onChange={update(setLineType, 'lineType')}>
+            <option value="monotone">Monotone</option>
+            <option value="linear">Linear</option>
+            <option value="step">Step</option>
+            <option value="stepAfter">Step After</option>
+         </Select>
+         <Select name="time-frame" label="Time frame" value={timeFrame} onChange={update(setTimeFrame, 'timeFrame')}>
+            <option value="7">1 week</option>
+            <option value="14">2 weeks</option>
+            <option value="30">1 month</option>
+            <option value="90">3 months</option>
+            <option value="180">6 months</option>
+            <option value="365">1 year</option>
+            <option value="all">All</option>
+         </Select>
       </div>
    )
 }

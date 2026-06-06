@@ -1,57 +1,56 @@
 import useSWR from 'swr'
-import { useCookies } from 'react-cookie'
-import { multiplierFor } from '../../utils/config'
-import { assetsOf } from '../../utils/utils'
-import * as format from '../../utils/format'
+import { multiplierFor } from '@/utils/swissborg-config'
+import * as format from '@/utils/format'
+import {
+   Table, TableHeader, TableBody, TableHead, TableRow, TableCell
+} from '@/components/ui/table'
 
 
-export default function YieldAverages({ className }) {
+export default function YieldAverages({ className, yieldRate = 'genesis', visibility = {} }) {
 
-   const [cookies] = useCookies()
-
-   // retrieve yield averages
    const { data, error } = useSWR('/api/yield-average')
-   if (error) {
-      return <div className="text-center pt-4">Failed to load yield averages!</div>
-   }
-   else if (!data) {
-      return <div className="text-center pt-4">Loading yield averages…</div>
-   }
 
-   // adapt yield averages to the wanted yield rate (genesis, community or standard)
+   if (error) return <div className="text-center pt-4 text-muted-foreground">Failed to load yield averages!</div>
+   if (!data) return <div className="text-center pt-4 text-muted-foreground">Loading yield averages…</div>
+
+   const assetsOf = object => Object.keys(object).filter(k => k != 'date')
+
+   const hasVisibility = Object.keys(visibility).length > 0
+   const visibleAssets = data.assets.filter(asset => !hasVisibility || visibility[asset])
+
    const yieldAverages = data.yieldAverages.map(average =>
       assetsOf(average).reduce((newAverage, asset) => {
-         newAverage[asset] = average[asset] * multiplierFor[cookies.yieldRate]
+         newAverage[asset] = average[asset] * multiplierFor[yieldRate]
          return newAverage
       }, { date: average.date })
    )
 
    return (
       <div className={className}>
-         <table className="w-full text-right">
-            <thead>
-               <tr className="border-b border-gray-400">
-                  <th></th>
-                  {data.assets.map(asset => (
-                     <th key={asset} className="pl-3 pr-3">{asset}</th>
+         <Table>
+            <TableHeader>
+               <TableRow>
+                  <TableHead></TableHead>
+                  {visibleAssets.map(asset => (
+                     <TableHead key={asset} className="text-right text-xs">{asset}</TableHead>
                   ))}
-               </tr>
-            </thead>
-            <tbody>
-               {yieldAverages.map(average => (
-                  <tr key={average.date} className="border-b border-gray-200 first:italic">
-                     <td className="pb-1 pt-1">{format.asMonthYearDate(average.date)}</td>
-                     {data.assets.map(asset =>
-                        <td key={asset} className="tabular-nums text-xs align-middle">
+               </TableRow>
+            </TableHeader>
+            <TableBody>
+               {yieldAverages.map((average, index) => (
+                  <TableRow key={average.date} className={index === 0 ? 'italic' : ''}>
+                     <TableCell className="text-xs">{format.asMonthYearDate(average.date)}</TableCell>
+                     {visibleAssets.map(asset =>
+                        <TableCell key={asset} className="text-right tabular-nums text-xs">
                            {average[asset]
                               ? format.asPercentage(average[asset])
                               : ''}
-                        </td>
+                        </TableCell>
                      )}
-                  </tr>
+                  </TableRow>
                ))}
-            </tbody>
-         </table>
+            </TableBody>
+         </Table>
       </div>
    )
 }

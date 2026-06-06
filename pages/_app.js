@@ -1,21 +1,20 @@
-import App from 'next/app'
 import { SWRConfig } from 'swr'
-import { Cookies, CookiesProvider } from 'react-cookie'
-import '../styles/globals.css'
+import '../styles/global.css'
 
-
-export default function MyApp({ Component, pageProps, cookies }) {
-   const isBrowser = typeof window !== 'undefined'
-   return (
-      <SWRConfig value={{ fetcher: (url) => fetch(url).then(res => res.json()) }}>
-         <CookiesProvider cookies={isBrowser ? undefined : new Cookies(cookies)}>
-            <Component {...pageProps} />
-         </CookiesProvider>
-      </SWRConfig>
-   )
+async function fetcher(url) {
+   const response = await fetch(url)
+   const result = await response.json()
+   if (!response.ok) {
+      const error = result?.error || 'An unexpected error happened.'
+      return Promise.reject(error)
+   }
+   return result
 }
 
-MyApp.getInitialProps = async (appContext) => {
-   const appProps = await App.getInitialProps(appContext)
-   return { ...appProps, cookies: appContext.ctx.req?.cookies }
+export default function MyApp({ Component, pageProps }) {
+   return (
+      <SWRConfig value={{ fetcher }}>
+         <Component {...pageProps} />
+      </SWRConfig>
+   )
 }

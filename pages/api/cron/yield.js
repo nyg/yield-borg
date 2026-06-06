@@ -1,16 +1,13 @@
 import got from 'got'
-import { pgSql } from '../../../db/db'
-import { toISODate } from '../../../utils/utils'
+import { pgSql } from '@/lib/db'
 
+const toISODate = date => date.toISOString().substring(0, 10)
 
 export default async function fetchAndStoreNewYields(req, res) {
-
    if (req.method !== 'POST') {
-      res.status(405).send({ message: 'Only POST requests allowed' })
+      res.status(405).json({ message: 'Only POST requests allowed' })
       return
    }
-
-   /* Check if today's yields have already been inserted */
 
    const today = toISODate(new Date())
    const lastYieldDate = (await pgSql`select date from yields order by date desc limit 1`)[0].date
@@ -20,22 +17,17 @@ export default async function fetchAndStoreNewYields(req, res) {
       return
    }
 
-   /* Fetch existing earn strategies */
-
    const strategies = await pgSql`select * from earn_strategies where active = true`
    const strategyIdByProduct = strategies.reduce((map, strategy) => {
       map[strategy.product] = strategy.id
       return map
    }, {})
 
-   /* Fetch yields */
-
    const yieldResponse = await got('https://swissborg.com/page-data/sq/d/3223044680.json').json()
    const apiYields = yieldResponse.data.earnStrategies.items.filter(item => item.isActive)
 
    const yieldsToInsert = {}
    for (const item of apiYields) {
-
       let strategyId = strategyIdByProduct[item.product]
       if (strategyId == null) {
          const newStrategy = {
@@ -62,8 +54,6 @@ export default async function fetchAndStoreNewYields(req, res) {
          }
       }
    }
-
-   /* Insert yields */
 
    const insertedYields = await pgSql`insert into yields ${pgSql(Object.values(yieldsToInsert))} returning *`
 
