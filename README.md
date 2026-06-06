@@ -1,29 +1,28 @@
 # Yield Borg
 
-> [!WARNING]
-> This repository has been archived. Its functionality has been integrated into [nyg/crypto-tools](https://github.com/nyg/crypto-tools).
+Charts the Smart Yield rates available on [SwissBorg](https://swissborg.com), updated daily via scheduled jobs. Live at **[yield-borg.vercel.app](https://yield-borg.vercel.app)**.
 
-Yield Borg shows a simple chart of the different Smart Yields available on the SwissBorg platform. It is currently deployed on Vercel: [yield-borg.vercel.app](https://yield-borg.vercel.app).
+## Stack
 
-## Tech Stack
+| Layer | Tech |
+|---|---|
+| Frontend | [Next.js](https://nextjs.org) · [Recharts](https://recharts.org) · [Tailwind CSS](https://tailwindcss.com) · [shadcn/ui](https://ui.shadcn.com) |
+| Backend | Next.js API routes · [postgres](https://github.com/porsager/postgres) |
+| Database | [Neon](https://neon.tech) (PostgreSQL) |
+| Hosting | [Vercel](https://vercel.com) |
+| Scheduling | [GitHub Actions](https://github.com/features/actions) |
+| Analytics | [GoatCounter](https://www.goatcounter.com) |
 
-* [Next.js](https://nextjs.org) app hosted on [Vercel](https://vercel.com)
-* [PostgresSQL](https://www.postgresql.org) database hosted on [Neon](https://neon.tech)
-* Other dependencies: [Recharts](https://recharts.org), [Tailwind CSS](https://tailwindcss.com)
-* [Github Actions](https://github.com/features/actions) to check for new yields every hour
-* Privacy-friendly [GoatCounter](https://www.goatcounter.com) for web analytics
-
-## Architecture
-
-![Architecture](doc/ARCH.png)
-
-## Local installation
+## Local Setup
 
 ```sh
-# this file contains environment variables such as POSTGRES_URL and CRON_KEY
-mv .env.development.local.example .env.development.local
+cp .env.development.local.example .env.development.local
+# fill in POSTGRES_URL and CRON_KEY (use "dev" for CRON_KEY locally)
 
-# install dependencies and run app (available on localhost:3000)
-npm install
-npm run dev
+pnpm install
+pnpm dev        # http://localhost:3000
 ```
+
+## Docs
+
+- [Architecture](docs/architecture.md) — data pipeline, API routes, cron jobs
