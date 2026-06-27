@@ -2,7 +2,7 @@
    "name": "yield-borg",
    "version": "1.0.0",
    "description": "App to track the different yields available on the SwissBorg platform",
-   "packageManager": "pnpm@11.5.1",
+   "packageManager": "pnpm@11.8.0",
    "scripts": {
       "dev": "next dev",
       "build": "next build",
