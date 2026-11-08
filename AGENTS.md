@@ -1,4 +1,4 @@
-# Copilot Instructions — Yield Borg
+# Agent Instructions — Yield Borg
 
 ## Build & Run Commands
 
