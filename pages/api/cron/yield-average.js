@@ -60,7 +60,7 @@ export default async function updateYieldAverages(req, res) {
          .keys(groupedYields[month])
          .map(strategy => ({
             'earn_strategy': strategyIdByName[strategy],
-            date: month,
+            date: `${month}-01`,
             value: groupedYields[month][strategy]
          })))
 

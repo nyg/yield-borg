@@ -36,7 +36,7 @@ export default async function fetchAndStoreNewYields(req, res) {
             protocol: item.protocol,
             name: `${item.currency} (${item.protocol})`,
             product: item.product,
-            'start_date': item.startDate
+            'start_date': new Date(item.startDate)
          }
 
          strategyId = (await pgSql`insert into earn_strategies ${pgSql(newStrategy)} returning id`)[0].id
