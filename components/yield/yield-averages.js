@@ -18,7 +18,7 @@ export default function YieldAverages({ className, yieldRate = 'genesis', visibi
       return <div className="text-center pt-4 text-muted-foreground">Loading yield averages…</div>
    }
 
-   const assetsOf = object => Object.keys(object).filter(k => k != 'date')
+   const assetsOf = object => Object.keys(object).filter(k => k !== 'date')
 
    const hasVisibility = Object.keys(visibility).length > 0
    const visibleAssets = data.assets.filter(asset => !hasVisibility || visibility[asset])

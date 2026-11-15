@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Script from 'next/script'
 
-import ExternalLink from './lib/external-link'
 import MenuLink from './lib/menu-link'
 
 

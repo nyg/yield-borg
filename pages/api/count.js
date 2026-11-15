@@ -7,7 +7,7 @@ const extractIPAddress = req => {
       || (typeof req.headers['x-forwarded-for'] === 'string'
         && req.headers['x-forwarded-for'].split(',').shift().trim())
       || undefined
-   } catch (err) {
+   } catch {
       return undefined
    }
 }

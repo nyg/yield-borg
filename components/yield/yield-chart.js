@@ -61,7 +61,7 @@ export default function YieldChart({ settings, onVisibilityChange }) {
 
    const yields = data.yields.map(_yield =>
       Object.keys(_yield)
-         .filter(key => key != 'date')
+         .filter(key => key !== 'date')
          .reduce((newYield, asset) => {
             newYield[asset] = _yield[asset] * multiplierFor[yieldRate]
             return newYield
