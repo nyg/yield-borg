@@ -1,30 +1,24 @@
 # Yield Borg
 
-Charts the Smart Yield rates available on [SwissBorg](https://swissborg.com), updated daily via scheduled jobs. Live at **[yield-borg.vercel.app](https://yield-borg.vercel.app)**.
+Charts the Smart Yield rates and the Community Index of [SwissBorg](https://swissborg.com). Live at **[yield-borg.vercel.app](https://yield-borg.vercel.app)**.
+
+Scheduled GitHub Actions call the cron API routes, which store the figures SwissBorg publishes in PostgreSQL: yields every day, the Community Index every week.
 
 ## Stack
 
-| Layer | Tech |
-|---|---|
-| Language | [TypeScript](https://www.typescriptlang.org) |
-| Frontend | [Next.js](https://nextjs.org) · [Recharts](https://recharts.org) · [Tailwind CSS](https://tailwindcss.com) · [shadcn/ui](https://ui.shadcn.com) |
-| Backend | Next.js API routes · [postgres](https://github.com/porsager/postgres) |
-| Database | [Neon](https://neon.tech) (PostgreSQL) |
-| Hosting | [Vercel](https://vercel.com) |
-| Scheduling | [GitHub Actions](https://github.com/features/actions) |
-| Analytics | [GoatCounter](https://www.goatcounter.com) |
+TypeScript, [Next.js](https://nextjs.org), [shadcn/ui](https://ui.shadcn.com), [Recharts](https://recharts.org), [Neon](https://neon.tech) PostgreSQL, hosted on [Vercel](https://vercel.com).
 
-## Local Setup
+## Local setup
 
 ```sh
 cp .env.development.local.example .env.development.local
-# fill in POSTGRES_URL and CRON_KEY (use "dev" for CRON_KEY locally)
-# no database? set REMOTE_API_ORIGIN instead to read the data of a deployed instance
-
 pnpm install
 pnpm dev        # http://localhost:3000
 ```
 
+Fill in `POSTGRES_URL` and `CRON_KEY` in `.env.development.local`. Without a database, set `REMOTE_API_ORIGIN=https://yield-borg.vercel.app` instead to chart the data of the live site.
+
 ## Docs
 
-- [Architecture](docs/architecture.md) — data pipeline, API routes, cron jobs
+- [Architecture](docs/architecture.md): data pipeline, API routes, cron jobs
+- [AGENTS.md](AGENTS.md): commands and code conventions
