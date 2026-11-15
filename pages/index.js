@@ -1,8 +1,9 @@
 import { useState } from 'react'
+
 import Layout from '@/components/layout'
-import YieldChartSettings from '@/components/yield/yield-chart-settings'
-import YieldChart from '@/components/yield/yield-chart'
 import YieldAverages from '@/components/yield/yield-averages'
+import YieldChart from '@/components/yield/yield-chart'
+import YieldChartSettings from '@/components/yield/yield-chart-settings'
 
 
 export default function SmartYields() {

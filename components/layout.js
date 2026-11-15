@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Script from 'next/script'
+
 import MenuLink from './lib/menu-link'
-import ExternalLink from './lib/external-link'
 
 
 export default function Layout({ children, name }) {
