@@ -15,7 +15,7 @@ export const multiplierFor = Object.fromEntries(
 export const defaultSelectedAssets = [
    'ADA (Kiln)',
    'ATOM (Kiln)',
-   'AVAX (GoGoPool)',
+   'AVAX (Benqi)',
    'SOL (Kyros)',
 ]
 
