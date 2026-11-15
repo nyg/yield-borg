@@ -36,9 +36,9 @@ export default async function getYield(req, res) {
       .values(yieldsByDate)
       .map(_yield => {
          const date = new Date(_yield.date)
-         Object.keys(_yield).filter(k => k != 'date').forEach(asset => allAssets.add(asset))
+         Object.keys(_yield).filter(k => k !== 'date').forEach(asset => allAssets.add(asset))
          _yield.date = date.getTime()
-         if (date.getDate() == 1 || date.getDate() == 15) {
+         if (date.getDate() === 1 || date.getDate() === 15) {
             xAxisTicks.push(_yield.date)
          }
          return _yield

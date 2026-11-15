@@ -1,20 +1,25 @@
-import { useState, useEffect } from 'react'
+import { useEffect,useState } from 'react'
+import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer,Tooltip, XAxis, YAxis } from 'recharts'
 import useSWR from 'swr'
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts'
-import YieldChartTooltip from './yield-chart-tooltip'
-import { colorFor, multiplierFor, defaultVisibleAssets } from '@/utils/swissborg-config'
+
 import * as format from '@/utils/format'
+import { colorFor, defaultVisibleAssets,multiplierFor } from '@/utils/swissborg-config'
+
+import YieldChartTooltip from './yield-chart-tooltip'
 
 
 const normalize = assetName => assetName.replace(/[()\s]+/g, '')
 
 const getStoredVisibility = () => {
-   if (typeof window === 'undefined') return {}
+   if (typeof window === 'undefined') {
+      return {}
+   }
    try {
       const stored = localStorage.getItem('yieldborg.visibility')
       return stored ? JSON.parse(stored) : {}
+   } catch {
+      return {}
    }
-   catch { return {} }
 }
 
 const saveVisibility = (visibility) => {
@@ -31,7 +36,9 @@ export default function YieldChart({ settings, onVisibilityChange }) {
 
    const isVisible = asset => {
       const key = normalize(asset)
-      if (key in visibility) return visibility[key]
+      if (key in visibility) {
+         return visibility[key]
+      }
       return defaultVisibleAssets.has(asset)
    }
 
@@ -45,12 +52,16 @@ export default function YieldChart({ settings, onVisibilityChange }) {
       }
    }, [data?.assets, visibility])
 
-   if (error) return <div className="text-center pt-4 text-muted-foreground">Failed to load data!</div>
-   if (!data) return <div className="text-center pt-4 text-muted-foreground">Loading data…</div>
+   if (error) {
+      return <div className="text-center pt-4 text-muted-foreground">Failed to load data!</div>
+   }
+   if (!data) {
+      return <div className="text-center pt-4 text-muted-foreground">Loading data…</div>
+   }
 
    const yields = data.yields.map(_yield =>
       Object.keys(_yield)
-         .filter(key => key != 'date')
+         .filter(key => key !== 'date')
          .reduce((newYield, asset) => {
             newYield[asset] = _yield[asset] * multiplierFor[yieldRate]
             return newYield
