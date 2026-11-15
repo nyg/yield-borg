@@ -56,12 +56,12 @@ flowchart LR
 
 ## Cron Authentication
 
-All `/api/cron/*` routes are protected by a Next.js middleware (`proxy.js`). Requests must carry `Authorization: Bearer <CRON_KEY>`. Unauthenticated requests are redirected to `/api/unauthenticated` (401).
+All `/api/cron/*` routes are protected by a Next.js middleware (`proxy.ts`). Requests must carry `Authorization: Bearer <CRON_KEY>`. Unauthenticated requests are redirected to `/api/unauthenticated` (401).
 
 ```mermaid
 sequenceDiagram
     participant GHA as GitHub Actions
-    participant MW as Middleware (proxy.js)
+    participant MW as Middleware (proxy.ts)
     participant API as /api/cron/*
 
     GHA->>MW: POST /api/cron/yield<br/>Authorization: Bearer <CRON_KEY>
@@ -84,17 +84,19 @@ sequenceDiagram
 
 ## Frontend
 
-Pages use [SWR](https://swr.vercel.app) for data fetching — no `getServerSideProps`. Chart settings (time frame, line type, asset visibility, selected tier) are persisted in browser cookies with a 10-year max-age.
+Pages use [SWR](https://swr.vercel.app) for data fetching — no `getServerSideProps`. Chart settings (time frame, line type, selected strategies, selected tier) are persisted in `localStorage`.
 
 ```mermaid
 flowchart TD
-    Page["pages/index.js"] --> Chart[yield-chart.js]
-    Page --> Settings[yield-chart-settings.js]
-    Page --> Averages[yield-averages.js]
+    Page["pages/index.tsx"] --> Chart[yield-chart.tsx]
+    Page --> Settings[yield-chart-settings.tsx]
+    Page --> Strategies[yield-strategies.tsx]
+    Page --> Averages[yield-averages.tsx]
 
     Chart -->|"useSWR /api/yield"| API1["/api/yield"]
+    Strategies -->|"useSWR /api/yield"| API1
     Averages -->|"useSWR /api/yield-average"| API2["/api/yield-average"]
 
     Chart --> Recharts[Recharts LineChart]
-    Chart --> Tooltip[yield-chart-tooltip.js]
+    Chart --> Tooltip[yield-chart-tooltip.tsx]
 ```
