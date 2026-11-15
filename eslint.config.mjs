@@ -1,23 +1,9 @@
+import { base } from '@nyg/eslint-config'
+import { next } from '@nyg/eslint-config/next'
 import { defineConfig, globalIgnores } from 'eslint/config'
-import nextVitals from 'eslint-config-next/core-web-vitals'
 
-const eslintConfig = defineConfig([
-   ...nextVitals,
-   {
-      rules: {
-         indent: ['error', 3, { SwitchCase: 1 }],
-         semi: ['error', 'never'],
-         'react-hooks/exhaustive-deps': 'off',
-         quotes: ['error', 'single']
-      }
-   },
-   globalIgnores([
-      '.next/**',
-      'out/**',
-      'build/**',
-      'next-env.d.ts',
-      'public/**',
-   ]),
+export default defineConfig([
+   globalIgnores(['public/**']),
+   base,
+   next,
 ])
-
-export default eslintConfig
