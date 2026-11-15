@@ -1,4 +1,5 @@
 import got from 'got'
+
 import { pgSql } from '@/lib/db'
 
 export default async function fetchAndStoreCommunityIndex(req, res) {

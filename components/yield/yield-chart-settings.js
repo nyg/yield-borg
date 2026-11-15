@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useEffect,useState } from 'react'
+
 import Select from '@/components/lib/select'
 
 
 const getPreference = (key, defaultValue) => {
-   if (typeof window === 'undefined') return defaultValue
+   if (typeof window === 'undefined') {
+      return defaultValue
+   }
    return localStorage.getItem(`yieldborg.${key}`) ?? defaultValue
 }
 

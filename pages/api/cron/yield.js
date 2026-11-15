@@ -1,4 +1,5 @@
 import got from 'got'
+
 import { pgSql } from '@/lib/db'
 
 const toISODate = date => date.toISOString().substring(0, 10)
@@ -45,8 +46,7 @@ export default async function fetchAndStoreNewYields(req, res) {
 
       if (yieldsToInsert[strategyId] !== undefined) {
          console.warn('Duplicate product key in API response:', item)
-      }
-      else {
+      } else {
          yieldsToInsert[strategyId] = {
             'earn_strategy': strategyId,
             date: today,

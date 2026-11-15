@@ -1,5 +1,6 @@
+import { CartesianGrid, Legend,Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import useSWR from 'swr'
-import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts'
+
 import Layout from '@/components/layout'
 import * as format from '@/utils/format'
 
@@ -8,17 +9,21 @@ export default function CommunityIndices() {
 
    const { data, error } = useSWR('/api/community-index')
 
-   if (error) return (
-      <Layout name="Community Index">
-         <div className="text-center pt-4 text-muted-foreground">Failed to load data!</div>
-      </Layout>
-   )
+   if (error) {
+      return (
+         <Layout name="Community Index">
+            <div className="text-center pt-4 text-muted-foreground">Failed to load data!</div>
+         </Layout>
+      )
+   }
 
-   if (!data) return (
-      <Layout name="Community Index">
-         <div className="text-center pt-4 text-muted-foreground">Loading data…</div>
-      </Layout>
-   )
+   if (!data) {
+      return (
+         <Layout name="Community Index">
+            <div className="text-center pt-4 text-muted-foreground">Loading data…</div>
+         </Layout>
+      )
+   }
 
    return (
       <Layout name="Community Index">

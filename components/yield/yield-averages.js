@@ -1,17 +1,22 @@
 import useSWR from 'swr'
-import { multiplierFor } from '@/utils/swissborg-config'
-import * as format from '@/utils/format'
+
 import {
-   Table, TableHeader, TableBody, TableHead, TableRow, TableCell
-} from '@/components/ui/table'
+   Table, TableBody, TableCell,
+   TableHead, TableHeader, TableRow} from '@/components/ui/table'
+import * as format from '@/utils/format'
+import { multiplierFor } from '@/utils/swissborg-config'
 
 
 export default function YieldAverages({ className, yieldRate = 'genesis', visibility = {} }) {
 
    const { data, error } = useSWR('/api/yield-average')
 
-   if (error) return <div className="text-center pt-4 text-muted-foreground">Failed to load yield averages!</div>
-   if (!data) return <div className="text-center pt-4 text-muted-foreground">Loading yield averages…</div>
+   if (error) {
+      return <div className="text-center pt-4 text-muted-foreground">Failed to load yield averages!</div>
+   }
+   if (!data) {
+      return <div className="text-center pt-4 text-muted-foreground">Loading yield averages…</div>
+   }
 
    const assetsOf = object => Object.keys(object).filter(k => k != 'date')
 
