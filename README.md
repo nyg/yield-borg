@@ -6,6 +6,7 @@ Charts the Smart Yield rates available on [SwissBorg](https://swissborg.com), up
 
 | Layer | Tech |
 |---|---|
+| Language | [TypeScript](https://www.typescriptlang.org) |
 | Frontend | [Next.js](https://nextjs.org) · [Recharts](https://recharts.org) · [Tailwind CSS](https://tailwindcss.com) · [shadcn/ui](https://ui.shadcn.com) |
 | Backend | Next.js API routes · [postgres](https://github.com/porsager/postgres) |
 | Database | [Neon](https://neon.tech) (PostgreSQL) |
@@ -18,6 +19,7 @@ Charts the Smart Yield rates available on [SwissBorg](https://swissborg.com), up
 ```sh
 cp .env.development.local.example .env.development.local
 # fill in POSTGRES_URL and CRON_KEY (use "dev" for CRON_KEY locally)
+# no database? set REMOTE_API_ORIGIN instead to read the data of a deployed instance
 
 pnpm install
 pnpm dev        # http://localhost:3000
