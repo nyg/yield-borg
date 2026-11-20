@@ -1,7 +1,7 @@
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
-import { type LineType, lineTypes, type TimeFrame, timeFrames } from '@/utils/chart-settings'
+import { type TimeFrame, timeFrames } from '@/utils/chart-settings'
 import { type YieldRate, yieldRates } from '@/utils/swissborg-config'
 
 const fieldLabel = 'text-xs font-normal text-muted-foreground'
@@ -48,14 +48,11 @@ type YieldChartSettingsProps = {
    onTimeFrameChange: (timeFrame: TimeFrame) => void
    yieldRate: YieldRate
    onYieldRateChange: (yieldRate: YieldRate) => void
-   lineType: LineType
-   onLineTypeChange: (lineType: LineType) => void
 }
 
 export default function YieldChartSettings({
    timeFrame, onTimeFrameChange,
    yieldRate, onYieldRateChange,
-   lineType, onLineTypeChange,
 }: YieldChartSettingsProps) {
 
    const selectTimeFrame = (next: string) => {
@@ -66,8 +63,8 @@ export default function YieldChartSettings({
    }
 
    return (
-      <div className="grid grid-cols-[3fr_2fr] gap-x-3 gap-y-3 sm:flex sm:flex-wrap sm:items-end sm:gap-x-4">
-         <div className="col-span-2 grid gap-1.5">
+      <div className="grid gap-3 sm:flex sm:flex-wrap sm:items-end sm:gap-x-4">
+         <div className="grid gap-1.5">
             <span id="time-frame-label" className={fieldLabel}>Time frame</span>
             <ToggleGroup
                type="single" variant="outline" spacing={0} className="w-full sm:w-fit"
@@ -82,8 +79,7 @@ export default function YieldChartSettings({
                ))}
             </ToggleGroup>
          </div>
-         <SettingSelect id="yield-rate" label="Yield rate" value={yieldRate} options={yieldRates} onChange={onYieldRateChange} />
-         <SettingSelect id="line-type" label="Line type" value={lineType} options={lineTypes} onChange={onLineTypeChange} />
+         <SettingSelect id="yield-rate" label="Rank" value={yieldRate} options={yieldRates} onChange={onYieldRateChange} />
       </div>
    )
 }

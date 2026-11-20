@@ -79,7 +79,7 @@ Parameters are automatically escaped by the template tag.
 
 ### Frontend State
 
-Preferences (time frame, yield rate, line type, selected strategies) are stored in `localStorage` under `yieldborg.*` and read through `hooks/use-preference.ts`. The server render and the hydration render use the defaults; `useHydrated()` tells when the stored values apply.
+Preferences (time frame, yield rate, selected strategies) are stored in `localStorage` under `yieldborg.*` and read through `hooks/use-preference.ts`. The server render and the hydration render use the defaults; `useHydrated()` tells when the stored values apply.
 
 ### Formatting & Dates
 
@@ -98,4 +98,4 @@ Preferences (time frame, yield rate, line type, selected strategies) are stored 
 
 Dark mode follows the system setting through `prefers-color-scheme`; there is no `.dark` class.
 
-`utils/swissborg-config.ts` exports the yield rate multipliers for the SwissBorg tiers (genesis, pioneer, community, explorer, standard) and the strategies selected by default.
+`utils/swissborg-config.ts` exports the yield rate multipliers for the SwissBorg ranks (standard, bronze, silver, gold, platinum and above) and the strategies selected by default.

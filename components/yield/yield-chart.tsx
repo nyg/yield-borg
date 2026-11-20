@@ -8,7 +8,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import type { Selection } from '@/hooks/use-asset-selection'
 import { useYields } from '@/hooks/use-yields'
 import type { YieldResponse } from '@/types/api'
-import type { LineType, TimeFrame } from '@/utils/chart-settings'
+import type { TimeFrame } from '@/utils/chart-settings'
 import { seriesStyle } from '@/utils/series-style'
 import { multiplierFor, type YieldRate } from '@/utils/swissborg-config'
 import { timeAxis } from '@/utils/time-axis'
@@ -34,12 +34,11 @@ function toChartRows(data: YieldResponse, assets: string[], multiplier: number) 
 
 type YieldChartProps = {
    timeFrame: TimeFrame
-   lineType: LineType
    yieldRate: YieldRate
    selection: Selection
 }
 
-export default function YieldChart({ timeFrame, lineType, yieldRate, selection }: YieldChartProps) {
+export default function YieldChart({ timeFrame, yieldRate, selection }: YieldChartProps) {
 
    const { data, error, isLoading } = useYields(timeFrame)
 
@@ -86,7 +85,7 @@ export default function YieldChart({ timeFrame, lineType, yieldRate, selection }
                               return (
                                  <Line
                                     key={asset} name={asset} dataKey={(row: ChartRow) => row[asset]}
-                                    type={lineType} stroke={color} strokeWidth={2} strokeDasharray={dash}
+                                    type="monotone" stroke={color} strokeWidth={2} strokeDasharray={dash}
                                     dot={false} activeDot={{ r: 4, stroke: 'var(--card)', strokeWidth: 2 }}
                                     isAnimationActive={false} />
                               )

@@ -79,12 +79,12 @@ sequenceDiagram
 |---|---|
 | `earn_strategies` | One row per SwissBorg earn strategy (currency, protocol, active flag) |
 | `yields` | Daily APY values per strategy |
-| `yield_averages` | Pre-computed averages (standard, community, pioneer, genesis tiers) |
+| `yield_averages` | Pre-computed monthly averages per strategy |
 | `community_indices` | Weekly SwissBorg Community Index values |
 
 ## Frontend
 
-Pages use [SWR](https://swr.vercel.app) for data fetching — no `getServerSideProps`. Chart settings (time frame, line type, selected strategies, selected tier) are persisted in `localStorage`.
+Pages use [SWR](https://swr.vercel.app) for data fetching — no `getServerSideProps`. Chart settings (time frame, selected strategies, selected rank) are persisted in `localStorage`.
 
 ```mermaid
 flowchart TD

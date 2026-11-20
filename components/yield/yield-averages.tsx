@@ -42,7 +42,7 @@ export default function YieldAverages({ yieldRate, selection }: YieldAveragesPro
       <Card>
          <CardHeader>
             <CardTitle>Monthly averages</CardTitle>
-            <CardDescription>Average APY per month, {rateLabel} rate</CardDescription>
+            <CardDescription>Average APY per month, {rateLabel} rank</CardDescription>
          </CardHeader>
          <CardContent className="px-0">
             {message
