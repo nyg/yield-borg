@@ -33,7 +33,7 @@ export default function Layout({ name, description, children }: LayoutProps) {
          <Script data-goatcounter="/api/count" src="/count.js" />
 
          <header className="flex flex-wrap items-center gap-x-6 gap-y-1 border-b py-3">
-            <Link href="/" className="text-lg font-semibold tracking-tight">Yield Borg</Link>
+            <Link href="/" className="text-lg font-semibold tracking-tight">Yield <span className="text-primary">Borg</span></Link>
             <nav aria-label="Main" className="-mx-2.5 flex gap-1">
                {pages.map(page => (
                   <Link
@@ -42,7 +42,7 @@ export default function Layout({ name, description, children }: LayoutProps) {
                      className={cn(
                         'flex items-center rounded-lg px-2.5 py-1.5 text-sm text-muted-foreground transition-colors',
                         'hover:text-foreground pointer-coarse:min-h-11',
-                        'aria-[current=page]:bg-muted aria-[current=page]:font-medium aria-[current=page]:text-foreground'
+                        'aria-[current=page]:bg-accent aria-[current=page]:font-medium aria-[current=page]:text-accent-foreground'
                      )}>
                      {page.label}
                   </Link>

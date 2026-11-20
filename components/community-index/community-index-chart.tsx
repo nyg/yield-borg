@@ -14,7 +14,7 @@ const chartSize = 'h-72 w-full sm:h-96 lg:h-[28rem]'
 const maxScore = 10
 
 const chartConfig = {
-   value: { label: 'Score', color: 'var(--chart-1)' },
+   value: { label: 'Score', color: 'var(--primary)' },
 } satisfies ChartConfig
 
 function Trend({ change }: { change: number }) {
