@@ -1,0 +1,20 @@
+name: store-platform-stats-every-day
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '.github/workflows/cron-platform-stats.yaml'
+  schedule:
+    - cron: '30 21 * * *'
+  workflow_dispatch:
+permissions: {}
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: GET /api/cron/platform-stats
+        run: |
+          curl --fail --verbose -L -X POST                                 \
+               --url https://yield-borg.vercel.app/api/cron/platform-stats \
+               --header "Authorization: Bearer ${{ secrets.CRON_KEY }}"

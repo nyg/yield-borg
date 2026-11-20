@@ -7,10 +7,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Skeleton } from '@/components/ui/skeleton'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import type { Selection } from '@/hooks/use-asset-selection'
+import { useRank } from '@/hooks/use-rank'
 import type { YieldAverageResponse } from '@/types/api'
 import * as format from '@/utils/format'
 import { seriesStyle } from '@/utils/series-style'
-import { multiplierFor, splitAssetName, type YieldRate, yieldRates } from '@/utils/swissborg-config'
+import { splitAssetName } from '@/utils/swissborg-config'
 
 const collapsedMonthCount = 12
 const stickyColumn = 'sticky left-0 bg-card pl-4'
@@ -19,22 +20,22 @@ const isSameMonth = (a: number, b: number) =>
    new Date(a).toISOString().substring(0, 7) === new Date(b).toISOString().substring(0, 7)
 
 type YieldAveragesProps = {
-   yieldRate: YieldRate
    selection: Selection
 }
 
-export default function YieldAverages({ yieldRate, selection }: YieldAveragesProps) {
+export default function YieldAverages({ selection }: YieldAveragesProps) {
 
    const { data, error } = useSWR<YieldAverageResponse>('/api/yield-average')
+   const { rank, error: rankError } = useRank()
+   const multiplier = rank?.multiplier ?? 0
    const [showAll, setShowAll] = useState(false)
    const [now] = useState(() => Date.now())
 
    const assets = data?.assets.filter(asset => asset in selection) ?? []
    const months = data?.yieldAverages ?? []
    const visibleMonths = showAll ? months : months.slice(0, collapsedMonthCount)
-   const rateLabel = yieldRates.find(rate => rate.value === yieldRate)?.label
 
-   const message = error ? 'Failed to load yield averages.'
+   const message = error || rankError ? 'Failed to load yield averages.'
       : data && assets.length === 0 ? 'Select a strategy to see its monthly averages.'
          : null
 
@@ -42,12 +43,12 @@ export default function YieldAverages({ yieldRate, selection }: YieldAveragesPro
       <Card>
          <CardHeader>
             <CardTitle>Monthly averages</CardTitle>
-            <CardDescription>Average APY per month, {rateLabel} rank</CardDescription>
+            <CardDescription>Average APY per month{rank && `, ${rank.label} rank`}</CardDescription>
          </CardHeader>
          <CardContent className="px-0">
             {message
                ? <p className="px-4 text-sm text-muted-foreground">{message}</p>
-               : !data
+               : !data || !rank
                   ? <Skeleton className="mx-4 h-40" />
                   : (
                      <>
@@ -83,7 +84,7 @@ export default function YieldAverages({ yieldRate, selection }: YieldAveragesPro
                                           <TableCell key={asset} className="text-right tabular-nums last:pr-4">
                                              {value === undefined
                                                 ? <span className="text-muted-foreground">—</span>
-                                                : format.asPercentage(Number(value) * multiplierFor[yieldRate])}
+                                                : format.asPercentage(Number(value) * multiplier)}
                                           </TableCell>
                                        )
                                     })}

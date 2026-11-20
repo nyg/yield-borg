@@ -18,7 +18,7 @@ Copy `.env.development.local.example` to `.env.development.local` and fill in:
 
 - `POSTGRES_URL` — Neon PostgreSQL connection string
 - `CRON_KEY` — Bearer token protecting `/api/cron/*` routes (use `dev` locally)
-- `REMOTE_API_ORIGIN` — optional, for development without a database: `/api/yield`, `/api/yield-average` and `/api/community-index` are then served by that deployed instance
+- `REMOTE_API_ORIGIN` — optional, for development without a database: `/api/yield`, `/api/yield-average`, `/api/community-index` and `/api/platform` are then served by that deployed instance
 
 `GOAT_KEY` is used in production for GoatCounter analytics (optional locally).
 
@@ -34,6 +34,7 @@ SwissBorg static API → Cron jobs (/api/cron/*) → PostgreSQL → Public API r
 
 - **Cron routes** (`pages/api/cron/`) fetch data from SwissBorg's GatsbyJS static JSON endpoints using `got`, then insert into Postgres. They run on schedules via GitHub Actions workflows.
 - **Public API routes** (`pages/api/yield.ts`, `yield-average.ts`, `community-index.ts`) query the database and return JSON consumed by the frontend. Their response types live in `types/api.ts`.
+- **Live API routes** read SwissBorg directly, through the feed helpers in `lib/swissborg.ts`, and set a `Cache-Control` header so the Vercel CDN serves them: `/api/ranks` returns the ranks and their yield multipliers, `/api/platform` adds the weekly users, buybacks and burns to the daily snapshots stored by `/api/cron/platform-stats`.
 - **Frontend pages** use SWR hooks (`useSWR('/api/...')`) for data fetching.
 
 ### Cron Authentication
@@ -90,6 +91,7 @@ Preferences (time frame, yield rate, selected strategies) are stored in `localSt
 - `components/ui/` — shadcn/ui components
 - `components/yield/` — chart, settings, tooltip, strategy list, averages table
 - `components/community-index/` — community index chart
+- `components/platform/` — figure tiles, platform charts, burns table
 - Pages compose these components; data fetching lives in the leaf components, not in page-level `getServerSideProps`. The chart and the strategy list share the yields through `hooks/use-yields.ts`.
 
 ### Chart Colors
@@ -98,4 +100,4 @@ Preferences (time frame, yield rate, selected strategies) are stored in `localSt
 
 Dark mode follows the system setting through `prefers-color-scheme`; there is no `.dark` class.
 
-`utils/swissborg-config.ts` exports the yield rate multipliers for the SwissBorg ranks (standard, bronze, silver, gold, platinum and above) and the strategies selected by default.
+`utils/swissborg-config.ts` exports the strategies selected by default. The rank multipliers come from SwissBorg through `/api/ranks` and `hooks/use-rank.ts`, which also keeps the selected rank. Ranks with the same multiplier are grouped (Platinum, Diamond and Elite become "Platinum and above").

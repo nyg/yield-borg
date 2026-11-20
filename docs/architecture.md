@@ -14,6 +14,7 @@ flowchart LR
         GA1["cron-yield (daily 21:00 UTC)"]
         GA2["cron-yield-average (daily 00:00 UTC)"]
         GA3["cron-community-index (Wed 13:00 UTC)"]
+        GA4["cron-platform-stats (daily 21:30 UTC)"]
     end
 
     subgraph Vercel ["Vercel (Next.js)"]
@@ -21,11 +22,14 @@ flowchart LR
             C1["/api/cron/yield"]
             C2["/api/cron/yield-average"]
             C3["/api/cron/community-index"]
+            C4["/api/cron/platform-stats"]
         end
         subgraph Public ["API — public (GET)"]
             P1["/api/yield"]
             P2["/api/yield-average"]
             P3["/api/community-index"]
+            P4["/api/platform"]
+            P5["/api/ranks"]
         end
         FE[Frontend · SWR + Recharts]
     end
@@ -37,21 +41,29 @@ flowchart LR
     GA1 -->|POST + Bearer token| C1
     GA2 -->|POST + Bearer token| C2
     GA3 -->|POST + Bearer token| C3
+    GA4 -->|POST + Bearer token| C4
 
     C1 -->|got| SB
     C3 -->|got| SB
+    C4 -->|got| SB
+    P4 -->|got| SB
+    P5 -->|got| SB
 
     C1 --> DB
     C2 --> DB
     C3 --> DB
+    C4 --> DB
 
     FE -->|useSWR| P1
     FE -->|useSWR| P2
     FE -->|useSWR| P3
+    FE -->|useSWR| P4
+    FE -->|useSWR| P5
 
     P1 --> DB
     P2 --> DB
     P3 --> DB
+    P4 --> DB
 ```
 
 ## Cron Authentication
@@ -81,6 +93,7 @@ sequenceDiagram
 | `yields` | Daily APY values per strategy |
 | `yield_averages` | Pre-computed monthly averages per strategy |
 | `community_indices` | Weekly SwissBorg Community Index values |
+| `platform_stats` | Daily snapshot of the SwissBorg app feed, as `jsonb` (assets under management, yield earned, volume, users, BORG holders and locked BORG) |
 
 ## Frontend
 

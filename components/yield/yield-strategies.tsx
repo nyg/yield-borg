@@ -8,24 +8,26 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Toggle } from '@/components/ui/toggle'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import type { Selection } from '@/hooks/use-asset-selection'
+import { useRank } from '@/hooks/use-rank'
 import { useYields } from '@/hooks/use-yields'
 import type { TimeFrame } from '@/utils/chart-settings'
 import * as format from '@/utils/format'
 import { seriesStyle } from '@/utils/series-style'
-import { multiplierFor, splitAssetName, type YieldRate } from '@/utils/swissborg-config'
+import { splitAssetName } from '@/utils/swissborg-config'
 
 type SortOrder = 'apy' | 'name'
 
 type YieldStrategiesProps = {
    timeFrame: TimeFrame
-   yieldRate: YieldRate
    selection: Selection
    onToggle: (asset: string) => void
 }
 
-export default function YieldStrategies({ timeFrame, yieldRate, selection, onToggle }: YieldStrategiesProps) {
+export default function YieldStrategies({ timeFrame, selection, onToggle }: YieldStrategiesProps) {
 
    const { data, error } = useYields(timeFrame)
+   const { rank, error: rankError } = useRank()
+   const multiplier = rank?.multiplier ?? 0
    const [sortOrder, setSortOrder] = useState<SortOrder>('apy')
    const [expanded, setExpanded] = useState(false)
 
@@ -36,7 +38,7 @@ export default function YieldStrategies({ timeFrame, yieldRate, selection, onTog
          asset,
          ...splitAssetName(asset),
          slot: selection[asset],
-         apy: value === undefined ? undefined : Number(value) * multiplierFor[yieldRate],
+         apy: value === undefined ? undefined : Number(value) * multiplier,
       }
    })
 
@@ -61,9 +63,9 @@ export default function YieldStrategies({ timeFrame, yieldRate, selection, onTog
             </CardAction>
          </CardHeader>
          <CardContent className="min-h-0 flex-1 overflow-y-auto px-2">
-            {error
+            {error || rankError
                ? <p className="px-2 text-sm text-muted-foreground">Failed to load strategies.</p>
-               : !data
+               : !data || !rank
                   ? <Skeleton className="mx-2 h-40" />
                   : (
                      <>

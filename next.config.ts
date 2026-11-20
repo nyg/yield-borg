@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
       return {
          beforeFiles: remoteApiOrigin
             ? [{
-               source: '/api/:route(yield|yield-average|community-index)',
+               source: '/api/:route(yield|yield-average|community-index|platform)',
                destination: `${remoteApiOrigin}/api/:route`,
             }]
             : [],

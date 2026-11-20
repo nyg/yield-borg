@@ -6,24 +6,20 @@ import YieldStrategies from '@/components/yield/yield-strategies'
 import { useAssetSelection } from '@/hooks/use-asset-selection'
 import { usePreference } from '@/hooks/use-preference'
 import { timeFrames } from '@/utils/chart-settings'
-import { yieldRates } from '@/utils/swissborg-config'
 
 export default function SmartYields() {
 
    const [timeFrame, setTimeFrame] = usePreference('timeFrame', timeFrames, '90')
-   const [yieldRate, setYieldRate] = usePreference('yieldRate', yieldRates, 'platinum')
    const { selection, toggle } = useAssetSelection()
 
    return (
       <Layout name="Smart Yields" description="Daily APY of the SwissBorg Smart Yield strategies.">
-         <YieldChartSettings
-            timeFrame={timeFrame} onTimeFrameChange={setTimeFrame}
-            yieldRate={yieldRate} onYieldRateChange={setYieldRate} />
+         <YieldChartSettings timeFrame={timeFrame} onTimeFrameChange={setTimeFrame} />
          <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_20rem]">
-            <YieldChart timeFrame={timeFrame} yieldRate={yieldRate} selection={selection} />
-            <YieldStrategies timeFrame={timeFrame} yieldRate={yieldRate} selection={selection} onToggle={toggle} />
+            <YieldChart timeFrame={timeFrame} selection={selection} />
+            <YieldStrategies timeFrame={timeFrame} selection={selection} onToggle={toggle} />
          </div>
-         <YieldAverages yieldRate={yieldRate} selection={selection} />
+         <YieldAverages selection={selection} />
       </Layout>
    )
 }

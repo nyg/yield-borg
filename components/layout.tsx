@@ -8,6 +8,7 @@ import type { ReactNode } from 'react'
 const pages = [
    { href: '/', label: 'Smart Yields' },
    { href: '/community-index', label: 'Community Index' },
+   { href: '/platform', label: 'Platform' },
 ]
 
 const footerLink = 'inline-block py-2 underline-offset-4 hover:text-foreground hover:underline'

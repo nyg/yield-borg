@@ -6,11 +6,11 @@ import { Card, CardContent } from '@/components/ui/card'
 import { ChartContainer, ChartTooltip } from '@/components/ui/chart'
 import { Skeleton } from '@/components/ui/skeleton'
 import type { Selection } from '@/hooks/use-asset-selection'
+import { useRank } from '@/hooks/use-rank'
 import { useYields } from '@/hooks/use-yields'
 import type { YieldResponse } from '@/types/api'
 import type { TimeFrame } from '@/utils/chart-settings'
 import { seriesStyle } from '@/utils/series-style'
-import { multiplierFor, type YieldRate } from '@/utils/swissborg-config'
 import { timeAxis } from '@/utils/time-axis'
 
 import YieldChartTooltip from './yield-chart-tooltip'
@@ -34,35 +34,37 @@ function toChartRows(data: YieldResponse, assets: string[], multiplier: number) 
 
 type YieldChartProps = {
    timeFrame: TimeFrame
-   yieldRate: YieldRate
    selection: Selection
 }
 
-export default function YieldChart({ timeFrame, yieldRate, selection }: YieldChartProps) {
+export default function YieldChart({ timeFrame, selection }: YieldChartProps) {
 
    const { data, error, isLoading } = useYields(timeFrame)
+   const { rank, error: rankError } = useRank()
+   const multiplier = rank?.multiplier
 
    const assets = useMemo(
       () => data?.assets.filter(asset => asset in selection) ?? [],
       [data, selection]
    )
    const rows = useMemo(
-      () => data ? toChartRows(data, assets, multiplierFor[yieldRate]) : [],
-      [data, assets, yieldRate]
+      () => data && multiplier ? toChartRows(data, assets, multiplier) : [],
+      [data, assets, multiplier]
    )
    const { ticks, tickFormatter } = useMemo(() => timeAxis(rows.map(row => row.date)), [rows])
 
    const message = error ? 'Failed to load yields.'
-      : data && rows.length === 0 ? 'No yields for this time frame.'
-         : data && assets.length === 0 ? 'Select a strategy to plot its yield.'
-            : null
+      : rankError ? 'Failed to load the SwissBorg ranks.'
+         : data && multiplier && rows.length === 0 ? 'No yields for this time frame.'
+            : data && assets.length === 0 ? 'Select a strategy to plot its yield.'
+               : null
 
    return (
       <Card className="lg:h-[34rem]">
          <CardContent className="min-h-0 flex-1">
             {message
                ? <div className={cn(chartSize, 'flex items-center justify-center text-sm text-muted-foreground')}>{message}</div>
-               : !data
+               : !data || !multiplier
                   ? <Skeleton className={chartSize} />
                   : (
                      <ChartContainer config={{}} className={cn(chartSize, 'aspect-auto transition-opacity', isLoading && 'opacity-50')}>
