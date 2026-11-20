@@ -1,8 +1,8 @@
 export const yieldRates = [
-   { value: 'genesis', label: 'Genesis & Generation', multiplier: 1 },
-   { value: 'pioneer', label: 'Pioneer', multiplier: .875 },
-   { value: 'community', label: 'Community', multiplier: .75 },
-   { value: 'explorer', label: 'Explorer', multiplier: .625 },
+   { value: 'platinum', label: 'Platinum and above', multiplier: 1 },
+   { value: 'gold', label: 'Gold', multiplier: .875 },
+   { value: 'silver', label: 'Silver', multiplier: .75 },
+   { value: 'bronze', label: 'Bronze', multiplier: .625 },
    { value: 'standard', label: 'Standard', multiplier: .5 },
 ] as const
 
@@ -13,10 +13,10 @@ export const multiplierFor = Object.fromEntries(
 ) as Record<YieldRate, number>
 
 export const defaultSelectedAssets = [
-   'ADA (Kiln)',
    'ATOM (Kiln)',
-   'AVAX (Benqi)',
+   'ETH (Lido)',
    'SOL (Kyros)',
+   'USDC (Morpho)',
 ]
 
 export function splitAssetName(asset: string) {

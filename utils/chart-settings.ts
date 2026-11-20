@@ -9,12 +9,3 @@ export const timeFrames = [
 ] as const
 
 export type TimeFrame = typeof timeFrames[number]['value']
-
-export const lineTypes = [
-   { value: 'monotone', label: 'Monotone' },
-   { value: 'linear', label: 'Linear' },
-   { value: 'step', label: 'Step' },
-   { value: 'stepAfter', label: 'Step After' },
-] as const
-
-export type LineType = typeof lineTypes[number]['value']
