@@ -138,3 +138,9 @@
     scrollbar-gutter: stable;
   }
 }
+
+/* Radix locks scrolling by hiding the body overflow, which removes the page scrollbar. Its JS already blocks wheel and touch scrolling. */
+html body[data-scroll-locked] {
+  overflow: visible !important;
+  margin-right: 0 !important;
+}

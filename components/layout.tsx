@@ -50,9 +50,9 @@ export default function Layout({ name, description, children }: LayoutProps) {
             </nav>
          </header>
 
-         <main className="grow space-y-4 py-6">
-            <div className="space-y-1">
-               <h1 className="text-2xl font-semibold tracking-tight">{name}</h1>
+         <main className="grow space-y-4 py-4">
+            <div>
+               <h1 className="sr-only">{name}</h1>
                <p className="text-sm text-muted-foreground">{description}</p>
             </div>
             {children}

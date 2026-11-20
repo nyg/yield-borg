@@ -1,3 +1,5 @@
+import { cn } from 'cn'
+
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
@@ -26,7 +28,7 @@ function SettingSelect<T extends string>({ id, label, value, options, onChange }
 
    return (
       <div className="grid min-w-0 gap-1.5">
-         <Label htmlFor={id} className={fieldLabel}>{label}</Label>
+         <Label htmlFor={id} className={cn(fieldLabel, 'pl-[calc(--spacing(2.5)+1px)]')}>{label}</Label>
          <Select value={value} onValueChange={select}>
             <SelectTrigger id={id} className="w-full pointer-coarse:data-[size=default]:h-11 sm:min-w-36">
                <SelectValue />
@@ -65,7 +67,7 @@ export default function YieldChartSettings({
    return (
       <div className="grid gap-3 sm:flex sm:flex-wrap sm:items-end sm:gap-x-4">
          <div className="grid gap-1.5">
-            <span id="time-frame-label" className={fieldLabel}>Time frame</span>
+            <span id="time-frame-label" className={cn(fieldLabel, 'pl-[calc(--spacing(2)+1px)]')}>Time frame</span>
             <ToggleGroup
                type="single" variant="outline" spacing={0} className="w-full sm:w-fit"
                aria-labelledby="time-frame-label"
