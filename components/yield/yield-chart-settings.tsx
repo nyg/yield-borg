@@ -1,8 +1,8 @@
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import { useRank } from '@/hooks/use-rank'
 import { type TimeFrame, timeFrames } from '@/utils/chart-settings'
-import { type YieldRate, yieldRates } from '@/utils/swissborg-config'
 
 const fieldLabel = 'text-xs font-normal text-muted-foreground'
 
@@ -46,14 +46,13 @@ function SettingSelect<T extends string>({ id, label, value, options, onChange }
 type YieldChartSettingsProps = {
    timeFrame: TimeFrame
    onTimeFrameChange: (timeFrame: TimeFrame) => void
-   yieldRate: YieldRate
-   onYieldRateChange: (yieldRate: YieldRate) => void
 }
 
 export default function YieldChartSettings({
    timeFrame, onTimeFrameChange,
-   yieldRate, onYieldRateChange,
 }: YieldChartSettingsProps) {
+
+   const { ranks, rank, setRank } = useRank()
 
    const selectTimeFrame = (next: string) => {
       const option = timeFrames.find(option => option.value === next)
@@ -79,7 +78,7 @@ export default function YieldChartSettings({
                ))}
             </ToggleGroup>
          </div>
-         <SettingSelect id="yield-rate" label="Rank" value={yieldRate} options={yieldRates} onChange={onYieldRateChange} />
+         <SettingSelect id="rank" label="Rank" value={rank?.value ?? ''} options={ranks} onChange={setRank} />
       </div>
    )
 }

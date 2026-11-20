@@ -1,8 +1,8 @@
 # Yield Borg
 
-Charts the Smart Yield rates and the Community Index of [SwissBorg](https://swissborg.com). Live at **[yield-borg.vercel.app](https://yield-borg.vercel.app)**.
+Charts the Smart Yield rates, the Community Index and the platform figures of [SwissBorg](https://swissborg.com). Live at **[yield-borg.vercel.app](https://yield-borg.vercel.app)**.
 
-Scheduled GitHub Actions call the cron API routes, which store the figures SwissBorg publishes in PostgreSQL: yields every day, the Community Index every week.
+Scheduled GitHub Actions call the cron API routes, which store the figures SwissBorg publishes in PostgreSQL: yields and platform figures every day, the Community Index every week.
 
 ## Stack
 
